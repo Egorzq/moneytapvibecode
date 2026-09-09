@@ -180,6 +180,25 @@
       <section class="screen" id="screenBusiness">
         <div class="screen-content business-content">
           
+          <!-- СТАРТОВЫЕ ПОДРАБОТКИ (ПОМОЩЬ НА СТАРТЕ, ПОКУПКА 1 РАЗ) -->
+          <div class="sidejobs-section" id="sideJobsSection">
+            <div class="sidejobs-banner">
+              <div class="sidejobs-banner-top">
+                <span class="sidejobs-badge">⚡ СТАРТ ИМПЕРИИ</span>
+                <span class="sidejobs-limit-badge">Разовая покупка</span>
+              </div>
+              <div class="sidejobs-title">Начальные подработки</div>
+              <div class="sidejobs-desc">
+                Помогают быстро разогнать стартовый капитал. Каждую подработку можно приобрести только один раз!
+              </div>
+            </div>
+
+            <!-- Список 3 подработок (Магазин, Starbucks, Стройка) -->
+            <div class="sidejobs-list" id="sideJobsList">
+              <!-- Генерируется динамически через game.js -->
+            </div>
+          </div>
+
           <!-- МЕГА-БИЗНЕС: АВИАКОМПАНИЯ (СУПЕР ДОРОГОЙ БИЗНЕС С ПОЧАСОВЫМ ДОХОДОМ) -->
           <div class="airline-megacard" id="airlineMegacard">
             <!-- Генерируется динамически через game.js -->
@@ -198,7 +217,162 @@
         </div>
       </section>
 
-      <!-- ================= 3. ВКЛАДКА: ИМУЩЕСТВО И ЛИДЕРБОРД ================= -->
+      <!-- ================= 3. ВКЛАДКА: КЕЙСЫ (СЕРЕБРЯНЫЙ, АЛМАЗНЫЙ, ИМУЩЕСТВО) ================= -->
+      <section class="screen" id="screenCases">
+        <div class="screen-content cases-content">
+          
+          <!-- Баннер шапки кейсов и статус инвентаря -->
+          <div class="cases-hero-card">
+            <div class="cases-hero-top">
+              <div class="cases-hero-info">
+                <span class="cases-hero-badge">🎁 ЛУТБОКСЫ & КОЛЛЕКЦИЯ</span>
+                <div class="cases-hero-title">Кейсы с сокровищами</div>
+                <div class="cases-hero-stats">
+                  <span>Собрано: <b id="inventoryCountBadge">0 / 30</b></span>
+                  <span class="dot-sep">•</span>
+                  <span>Ценность: <b id="inventoryValueBadge">0</b> <span class="currency-text">₽</span></span>
+                </div>
+              </div>
+              <button class="btn-inventory-toggle" id="btnToggleInventory">
+                <span class="btn-inv-icon">🎒</span>
+                <span class="btn-inv-text" id="btnInvToggleText">Инвентарь</span>
+                <span class="inv-counter-pill" id="invTotalBadge">0</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- ВИД 1: ВИТРИНА КЕЙСОВ (#casesShopView) -->
+          <div class="cases-view-container active" id="casesShopView">
+            
+            <!-- 1. Серебряный кейс (1 000 000 ₽) -->
+            <div class="case-card case-silver" id="cardCaseSilver">
+              <div class="case-glow-aura"></div>
+              <div class="case-card-header">
+                <div class="case-icon-box">🧰</div>
+                <div class="case-title-group">
+                  <div class="case-rarity-pill">ГАДЖЕТЫ & ДЕВАЙСЫ</div>
+                  <h3 class="case-name">Серебряный кейс</h3>
+                  <div class="case-desc">10 предметов: от наушников и смартфонов до дронов и робота-андроида.</div>
+                </div>
+              </div>
+
+              <!-- Превью предметов -->
+              <div class="case-preview-row">
+                <span class="case-preview-tag">🎧 Наушники</span>
+                <span class="case-preview-tag">📱 Смартфон</span>
+                <span class="case-preview-tag">💻 Ноутбук</span>
+                <span class="case-preview-tag tag-legendary">🛸 Дрон</span>
+                <span class="case-preview-tag tag-mythic">🤖 Андроид</span>
+              </div>
+
+              <div class="case-bottom-row">
+                <button class="btn-open-case btn-silver" id="btnOpenSilverCase">
+                  <span class="btn-case-action">Открыть кейс</span>
+                  <span class="btn-case-cost">
+                    <span>1 000 000</span>
+                    <span class="currency-text">₽</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 2. Алмазный кейс (10 000 000 ₽) -->
+            <div class="case-card case-diamond" id="cardCaseDiamond">
+              <div class="case-glow-aura"></div>
+              <div class="case-card-header">
+                <div class="case-icon-box">💎</div>
+                <div class="case-title-group">
+                  <div class="case-rarity-pill pill-diamond">РОСКОШЬ & VIP</div>
+                  <h3 class="case-name">Алмазный кейс</h3>
+                  <div class="case-desc">10 предметов: слитки золота, бриллианты, турбийоны и космические артефакты.</div>
+                </div>
+              </div>
+
+              <!-- Превью предметов -->
+              <div class="case-preview-row">
+                <span class="case-preview-tag">🪙 Золотой слиток</span>
+                <span class="case-preview-tag">💍 Бриллиант</span>
+                <span class="case-preview-tag">🏎️ Турбийон</span>
+                <span class="case-preview-tag tag-legendary">🪐 Метеорит</span>
+                <span class="case-preview-tag tag-mythic">🔮 Око Фортуны</span>
+              </div>
+
+              <div class="case-bottom-row">
+                <button class="btn-open-case btn-diamond" id="btnOpenDiamondCase">
+                  <span class="btn-case-action">Открыть кейс</span>
+                  <span class="btn-case-cost">
+                    <span>10 000 000</span>
+                    <span class="currency-text">₽</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. Кейс с имуществом (100 000 000 ₽) -->
+            <div class="case-card case-property" id="cardCaseProperty">
+              <div class="case-glow-aura"></div>
+              <div class="case-card-header">
+                <div class="case-icon-box">🏰</div>
+                <div class="case-title-group">
+                  <div class="case-rarity-pill pill-property">ЭЛИТНАЯ НЕДВИЖИМОСТЬ</div>
+                  <h3 class="case-name">Кейс с имуществом</h3>
+                  <div class="case-desc">10 предметов: гиперкары, пентхаусы, мегаяхты, замки, острова и орбитальные станции.</div>
+                </div>
+              </div>
+
+              <!-- Превью предметов -->
+              <div class="case-preview-row">
+                <span class="case-preview-tag">🏎️ Ferrari</span>
+                <span class="case-preview-tag">🏡 Вилла</span>
+                <span class="case-preview-tag">🛥️ Суперяхта</span>
+                <span class="case-preview-tag tag-legendary">🏙️ Небоскреб</span>
+                <span class="case-preview-tag tag-mythic">🛰️ Орбитальный отель</span>
+              </div>
+
+              <div class="case-bottom-row">
+                <button class="btn-open-case btn-property" id="btnOpenPropertyCase">
+                  <span class="btn-case-action">Открыть кейс</span>
+                  <span class="btn-case-cost">
+                    <span>100 000 000</span>
+                    <span class="currency-text">₽</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ВИД 2: ИНВЕНТАРЬ ПРЕДМЕТОВ (#casesInventoryView) -->
+          <div class="cases-view-container" id="casesInventoryView" style="display: none;">
+            
+            <div class="inventory-controls-row">
+              <button class="btn-back-to-cases" id="btnBackToCases">
+                ← К витрине кейсов
+              </button>
+            </div>
+
+            <div class="inv-filter-chips">
+              <button class="inv-chip active" data-filter="all">Все (30)</button>
+              <button class="inv-chip" data-filter="silver">🥈 Серебряный</button>
+              <button class="inv-chip" data-filter="diamond">💎 Алмазный</button>
+              <button class="inv-chip" data-filter="property">🏰 Имущество</button>
+            </div>
+
+            <div class="inventory-hint-bar">
+              <span>💡 Повторные предметы не скапливаются — за них сразу начисляется денежная компенсация!</span>
+            </div>
+
+            <!-- Сетка предметов инвентаря -->
+            <div class="inventory-grid" id="inventoryGrid">
+              <!-- Генерируется динамически через game.js -->
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= 4. ВКЛАДКА: ИМУЩЕСТВО И ЛИДЕРБОРД ================= -->
       <section class="screen" id="screenRealEstate">
         <div class="screen-content realestate-content">
           
@@ -217,13 +391,16 @@
             </div>
           </div>
 
-          <!-- Переключатель подвкладок: Каталог / Лидерборд -->
+          <!-- Переключатель подвкладок: Каталог / Лидерборд / Престиж -->
           <div class="subtabs-pills">
             <button class="subtab-btn active" id="subtabCatalog" data-target="catalogSection">
               🚗 Авто & Дома
             </button>
             <button class="subtab-btn" id="subtabLeaderboard" data-target="leaderboardSection">
-              🏆 Рейтинг Forbes
+              🏆 Forbes
+            </button>
+            <button class="subtab-btn" id="subtabRebirth" data-target="rebirthSection">
+              🌀 Престиж
             </button>
           </div>
 
@@ -245,77 +422,73 @@
             </div>
           </div>
 
-        </div>
-      </section>
-
-      <!-- ================= 4. ВКЛАДКА: ПЕРЕРОЖДЕНИЕ (REBIRTH) ================= -->
-      <section class="screen" id="screenRebirth">
-        <div class="screen-content rebirth-content">
-          
-          <!-- Алтарь перерождения -->
-          <div class="rebirth-altar-card">
-            <div class="portal-vortex">
-              <div class="vortex-ring ring-1"></div>
-              <div class="vortex-ring ring-2"></div>
-              <div class="vortex-center">
-                <span class="portal-icon">🌀</span>
-              </div>
-            </div>
-
-            <div class="rebirth-counter-badge" id="rebirthStageBadge">
-              Перерождение 0 / 10
-            </div>
-
-            <h2 class="rebirth-title">Врата Перерождения</h2>
-            <p class="rebirth-desc">
-              Обнулите текущий капитал, бизнесы и имущество, чтобы получить постоянный глобальный множитель прибыли.
-            </p>
-
-            <!-- Карточки множителя -->
-            <div class="multiplier-showcase">
-              <div class="mult-card current-mult">
-                <span class="mult-label">Текущий множитель</span>
-                <span class="mult-big" id="currentMultText">1.0x</span>
-              </div>
-              <div class="mult-arrow">➔</div>
-              <div class="mult-card next-mult">
-                <span class="mult-label">Следующий бонус</span>
-                <span class="mult-big" id="nextMultText">1.9x</span>
-              </div>
-            </div>
-
-            <!-- Прогресс до возможности перерождения -->
-            <div class="rebirth-req-box">
-              <div class="req-row">
-                <span class="req-label">Требуемый капитал:</span>
-                <span class="req-val"><span id="rebirthReqAmount">15 000 000</span> <span class="currency-text">₽</span></span>
-              </div>
-              <div class="progress-bar-track">
-                <div class="progress-bar-fill rebirth-progress-fill" id="rebirthProgressBar" style="width: 0%;">
-                  <div class="progress-shine"></div>
+          <!-- Секция 3: Престиж и перерождение -->
+          <div class="subview" id="rebirthSection">
+            <!-- Алтарь перерождения -->
+            <div class="rebirth-altar-card">
+              <div class="portal-vortex">
+                <div class="vortex-ring ring-1"></div>
+                <div class="vortex-ring ring-2"></div>
+                <div class="vortex-center">
+                  <span class="portal-icon">🌀</span>
                 </div>
               </div>
-              <div class="req-progress-info">
-                <span>Прогресс</span>
-                <span id="rebirthProgressPercent">0%</span>
+
+              <div class="rebirth-counter-badge" id="rebirthStageBadge">
+                Перерождение 0 / 10
               </div>
+
+              <h2 class="rebirth-title">Врата Перерождения</h2>
+              <p class="rebirth-desc">
+                Обнулите текущий капитал, бизнесы и имущество, чтобы получить постоянный глобальный множитель прибыли.
+              </p>
+
+              <!-- Карточки множителя -->
+              <div class="multiplier-showcase">
+                <div class="mult-card current-mult">
+                  <span class="mult-label">Текущий множитель</span>
+                  <span class="mult-big" id="currentMultText">1.0x</span>
+                </div>
+                <div class="mult-arrow">➔</div>
+                <div class="mult-card next-mult">
+                  <span class="mult-label">Следующий бонус</span>
+                  <span class="mult-big" id="nextMultText">1.9x</span>
+                </div>
+              </div>
+
+              <!-- Прогресс до возможности перерождения -->
+              <div class="rebirth-req-box">
+                <div class="req-row">
+                  <span class="req-label">Требуемый капитал:</span>
+                  <span class="req-val"><span id="rebirthReqAmount">15 000 000</span> <span class="currency-text">₽</span></span>
+                </div>
+                <div class="progress-bar-track">
+                  <div class="progress-bar-fill rebirth-progress-fill" id="rebirthProgressBar" style="width: 0%;">
+                    <div class="progress-shine"></div>
+                  </div>
+                </div>
+                <div class="req-progress-info">
+                  <span>Прогресс</span>
+                  <span id="rebirthProgressPercent">0%</span>
+                </div>
+              </div>
+
+              <!-- Кнопка Перерождения -->
+              <button class="btn-rebirth-action" id="btnDoRebirth" disabled>
+                <span class="btn-rebirth-text">Совершить Перерождение</span>
+              </button>
             </div>
 
-            <!-- Кнопка Перерождения -->
-            <button class="btn-rebirth-action" id="btnDoRebirth" disabled>
-              <span class="btn-rebirth-text">Совершить Перерождение</span>
-            </button>
-          </div>
-
-          <!-- Информационный блок: правила перерождения -->
-          <div class="rebirth-rules-card">
-            <div class="rules-title">📜 Правила перерождения</div>
-            <ul class="rules-list">
-              <li>❌ Сбрасываются все наличные деньги и улучшения тапа.</li>
-              <li>❌ Продаются все купленные предприятия и недвижимость.</li>
-              <li>✅ Множитель сохраняется навсегда и умножает <b>весь</b> доход.</li>
-              <li>⭐ Максимальный предел: <b>10 перерождений</b> (множитель <b>10x</b>).</li>
-            </ul>
+            <!-- Информационный блок: правила перерождения -->
+            <div class="rebirth-rules-card">
+              <div class="rules-title">📜 Правила перерождения</div>
+              <ul class="rules-list">
+                <li>❌ Сбрасываются все наличные деньги и улучшения тапа.</li>
+                <li>❌ Продаются все купленные предприятия и имущество.</li>
+                <li>✅ Множитель сохраняется навсегда и умножает <b>весь</b> доход.</li>
+                <li>⭐ Максимальный предел: <b>10 перерождений</b> (множитель <b>10x</b>).</li>
+              </ul>
+            </div>
           </div>
 
         </div>
@@ -471,22 +644,23 @@
         <span class="center-btn-label">Кошелек</span>
       </button>
 
-      <!-- 4. Вкладка Имущество -->
+      <!-- 4. Вкладка Кейсы -->
+      <button class="nav-tab" id="navTabCases" data-screen="screenCases">
+        <div class="nav-tab-icon-wrap">
+          <span class="nav-tab-icon">🎁</span>
+          <span class="nav-tab-badge" id="casesBadge" style="display: none;">!</span>
+        </div>
+        <span class="nav-tab-label">Кейсы</span>
+      </button>
+
+      <!-- 5. Вкладка Активы (Имущество, Лидерборд, Престиж) -->
       <button class="nav-tab" id="navTabRealEstate" data-screen="screenRealEstate">
         <div class="nav-tab-icon-wrap">
           <span class="nav-tab-icon">🏰</span>
           <span class="nav-tab-badge" id="realEstateBadge" style="display: none;">0</span>
-        </div>
-        <span class="nav-tab-label">Имущество</span>
-      </button>
-
-      <!-- 5. Вкладка Престиж -->
-      <button class="nav-tab" id="navTabRebirth" data-screen="screenRebirth">
-        <div class="nav-tab-icon-wrap">
-          <span class="nav-tab-icon">🌀</span>
           <span class="nav-tab-badge rebirth-badge" id="rebirthReadyBadge" style="display: none;">!</span>
         </div>
-        <span class="nav-tab-label">Престиж</span>
+        <span class="nav-tab-label">Активы</span>
       </button>
 
     </nav>
@@ -575,6 +749,67 @@
         <button class="btn-modal-cancel" id="btnCancelRenameAirline">Отмена</button>
         <button class="btn-modal-action" id="btnSaveAirlineName">Сохранить</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно открытия кейса (Анимация рулетки и награда) -->
+  <div class="modal-backdrop modal-case-backdrop" id="caseOpenModal">
+    <div class="modal-card modal-case-card">
+      
+      <div class="case-modal-header">
+        <span class="case-opening-pill" id="caseOpeningTitle">Открытие кейса</span>
+        <button class="btn-modal-close" id="btnCloseCaseModal" aria-label="Закрыть">✕</button>
+      </div>
+
+      <!-- Зона рулетки прокрутки -->
+      <div class="roulette-container" id="rouletteContainer">
+        <div class="roulette-marker-top">▼</div>
+        <div class="roulette-marker-bottom">▲</div>
+        <div class="roulette-viewport" id="rouletteViewport">
+          <div class="roulette-track" id="rouletteTrack">
+            <!-- Элементы ленты рулетки генерируются динамически -->
+          </div>
+        </div>
+        <div class="roulette-status-text" id="rouletteStatusText">Испытайте удачу...</div>
+      </div>
+
+      <!-- Финальная карточка выпавшего предмета (появляется после остановки) -->
+      <div class="case-reward-stage" id="caseRewardStage" style="display: none;">
+        
+        <div class="reward-glow-burst" id="rewardGlowBurst"></div>
+        
+        <div class="reward-item-card" id="rewardItemCard">
+          <div class="reward-rarity-badge" id="rewardRarityBadge">ЛЕГЕНДАРНЫЙ</div>
+          <div class="reward-icon-box" id="rewardIconBox">🛸</div>
+          <h3 class="reward-item-name" id="rewardItemName">Дрон с лазерным лидаром</h3>
+          <div class="reward-item-desc" id="rewardItemDesc">Автономный летательный аппарат с оптикой 8K.</div>
+          <div class="reward-value-row">
+            <span class="reward-val-lbl">Рыночная стоимость:</span>
+            <span class="reward-val-amount" id="rewardValueAmount">10 000 000 ₽</span>
+          </div>
+        </div>
+
+        <!-- Баннер дубликата и денежной компенсации -->
+        <div class="duplicate-compensation-banner" id="duplicateBanner" style="display: none;">
+          <div class="dup-icon">💰</div>
+          <div class="dup-info">
+            <span class="dup-title">Повторный предмет!</span>
+            <span class="dup-desc">У вас уже есть этот предмет. Начислена компенсация: <b id="compensationAmount">+10 000 000 ₽</b></span>
+          </div>
+        </div>
+
+        <!-- Баннер нового предмета -->
+        <div class="new-item-banner" id="newItemBanner" style="display: none;">
+          ✨ НОВЫЙ ПРЕДМЕТ В КОЛЛЕКЦИИ! ✨
+        </div>
+
+        <div class="case-modal-buttons">
+          <button class="btn-case-collect" id="btnCaseCollect">Забрать в инвентарь</button>
+          <button class="btn-case-reopen" id="btnCaseReopen">Открыть еще раз</button>
+        </div>
+
+      </div>
+
     </div>
   </div>
 

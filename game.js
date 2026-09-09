@@ -263,6 +263,321 @@ const RANKS = [
   { threshold: 1000000000, title: 'Финансовый магнат', icon: '👑' }
 ];
 
+// ==========================================
+// КОНФИГУРАЦИЯ КЕЙСОВ И 30 ПРЕДМЕТОВ
+// ==========================================
+
+const CASE_TYPES = {
+  silver: {
+    id: 'silver',
+    name: 'Серебряный кейс',
+    cost: 1000000,
+    icon: '🧰',
+    badge: 'ГАДЖЕТЫ & ДЕВАЙСЫ'
+  },
+  diamond: {
+    id: 'diamond',
+    name: 'Алмазный кейс',
+    cost: 10000000,
+    icon: '💎',
+    badge: 'РОСКОШЬ & VIP'
+  },
+  property: {
+    id: 'property',
+    name: 'Кейс с имуществом',
+    cost: 100000000,
+    icon: '🏰',
+    badge: 'ЭЛИТНАЯ НЕДВИЖИМОСТЬ'
+  }
+};
+
+const RARITY_INFO = {
+  common: { name: 'Обычный', class: 'rarity-common', color: '#94a3b8', weight: 42 },
+  uncommon: { name: 'Необычный', class: 'rarity-uncommon', color: '#4ade80', weight: 30 },
+  rare: { name: 'Редкий', class: 'rarity-rare', color: '#60a5fa', weight: 18 },
+  epic: { name: 'Эпический', class: 'rarity-epic', color: '#c084fc', weight: 7 },
+  legendary: { name: 'Легендарный', class: 'rarity-legendary', color: '#fbbf24', weight: 2.6 },
+  mythic: { name: 'Мифический', class: 'rarity-mythic', color: '#f43f5e', weight: 0.4 }
+};
+
+const CASE_ITEMS = [
+  // --- 1. СЕРЕБРЯНЫЙ КЕЙС (10 предметов) ---
+  {
+    id: 'sil_headphones',
+    caseId: 'silver',
+    name: 'Беспроводные наушники Pro',
+    icon: '🎧',
+    rarity: 'common',
+    cost: 200000,
+    desc: 'Активное шумоподавление и кристально чистый звук для продуктивной работы.'
+  },
+  {
+    id: 'sil_phone',
+    caseId: 'silver',
+    name: 'Смартфон CyberPhone 15',
+    icon: '📱',
+    rarity: 'common',
+    cost: 400000,
+    desc: 'Флагманский титановый смартфон с тройной камерой и нейропроцессором.'
+  },
+  {
+    id: 'sil_watch',
+    caseId: 'silver',
+    name: 'Смарт-часы Titanium',
+    icon: '⌚',
+    rarity: 'uncommon',
+    cost: 700000,
+    desc: 'Умные часы с сапфировым стеклом, ЭКГ и мониторингом котировок акций.'
+  },
+  {
+    id: 'sil_laptop',
+    caseId: 'silver',
+    name: 'Ультрабук Pro Retina',
+    icon: '💻',
+    rarity: 'uncommon',
+    cost: 1000000,
+    desc: 'Мощный портативный компьютер для управления финансовой империей.'
+  },
+  {
+    id: 'sil_console',
+    caseId: 'silver',
+    name: 'Игровая консоль CyberStation 5',
+    icon: '🎮',
+    rarity: 'rare',
+    cost: 1500000,
+    desc: 'Игровая станция с поддержкой 8K и трассировки лучей для зоны отдыха.'
+  },
+  {
+    id: 'sil_scooter',
+    caseId: 'silver',
+    name: 'Премиум электросамокат Dual',
+    icon: '🛴',
+    rarity: 'rare',
+    cost: 2200000,
+    desc: 'Двухмоторный карбоновый самокат со скоростью до 80 км/ч.'
+  },
+  {
+    id: 'sil_camera',
+    caseId: 'silver',
+    name: 'Кинокамера Hasselblad 8K',
+    icon: '📷',
+    rarity: 'rare',
+    cost: 3500000,
+    desc: 'Шведская среднеформатная оптика для создания шедевров.'
+  },
+  {
+    id: 'sil_vr',
+    caseId: 'silver',
+    name: 'VR-шлем нейро-погружения',
+    icon: '🥽',
+    rarity: 'epic',
+    cost: 5500000,
+    desc: 'Гарнитура виртуальной реальности с прямым считыванием импульсов мозга.'
+  },
+  {
+    id: 'sil_drone',
+    caseId: 'silver',
+    name: 'Дрон с лазерным лидаром',
+    icon: '🛸',
+    rarity: 'legendary',
+    cost: 10000000,
+    desc: 'Сверхточный автономный дрон для картографирования и панорамных съемок.'
+  },
+  {
+    id: 'sil_robot',
+    caseId: 'silver',
+    name: 'Домашний робот-андроид',
+    icon: '🤖',
+    rarity: 'mythic',
+    cost: 20000000,
+    desc: 'Бионический дворецкий на базе искусственного интеллекта последнего поколения.'
+  },
+
+  // --- 2. АЛМАЗНЫЙ КЕЙС (10 предметов) ---
+  {
+    id: 'dia_goldbar',
+    caseId: 'diamond',
+    name: 'Золотой слиток 1 кг 999°',
+    icon: '🪙',
+    rarity: 'common',
+    cost: 3500000,
+    desc: 'Банковский мерный слиток высшей пробы из Швейцарского резерва.'
+  },
+  {
+    id: 'dia_ring',
+    caseId: 'diamond',
+    name: 'Платиновое кольцо с изумрудом',
+    icon: '💍',
+    rarity: 'common',
+    cost: 6000000,
+    desc: 'Колумбийский изумруд чистой воды в оправе из платины 950 пробы.'
+  },
+  {
+    id: 'dia_caviarphone',
+    caseId: 'diamond',
+    name: 'Caviar iPhone из метеорита',
+    icon: '📱',
+    rarity: 'uncommon',
+    cost: 9000000,
+    desc: 'Корпус из фрагментов метеорита Муонионалуста и 24-каратного золота.'
+  },
+  {
+    id: 'dia_necklace',
+    caseId: 'diamond',
+    name: 'Бриллиантовое ожерелье 5 карат',
+    icon: '💎',
+    rarity: 'uncommon',
+    cost: 13000000,
+    desc: 'Ювелирный шедевр от Cartier с россыпью безупречных бриллиантов.'
+  },
+  {
+    id: 'dia_watch',
+    caseId: 'diamond',
+    name: 'Турбийон Richard Mille',
+    icon: '🏎️',
+    rarity: 'rare',
+    cost: 20000000,
+    desc: 'Скелетонизированный хронограф в корпусе из сапфирового стекла.'
+  },
+  {
+    id: 'dia_tiara',
+    caseId: 'diamond',
+    name: 'Королевская тиара с рубинами',
+    icon: '👑',
+    rarity: 'rare',
+    cost: 30000000,
+    desc: 'Историческая реликвия европейской монаршей династии XIX века.'
+  },
+  {
+    id: 'dia_vippass',
+    caseId: 'diamond',
+    name: 'VIP-пропуск Billionaire Club',
+    icon: '🎫',
+    rarity: 'rare',
+    cost: 45000000,
+    desc: 'Пожизненный доступ в закрытые клубы Монако, Дубая и Лондона.'
+  },
+  {
+    id: 'dia_vaultkey',
+    caseId: 'diamond',
+    name: 'Ключ от хранилища в Цюрихе',
+    icon: '🗝️',
+    rarity: 'epic',
+    cost: 70000000,
+    desc: 'Титан-электронный ключ от неприступной частной ячейки швейцарского банка.'
+  },
+  {
+    id: 'dia_meteorite',
+    caseId: 'diamond',
+    name: 'Осколок лунного метеорита',
+    icon: '🪐',
+    rarity: 'legendary',
+    cost: 120000000,
+    desc: 'Редчайший образец внеземного базальта в гравитационном подвесе.'
+  },
+  {
+    id: 'dia_artifact',
+    caseId: 'diamond',
+    name: 'Артефакт «Око Фортуны»',
+    icon: '🔮',
+    rarity: 'mythic',
+    cost: 250000000,
+    desc: 'Древний мистический артефакт, притягивающий финансовую удачу своего владельца.'
+  },
+
+  // --- 3. КЕЙС С ИМУЩЕСТВОМ (10 предметов) ---
+  {
+    id: 'prop_ferrari',
+    caseId: 'property',
+    name: 'Суперкар Ferrari Tributo',
+    icon: '🏎️',
+    rarity: 'common',
+    cost: 35000000,
+    desc: 'Итальянский среднемоторный спорткар V8 мощностью 720 лошадиных сил.'
+  },
+  {
+    id: 'prop_cityapt',
+    caseId: 'property',
+    name: 'Апартаменты в Сити',
+    icon: '🏢',
+    rarity: 'common',
+    cost: 70000000,
+    desc: 'Видовые дизайнерские апартаменты на 65-м этаже башни «Федерация».'
+  },
+  {
+    id: 'prop_bugatti',
+    caseId: 'property',
+    name: 'Гиперкар Bugatti Chiron',
+    icon: '⚡',
+    rarity: 'uncommon',
+    cost: 120000000,
+    desc: 'Легендарный квад-турбо W16 болид со скоростью свыше 420 км/ч.'
+  },
+  {
+    id: 'prop_villa',
+    caseId: 'property',
+    name: 'Вилла на Лазурном берегу',
+    icon: '🏡',
+    rarity: 'uncommon',
+    cost: 180000000,
+    desc: 'Средиземноморское поместье в Ницце с инфинити-бассейном и вертодромом.'
+  },
+  {
+    id: 'prop_heli',
+    caseId: 'property',
+    name: 'Вертолет Bell VIP',
+    icon: '🚁',
+    rarity: 'rare',
+    cost: 260000000,
+    desc: 'Двухдвигательный бизнес-вертолет с роскошным шумоизолированным салоном.'
+  },
+  {
+    id: 'prop_castle',
+    caseId: 'property',
+    name: 'Старинный замок в Альпах',
+    icon: '🏰',
+    rarity: 'rare',
+    cost: 400000000,
+    desc: 'Крепость XIV века в Баварских Альпах с винными погребами и парком.'
+  },
+  {
+    id: 'prop_megayacht',
+    caseId: 'property',
+    name: '60м Морская мегаяхта',
+    icon: '🛥️',
+    rarity: 'rare',
+    cost: 600000000,
+    desc: 'Экспедиционная яхта с дальностью 5000 миль, пляжным клубом и спа.'
+  },
+  {
+    id: 'prop_island',
+    caseId: 'property',
+    name: 'Тропический атолл на Мальдивах',
+    icon: '🏝️',
+    rarity: 'epic',
+    cost: 950000000,
+    desc: 'Изолированный белоснежный остров с лагуной и частной взлетно-посадочной полосой.'
+  },
+  {
+    id: 'prop_skyscraper',
+    caseId: 'property',
+    name: 'Небоскреб «Империал Тауэр»',
+    icon: '🏙️',
+    rarity: 'legendary',
+    cost: 1800000000,
+    desc: '90-этажный многофункциональный небоскреб класса А+ в центре мегаполиса.'
+  },
+  {
+    id: 'prop_spacehotel',
+    caseId: 'property',
+    name: 'Орбитальный отель «Alpha Star»',
+    icon: '🛰️',
+    rarity: 'mythic',
+    cost: 4000000000,
+    desc: 'Частный орбитальный туристический комплекс с панорамным куполом Земли.'
+  }
+];
+
 const STORAGE_KEY = 'money_tapper_save_v2';
 
 // ==========================================
@@ -279,6 +594,7 @@ let state = {
   businesses: JSON.parse(JSON.stringify(DEFAULT_BUSINESSES)),
   realEstate: JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE)),
   airline: JSON.parse(JSON.stringify(DEFAULT_AIRLINE)),
+  inventory: {}, // itemId: { count: 1, date: timestamp }
   stats: {
     totalEarned: 0,
     totalTaps: 0,
@@ -438,6 +754,59 @@ class SoundManager {
       osc.stop(this.ctx.currentTime + 0.15);
     } catch (e) {}
   }
+
+  playCaseSpin() {
+    if (state.volume <= 0) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const count = 14;
+      for (let i = 0; i < count; i++) {
+        const time = this.ctx.currentTime + (Math.pow(i / count, 1.7) * 2.8);
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(450 + (i * 30), time);
+        gain.gain.setValueAtTime(0.12, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.045);
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(time);
+        osc.stop(time + 0.05);
+      }
+    } catch (e) {}
+  }
+
+  playCaseWin(rarity = 'common') {
+    if (state.volume <= 0) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const chordMap = {
+        common: [523.25, 659.25, 783.99],
+        uncommon: [523.25, 659.25, 783.99, 1046.50],
+        rare: [587.33, 739.99, 880.00, 1174.66],
+        epic: [659.25, 830.61, 987.77, 1318.51],
+        legendary: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98],
+        mythic: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00]
+      };
+      const notes = chordMap[rarity] || chordMap.common;
+      notes.forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const startTime = this.ctx.currentTime + idx * 0.07;
+        osc.type = (rarity === 'mythic' || rarity === 'legendary') ? 'sawtooth' : 'triangle';
+        osc.frequency.setValueAtTime(freq, startTime);
+        const peakGain = (rarity === 'mythic' || rarity === 'legendary') ? 0.22 : 0.28;
+        gain.gain.setValueAtTime(peakGain, startTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.55);
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(startTime);
+        osc.stop(startTime + 0.6);
+      });
+    } catch (e) {}
+  }
 }
 
 const soundManager = new SoundManager();
@@ -582,6 +951,16 @@ function calculateNetWorth() {
     });
   }
 
+  // Инвентарь (предметы из кейсов)
+  if (state.inventory) {
+    Object.keys(state.inventory).forEach(itemId => {
+      const itemDef = CASE_ITEMS.find(it => it.id === itemId);
+      if (itemDef) {
+        total += itemDef.cost;
+      }
+    });
+  }
+
   return Math.floor(total);
 }
 
@@ -707,6 +1086,48 @@ const subtabCatalog = document.getElementById('subtabCatalog');
 const subtabLeaderboard = document.getElementById('subtabLeaderboard');
 const catalogSection = document.getElementById('catalogSection');
 const leaderboardSection = document.getElementById('leaderboardSection');
+const subtabRebirth = document.getElementById('subtabRebirth');
+const rebirthSection = document.getElementById('rebirthSection');
+const headerRebirthBadge = document.getElementById('headerRebirthBadge');
+
+// Кейсы и Инвентарь
+const screenCases = document.getElementById('screenCases');
+const navTabCases = document.getElementById('navTabCases');
+const casesBadge = document.getElementById('casesBadge');
+const casesShopView = document.getElementById('casesShopView');
+const casesInventoryView = document.getElementById('casesInventoryView');
+const inventoryCountBadge = document.getElementById('inventoryCountBadge');
+const inventoryValueBadge = document.getElementById('inventoryValueBadge');
+const invTotalBadge = document.getElementById('invTotalBadge');
+const btnToggleInventory = document.getElementById('btnToggleInventory');
+const btnInvToggleText = document.getElementById('btnInvToggleText');
+const btnBackToCases = document.getElementById('btnBackToCases');
+const inventoryGrid = document.getElementById('inventoryGrid');
+const btnOpenSilverCase = document.getElementById('btnOpenSilverCase');
+const btnOpenDiamondCase = document.getElementById('btnOpenDiamondCase');
+const btnOpenPropertyCase = document.getElementById('btnOpenPropertyCase');
+
+// Модальное окно открытия кейса (рулетка)
+const caseOpenModal = document.getElementById('caseOpenModal');
+const caseOpeningTitle = document.getElementById('caseOpeningTitle');
+const btnCloseCaseModal = document.getElementById('btnCloseCaseModal');
+const rouletteContainer = document.getElementById('rouletteContainer');
+const rouletteViewport = document.getElementById('rouletteViewport');
+const rouletteTrack = document.getElementById('rouletteTrack');
+const rouletteStatusText = document.getElementById('rouletteStatusText');
+const caseRewardStage = document.getElementById('caseRewardStage');
+const rewardGlowBurst = document.getElementById('rewardGlowBurst');
+const rewardItemCard = document.getElementById('rewardItemCard');
+const rewardRarityBadge = document.getElementById('rewardRarityBadge');
+const rewardIconBox = document.getElementById('rewardIconBox');
+const rewardItemName = document.getElementById('rewardItemName');
+const rewardItemDesc = document.getElementById('rewardItemDesc');
+const rewardValueAmount = document.getElementById('rewardValueAmount');
+const duplicateBanner = document.getElementById('duplicateBanner');
+const compensationAmount = document.getElementById('compensationAmount');
+const newItemBanner = document.getElementById('newItemBanner');
+const btnCaseCollect = document.getElementById('btnCaseCollect');
+const btnCaseReopen = document.getElementById('btnCaseReopen');
 
 // Перерождение
 const rebirthStageBadge = document.getElementById('rebirthStageBadge');
@@ -767,6 +1188,16 @@ function updateCurrencySymbols() {
   }
 }
 
+function updateCaseButtonsAffordability() {
+  if (btnOpenSilverCase) btnOpenSilverCase.disabled = state.balance < CASE_TYPES.silver.cost;
+  if (btnOpenDiamondCase) btnOpenDiamondCase.disabled = state.balance < CASE_TYPES.diamond.cost;
+  if (btnOpenPropertyCase) btnOpenPropertyCase.disabled = state.balance < CASE_TYPES.property.cost;
+  if (casesBadge) {
+    const canAffordAny = state.balance >= CASE_TYPES.silver.cost;
+    casesBadge.style.display = canAffordAny ? 'block' : 'none';
+  }
+}
+
 /**
  * Обновление шапки
  */
@@ -785,6 +1216,8 @@ function updateHeader() {
   }
   rankName.textContent = activeRank.title;
   if (rankIcon) rankIcon.textContent = activeRank.icon;
+
+  updateCaseButtonsAffordability();
 }
 
 /**
@@ -1433,6 +1866,248 @@ function renderCurrencyGrid() {
 }
 
 // ==========================================
+// ЛОГИКА КЕЙСОВ И ИНВЕНТАРЯ (30 ПРЕДМЕТОВ)
+// ==========================================
+
+let currentOpeningCaseId = 'silver';
+let currentActiveInventoryFilter = 'all';
+let isRouletteSpinning = false;
+let lastWonItem = null;
+
+/**
+ * Подсчет общей стоимости предметов в коллекции
+ */
+function calculateInventoryTotalValue() {
+  if (!state.inventory) return 0;
+  return Object.keys(state.inventory).reduce((sum, itemId) => {
+    const item = CASE_ITEMS.find(it => it.id === itemId);
+    return sum + (item ? item.cost : 0);
+  }, 0);
+}
+
+/**
+ * Количество уникальных предметов в инвентаре
+ */
+function getInventoryOwnedCount() {
+  if (!state.inventory) return 0;
+  return Object.keys(state.inventory).length;
+}
+
+/**
+ * Рендеринг экрана Кейсов (статистика, доступность кнопок)
+ */
+function renderCasesScreen() {
+  const ownedCount = getInventoryOwnedCount();
+  const totalValue = calculateInventoryTotalValue();
+
+  if (inventoryCountBadge) inventoryCountBadge.textContent = `${ownedCount} / 30`;
+  if (invTotalBadge) invTotalBadge.textContent = `${ownedCount}`;
+  if (inventoryValueBadge) inventoryValueBadge.textContent = formatNumber(totalValue);
+
+  updateCaseButtonsAffordability();
+}
+
+/**
+ * Рендеринг инвентаря игрока с фильтрацией
+ */
+function renderInventory(filter = currentActiveInventoryFilter) {
+  currentActiveInventoryFilter = filter;
+  if (!inventoryGrid) return;
+
+  inventoryGrid.innerHTML = '';
+  const items = filter === 'all' ? CASE_ITEMS : CASE_ITEMS.filter(it => it.caseId === filter);
+
+  items.forEach(item => {
+    const isOwned = Boolean(state.inventory && state.inventory[item.id]);
+    const rarity = RARITY_INFO[item.rarity] || RARITY_INFO.common;
+
+    const card = document.createElement('div');
+    card.className = `inventory-item-card ${isOwned ? '' : 'locked'} ${rarity.class}`;
+    card.innerHTML = `
+      <div class="inv-item-top">
+        <div class="inv-item-icon-box">${item.icon}</div>
+        <span class="inv-status-pill">${isOwned ? 'В коллекции' : 'Не открыт'}</span>
+      </div>
+      <div class="inv-item-name">${item.name}</div>
+      <div class="inv-item-desc">${item.desc}</div>
+      <div class="inv-item-worth">${formatNumber(item.cost)} <span class="currency-text">${getCurrencySymbol()}</span></div>
+    `;
+    inventoryGrid.appendChild(card);
+  });
+}
+
+function showCasesShopView() {
+  if (casesShopView) casesShopView.style.display = 'flex';
+  if (casesInventoryView) casesInventoryView.style.display = 'none';
+  if (btnInvToggleText) btnInvToggleText.textContent = 'Инвентарь';
+  renderCasesScreen();
+}
+
+function showCasesInventoryView() {
+  if (casesShopView) casesShopView.style.display = 'none';
+  if (casesInventoryView) casesInventoryView.style.display = 'flex';
+  if (btnInvToggleText) btnInvToggleText.textContent = 'Кейсы';
+  renderInventory(currentActiveInventoryFilter);
+}
+
+function toggleCasesViews() {
+  if (casesInventoryView && casesInventoryView.style.display === 'flex') {
+    showCasesShopView();
+  } else {
+    showCasesInventoryView();
+  }
+}
+
+/**
+ * Выбор случайного предмета с учетом весов редкостей
+ */
+function pickRandomItemForCase(caseId) {
+  const items = CASE_ITEMS.filter(it => it.caseId === caseId);
+  const totalWeight = items.reduce((sum, it) => sum + (RARITY_INFO[it.rarity]?.weight || 10), 0);
+  let r = Math.random() * totalWeight;
+  for (const item of items) {
+    const w = RARITY_INFO[item.rarity]?.weight || 10;
+    if (r < w) return item;
+    r -= w;
+  }
+  return items[0] || CASE_ITEMS[0];
+}
+
+/**
+ * Запуск процесса открытия кейса с анимацией рулетки
+ */
+function openCase(caseId) {
+  if (isRouletteSpinning) return;
+
+  const caseDef = CASE_TYPES[caseId];
+  if (!caseDef) return;
+
+  if (state.balance < caseDef.cost) {
+    soundManager.playError();
+    triggerHaptic('error');
+    return;
+  }
+
+  isRouletteSpinning = true;
+  currentOpeningCaseId = caseId;
+
+  // Списание стоимости кейса
+  state.balance -= caseDef.cost;
+  updateHeader();
+  renderCasesScreen();
+  saveGameState();
+
+  const wonItem = pickRandomItemForCase(caseId);
+  lastWonItem = wonItem;
+
+  // Подготовка модального окна рулетки
+  if (caseOpeningTitle) caseOpeningTitle.textContent = `Открытие: ${caseDef.name}`;
+  if (caseRewardStage) caseRewardStage.style.display = 'none';
+  if (rouletteContainer) rouletteContainer.style.display = 'flex';
+  if (rouletteStatusText) rouletteStatusText.textContent = 'Крутим рулетку...';
+  if (caseOpenModal) caseOpenModal.classList.add('active');
+
+  // Генерация ленты рулетки (45 предметов)
+  if (rouletteTrack) {
+    rouletteTrack.innerHTML = '';
+    const TOTAL_ITEMS = 44;
+    const WINNING_INDEX = 36;
+    const casePool = CASE_ITEMS.filter(it => it.caseId === caseId);
+
+    for (let i = 0; i <= TOTAL_ITEMS; i++) {
+      let item;
+      if (i === WINNING_INDEX) {
+        item = wonItem;
+      } else {
+        item = casePool[Math.floor(Math.random() * casePool.length)];
+      }
+
+      const rarity = RARITY_INFO[item.rarity] || RARITY_INFO.common;
+      const el = document.createElement('div');
+      el.className = `roulette-item ${rarity.class}`;
+      el.innerHTML = `
+        <span class="roulette-item-icon">${item.icon}</span>
+        <span class="roulette-item-name">${item.name}</span>
+      `;
+      rouletteTrack.appendChild(el);
+    }
+
+    const slotWidth = 80;
+    const viewportWidth = rouletteViewport ? rouletteViewport.clientWidth || 320 : 320;
+    const jitter = (Math.random() - 0.5) * 26;
+    const targetX = -((WINNING_INDEX * slotWidth) + (slotWidth / 2) - (viewportWidth / 2) + jitter);
+
+    rouletteTrack.style.transition = 'none';
+    rouletteTrack.style.transform = 'translateX(0px)';
+    void rouletteTrack.offsetHeight;
+
+    soundManager.playCaseSpin();
+    triggerHaptic('medium');
+
+    rouletteTrack.style.transition = 'transform 3.2s cubic-bezier(0.12, 0.8, 0.18, 1)';
+    rouletteTrack.style.transform = `translateX(${targetX}px)`;
+
+    setTimeout(() => {
+      finishCaseOpening(wonItem);
+    }, 3250);
+  }
+}
+
+/**
+ * Завершение прокрутки: проверка дубликата, начисление и показ награды
+ */
+function finishCaseOpening(wonItem) {
+  isRouletteSpinning = false;
+  const isDuplicate = Boolean(state.inventory && state.inventory[wonItem.id]);
+  const rarity = RARITY_INFO[wonItem.rarity] || RARITY_INFO.common;
+
+  if (isDuplicate) {
+    state.balance += wonItem.cost;
+    state.stats.totalEarned += wonItem.cost;
+    if (duplicateBanner) duplicateBanner.style.display = 'flex';
+    if (newItemBanner) newItemBanner.style.display = 'none';
+    if (compensationAmount) compensationAmount.textContent = `+${formatNumber(wonItem.cost)} ${getCurrencySymbol()}`;
+    if (btnCaseCollect) btnCaseCollect.textContent = 'Забрать компенсацию';
+  } else {
+    if (!state.inventory) state.inventory = {};
+    state.inventory[wonItem.id] = { count: 1, obtainedAt: Date.now() };
+    if (duplicateBanner) duplicateBanner.style.display = 'none';
+    if (newItemBanner) newItemBanner.style.display = 'block';
+    if (btnCaseCollect) btnCaseCollect.textContent = 'Забрать в инвентарь';
+  }
+
+  if (rewardRarityBadge) {
+    rewardRarityBadge.textContent = rarity.name.toUpperCase();
+    rewardRarityBadge.className = `reward-rarity-badge ${rarity.class}`;
+  }
+  if (rewardIconBox) rewardIconBox.textContent = wonItem.icon;
+  if (rewardItemName) rewardItemName.textContent = wonItem.name;
+  if (rewardItemDesc) rewardItemDesc.textContent = wonItem.desc;
+  if (rewardValueAmount) rewardValueAmount.textContent = `${formatNumber(wonItem.cost)} ${getCurrencySymbol()}`;
+  if (rewardItemCard) rewardItemCard.className = `reward-item-card ${rarity.class}`;
+  if (rewardGlowBurst) rewardGlowBurst.style.background = rarity.color || '#818cf8';
+
+  soundManager.playCaseWin(wonItem.rarity);
+  triggerHaptic('success');
+
+  if (rouletteContainer) rouletteContainer.style.display = 'none';
+  if (caseRewardStage) caseRewardStage.style.display = 'flex';
+
+  updateHeader();
+  renderCasesScreen();
+  renderInventory();
+  updateStatsUI();
+  saveGameState();
+}
+
+function closeCaseModal() {
+  if (isRouletteSpinning) return;
+  if (caseOpenModal) caseOpenModal.classList.remove('active');
+  soundManager.playTap();
+  renderCasesScreen();
+}
+
+// ==========================================
 // ИГРОВЫЕ ДЕЙСТВИЯ (ACTIONS)
 // ==========================================
 
@@ -1648,8 +2323,8 @@ const screens = {
   screenWallet: document.getElementById('screenWallet'),
   screenEarnings: document.getElementById('screenEarnings'),
   screenBusiness: document.getElementById('screenBusiness'),
+  screenCases: document.getElementById('screenCases'),
   screenRealEstate: document.getElementById('screenRealEstate'),
-  screenRebirth: document.getElementById('screenRebirth'),
   screenSettings: document.getElementById('screenSettings')
 };
 
@@ -1657,8 +2332,8 @@ const navTabs = {
   screenWallet: document.getElementById('navTabWallet'),
   screenEarnings: document.getElementById('navTabEarnings'),
   screenBusiness: document.getElementById('navTabBusiness'),
-  screenRealEstate: document.getElementById('navTabRealEstate'),
-  screenRebirth: document.getElementById('navTabRebirth')
+  screenCases: document.getElementById('navTabCases'),
+  screenRealEstate: document.getElementById('navTabRealEstate')
 };
 
 function switchScreen(targetScreenId) {
@@ -1680,11 +2355,14 @@ function switchScreen(targetScreenId) {
   if (targetScreenId === 'screenWallet') applyTheme(state.tapLevel);
   if (targetScreenId === 'screenSettings') updateStatsUI();
   if (targetScreenId === 'screenBusiness') renderBusinesses();
+  if (targetScreenId === 'screenCases') {
+    showCasesShopView();
+  }
   if (targetScreenId === 'screenRealEstate') {
     renderRealEstate();
     renderLeaderboard();
+    updateRebirthUI();
   }
-  if (targetScreenId === 'screenRebirth') updateRebirthUI();
 
   soundManager.playTap();
   triggerHaptic('light');
@@ -1697,37 +2375,90 @@ document.querySelectorAll('.nav-tab, .nav-tab-center').forEach(btn => {
   });
 });
 
-// Переключатель подвкладок внутри Имущества (Каталог / Лидерборд)
-subtabCatalog.addEventListener('click', () => {
-  subtabCatalog.classList.add('active');
-  subtabLeaderboard.classList.remove('active');
-  catalogSection.classList.add('active');
-  leaderboardSection.classList.remove('active');
-  renderRealEstate();
-});
+// Переключатель подвкладок внутри Активов (Каталог / Лидерборд / Престиж)
+function switchRealEstateSubtab(tabName) {
+  [subtabCatalog, subtabLeaderboard, subtabRebirth].forEach(btn => {
+    if (btn) btn.classList.remove('active');
+  });
+  [catalogSection, leaderboardSection, rebirthSection].forEach(sec => {
+    if (sec) sec.classList.remove('active');
+  });
 
-subtabLeaderboard.addEventListener('click', () => {
-  subtabLeaderboard.classList.add('active');
-  subtabCatalog.classList.remove('active');
-  leaderboardSection.classList.add('active');
-  catalogSection.classList.remove('active');
-  renderLeaderboard();
-});
+  if (tabName === 'catalog') {
+    if (subtabCatalog) subtabCatalog.classList.add('active');
+    if (catalogSection) catalogSection.classList.add('active');
+    renderRealEstate();
+  } else if (tabName === 'leaderboard') {
+    if (subtabLeaderboard) subtabLeaderboard.classList.add('active');
+    if (leaderboardSection) leaderboardSection.classList.add('active');
+    renderLeaderboard();
+  } else if (tabName === 'rebirth') {
+    if (subtabRebirth) subtabRebirth.classList.add('active');
+    if (rebirthSection) rebirthSection.classList.add('active');
+    updateRebirthUI();
+  }
+}
+
+subtabCatalog?.addEventListener('click', () => switchRealEstateSubtab('catalog'));
+subtabLeaderboard?.addEventListener('click', () => switchRealEstateSubtab('leaderboard'));
+subtabRebirth?.addEventListener('click', () => switchRealEstateSubtab('rebirth'));
+
+if (headerRebirthBadge) {
+  headerRebirthBadge.addEventListener('click', () => {
+    switchScreen('screenRealEstate');
+    switchRealEstateSubtab('rebirth');
+  });
+}
 
 // Кнопка вызова модалки перерождения
-btnDoRebirth.addEventListener('click', () => {
+btnDoRebirth?.addEventListener('click', () => {
   const nextMult = getRebirthMultiplier(state.rebirthCount + 1);
   modalNewMultiplier.textContent = `x${nextMult.toFixed(1)}`;
   rebirthModal.classList.add('active');
 });
 
-btnCancelRebirth.addEventListener('click', () => {
+btnCancelRebirth?.addEventListener('click', () => {
   rebirthModal.classList.remove('active');
 });
 
-btnConfirmRebirth.addEventListener('click', () => {
+btnConfirmRebirth?.addEventListener('click', () => {
   rebirthModal.classList.remove('active');
   performRebirth();
+});
+
+// ==========================================
+// СЛУШАТЕЛИ КЕЙСОВ И ИНВЕНТАРЯ
+// ==========================================
+
+btnOpenSilverCase?.addEventListener('click', () => openCase('silver'));
+btnOpenDiamondCase?.addEventListener('click', () => openCase('diamond'));
+btnOpenPropertyCase?.addEventListener('click', () => openCase('property'));
+
+btnToggleInventory?.addEventListener('click', toggleCasesViews);
+btnBackToCases?.addEventListener('click', showCasesShopView);
+
+document.querySelectorAll('.inv-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.inv-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    const filter = chip.getAttribute('data-filter') || 'all';
+    renderInventory(filter);
+    soundManager.playTap();
+  });
+});
+
+btnCloseCaseModal?.addEventListener('click', closeCaseModal);
+btnCaseCollect?.addEventListener('click', closeCaseModal);
+
+btnCaseReopen?.addEventListener('click', () => {
+  if (currentOpeningCaseId) {
+    if (state.balance < CASE_TYPES[currentOpeningCaseId].cost) {
+      soundManager.playError();
+      triggerHaptic('error');
+      return;
+    }
+    openCase(currentOpeningCaseId);
+  }
 });
 
 // ==========================================
@@ -1855,6 +2586,13 @@ function loadGameState() {
         }
       }
 
+      // Мерджим инвентарь (предметы из кейсов)
+      if (saved.inventory && typeof saved.inventory === 'object') {
+        state.inventory = saved.inventory;
+      } else {
+        state.inventory = {};
+      }
+
       // Расчет офлайн-дохода
       if (saved.lastSaved) {
         const offlineSeconds = (Date.now() - saved.lastSaved) / 1000;
@@ -1964,6 +2702,7 @@ btnConfirmReset.addEventListener('click', () => {
   state.businesses = JSON.parse(JSON.stringify(DEFAULT_BUSINESSES));
   state.realEstate = JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE));
   state.airline = JSON.parse(JSON.stringify(DEFAULT_AIRLINE));
+  state.inventory = {};
   state.stats = { totalEarned: 0, totalTaps: 0, playTimeSeconds: 0 };
 
   soundManager.setVolume(state.volume);
@@ -1978,6 +2717,8 @@ btnConfirmReset.addEventListener('click', () => {
   renderBusinesses();
   renderRealEstate();
   renderLeaderboard();
+  renderCasesScreen();
+  renderInventory();
   updateRebirthUI();
   updateStatsUI();
   switchScreen('screenWallet');
@@ -2058,6 +2799,8 @@ function initGame() {
   renderBusinesses();
   renderRealEstate();
   renderLeaderboard();
+  renderCasesScreen();
+  renderInventory();
   updateRebirthUI();
 
   const unlockAudio = () => {
