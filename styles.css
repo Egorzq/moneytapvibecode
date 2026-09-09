@@ -143,6 +143,12 @@ body {
   box-shadow: 0 0 10px var(--color-purple-glow);
 }
 
+.header-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .save-status {
   display: inline-flex;
   align-items: center;
@@ -162,6 +168,26 @@ body {
 .save-status.saving .save-dot {
   background: var(--color-gold);
   box-shadow: 0 0 6px var(--color-gold);
+}
+
+.btn-header-gear {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-header-gear:active {
+  transform: rotate(45deg) scale(0.92);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .balance-container {
@@ -1748,4 +1774,948 @@ body {
   font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
+}
+
+/* ==========================================================================
+   МЕГА-БИЗНЕС: АВИАКОМПАНИЯ
+   ========================================================================== */
+.airline-megacard {
+  background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #1e1b4b 100%);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 22px;
+  padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.25), 0 0 15px rgba(245, 158, 11, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.airline-megacard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fbbf24, #818cf8, transparent);
+}
+
+.airline-unfounded-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+}
+
+.airline-badge-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(245, 158, 11, 0.18);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: var(--color-gold-light);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  align-self: center;
+}
+
+.airline-unfounded-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.airline-unfounded-desc {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.45;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.btn-found-airline {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+  border: none;
+  border-radius: 14px;
+  padding: 12px 16px;
+  color: #000;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-found-airline:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(245, 158, 11, 0.6);
+}
+
+.btn-found-airline:disabled {
+  background: #1e293b;
+  color: #64748b;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Состояние купленной авиакомпании */
+.airline-founded-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.airline-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.airline-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.airline-custom-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.2px;
+}
+
+.btn-rename-airline {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-muted);
+  font-size: 11px;
+  border-radius: 8px;
+  padding: 2px 7px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-rename-airline:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.airline-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.airline-metric-card {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.airline-metric-label {
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.airline-metric-val {
+  font-family: var(--font-num);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-gold-light);
+}
+
+/* Маршрут и таймер рейса */
+.flight-status-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(129, 140, 248, 0.3);
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.flight-route-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.route-airports {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #c7d2fe;
+}
+
+.flight-track-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  position: relative;
+  overflow: visible;
+}
+
+.flight-track-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1 0%, #818cf8 50%, #38bdf8 100%);
+  border-radius: 6px;
+  transition: width 0.3s linear;
+}
+
+.flight-airplane-icon {
+  position: absolute;
+  top: -10px;
+  font-size: 16px;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 0 6px rgba(129, 140, 248, 0.9));
+  transition: left 0.3s linear;
+}
+
+.flight-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10.5px;
+}
+
+.flight-timer-text {
+  font-family: var(--font-num);
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+.flight-ready-text {
+  color: var(--color-primary-light);
+  font-weight: 700;
+  animation: pulseGlow 1.5s infinite;
+}
+
+.airline-actions-row {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-open-hangar {
+  flex: 1;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 10px;
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  transition: all 0.2s ease;
+}
+
+.btn-collect-flight {
+  flex: 1;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 10px;
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+  transition: all 0.2s ease;
+}
+
+.btn-collect-flight:disabled {
+  background: #1e293b;
+  color: #64748b;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Модальное окно Ангара */
+.modal-card-wide {
+  max-width: 410px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  padding: 18px 16px;
+}
+
+.hangar-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.hangar-badge-top {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #818cf8;
+  letter-spacing: 0.8px;
+}
+
+.hangar-airline-name {
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.btn-hangar-close {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.hangar-stats-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.hangar-stat-pill {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  padding: 7px 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.h-stat-lbl { color: var(--text-dim); }
+.h-stat-val { font-family: var(--font-num); font-weight: 700; color: #fff; }
+.h-stat-income .h-stat-val { color: var(--color-gold-light); }
+
+.planes-list-scroll {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 4px;
+}
+
+.plane-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.plane-card.can-afford {
+  border-color: rgba(99, 102, 241, 0.4);
+  background: rgba(99, 102, 241, 0.06);
+}
+
+.plane-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.plane-icon-box {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  border: 1px solid rgba(129, 140, 248, 0.3);
+}
+
+.plane-info { flex: 1; min-width: 0; }
+
+.plane-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.plane-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.plane-count-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  background: rgba(129, 140, 248, 0.2);
+  color: #c7d2fe;
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+
+.plane-hourly-income {
+  font-size: 11px;
+  color: var(--color-gold-light);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.btn-buy-plane {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-buy-plane:disabled {
+  background: #1e293b;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.airline-name-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: #fff;
+  font-family: var(--font-main);
+  font-size: 14px;
+  outline: none;
+  margin-bottom: 16px;
+}
+
+.airline-name-input:focus {
+  border-color: #818cf8;
+  box-shadow: 0 0 10px rgba(129, 140, 248, 0.3);
+}
+
+/* ==========================================================================
+   5. ВКЛАДКА: КОШЕЛЕК — ТАП ПО ВСЕМУ ФОНУ ЭКРАНА
+   ========================================================================== */
+.wallet-full-tap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px 16px 20px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.tap-stage {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 280px;
+}
+
+.tap-ambient-aura {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--theme-glow, rgba(16, 185, 129, 0.25)) 0%, rgba(0, 0, 0, 0) 70%);
+  filter: blur(25px);
+  pointer-events: none;
+  animation: auraBreathe 4s ease-in-out infinite alternate;
+  z-index: 1;
+  transition: background 0.5s ease;
+}
+
+@keyframes auraBreathe {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.15); opacity: 0.95; }
+}
+
+.ripples-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.ripple-wave {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  border: 2px solid var(--theme-primary, #10b981);
+  box-shadow: 0 0 15px var(--theme-glow, rgba(16, 185, 129, 0.5));
+  animation: rippleExpand 0.65s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes rippleExpand {
+  0% {
+    width: 20px;
+    height: 20px;
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+  100% {
+    width: 240px;
+    height: 240px;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Энергетическое ядро богатства (Wealth Core) */
+.wealth-core {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.wealth-core.core-pulse {
+  transform: scale(0.92);
+}
+
+.core-outer-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed var(--theme-primary, #10b981);
+  box-shadow: 0 0 20px var(--theme-glow, rgba(16, 185, 129, 0.3));
+  animation: coreSpinSlow 16s linear infinite;
+  opacity: 0.75;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.core-middle-ring {
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--theme-primary, #10b981);
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  animation: coreSpinReverse 10s linear infinite;
+  opacity: 0.85;
+  transition: border-color 0.4s ease;
+}
+
+.core-inner-disc {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, hsl(var(--theme-hue, 155deg), 70%, 25%) 0%, #0c121e 80%);
+  border: 2px solid var(--theme-primary, #10b981);
+  box-shadow: inset 0 0 15px var(--theme-glow, rgba(16, 185, 129, 0.5)), 0 0 25px var(--theme-glow, rgba(16, 185, 129, 0.4));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+}
+
+.core-icon {
+  font-size: 26px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+  animation: coreFloat 3s ease-in-out infinite;
+}
+
+.core-currency {
+  font-family: var(--font-num);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--theme-primary, #10b981);
+  margin-top: 2px;
+}
+
+@keyframes coreSpinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes coreSpinReverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes coreFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.tap-hint-pill {
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  color: var(--text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tap-hint-icon {
+  font-size: 13px;
+  animation: bounceHint 1.4s ease-in-out infinite;
+}
+
+@keyframes bounceHint {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Нижняя информационная плашка в Кошельке */
+.wallet-theme-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(18, 24, 38, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 10px 14px;
+  backdrop-filter: blur(12px);
+  z-index: 4;
+  cursor: default;
+}
+
+.wallet-theme-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.w-theme-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--theme-primary, #10b981);
+  transition: color 0.3s ease;
+}
+
+.w-power-display {
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.w-power-display b {
+  color: var(--theme-primary, #10b981);
+  font-family: var(--font-num);
+  font-size: 15px;
+}
+
+.btn-go-earnings {
+  background: var(--theme-gradient, linear-gradient(135deg, #10b981, #059669));
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 12px var(--theme-glow, rgba(16, 185, 129, 0.3));
+}
+
+.btn-go-earnings:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================================================
+   6. ВКЛАДКА: ЗАРАБОТОК (ПРОКАЧКА КЛИКА +1 .. +100 И ТЕМЫ)
+   ========================================================================== */
+.earnings-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.earnings-hero-card {
+  background: radial-gradient(circle at top right, var(--theme-glow, rgba(16, 185, 129, 0.2)) 0%, var(--bg-card) 60%);
+  border: 1px solid var(--theme-primary, rgba(16, 185, 129, 0.4));
+  border-radius: 20px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px var(--theme-glow, rgba(16, 185, 129, 0.15));
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.earnings-hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.earnings-hero-badge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--theme-primary, #10b981);
+}
+
+.earnings-level-pill {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.earnings-power-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin: -4px 0;
+}
+
+.earnings-power-big {
+  font-family: var(--font-num);
+  font-size: 42px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+  background: linear-gradient(180deg, #ffffff 40%, var(--theme-primary, #10b981) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.earnings-power-unit {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.earnings-rebirth-boost {
+  font-size: 12px;
+  color: var(--color-purple-light);
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+.earnings-rebirth-boost b {
+  font-family: var(--font-num);
+  font-weight: 800;
+}
+
+/* Витрина темы */
+.theme-showcase-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.theme-icon-box {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  border-radius: 12px;
+  background: var(--theme-glow, rgba(16, 185, 129, 0.15));
+  border: 1px solid var(--theme-primary, #10b981);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 0 15px var(--theme-glow, rgba(16, 185, 129, 0.2));
+  transition: all 0.3s ease;
+}
+
+.theme-info-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.theme-tier-tag {
+  display: inline-block;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--theme-primary, #10b981);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-bottom: 2px;
+}
+
+.theme-name-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.theme-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.3;
+  margin-top: 2px;
+}
+
+/* Прогресс-бар кликера */
+.earnings-prog-sec .progress-bar-track {
+  height: 8px;
+}
+
+.earnings-prog-sec .progress-bar-fill {
+  background: var(--theme-gradient, linear-gradient(90deg, #10b981, #059669));
+}
+
+/* Кнопка улучшения клика */
+.btn-upgrade-click {
+  width: 100%;
+  background: var(--theme-gradient, linear-gradient(135deg, #10b981 0%, #059669 100%));
+  border: none;
+  border-radius: 14px;
+  padding: 12px 14px;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 6px 20px var(--theme-glow, rgba(16, 185, 129, 0.4));
+  transition: all 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-upgrade-click:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.btn-upgrade-click:disabled {
+  background: #1e293b;
+  color: #64748b;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-upgrade-click-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.upgrade-action-label {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.upgrade-cost-tag {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-family: var(--font-num);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.upgrade-skin-hint {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: left;
+}
+
+.btn-upgrade-click:disabled .upgrade-skin-hint {
+  color: #64748b;
+}
+
+/* Информационная карточка */
+.earnings-info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 16px;
+  padding: 14px 16px;
+}
+
+.earnings-info-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.earnings-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.earnings-info-list li {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.earnings-info-list li b {
+  color: #fff;
 }

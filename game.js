@@ -160,6 +160,69 @@ const DEFAULT_REAL_ESTATE = [
   }
 ];
 
+// Конфигурация мега-бизнеса: Авиакомпания
+// Супер дорогой бизнес с кастомным названием и флотом самолетов с почасовым доходом
+const DEFAULT_AIRLINE = {
+  founded: false,
+  name: 'SkyWings Airlines',
+  baseCost: 2000000000, // 2 млрд рублей
+  flightElapsed: 0,     // секунды текущего 1-часового рейса (0..3600)
+  uncollectedRevenue: 0,
+  totalFlights: 0,
+  planes: [
+    {
+      id: 'falcon',
+      name: 'Бизнес-джет Falcon Elite',
+      icon: '🛩️',
+      category: 'Бизнес-авиация',
+      desc: 'Скоростной реактивный джет для VIP-персон и экспресс-рейсов.',
+      cost: 150000000,          // 150 млн
+      incomePerHour: 40000000,  // +40 млн / час
+      count: 0
+    },
+    {
+      id: 'skyjet',
+      name: 'Региональный лайнер SkyJet-200',
+      icon: '✈️',
+      category: 'Региональные рейсы',
+      desc: 'Надежный пассажирский самолет для ближнемагистральных перелетов.',
+      cost: 650000000,          // 650 млн
+      incomePerHour: 190000000, // +190 млн / час
+      count: 0
+    },
+    {
+      id: 'aerostream',
+      name: 'Магистральный AeroStream-350',
+      icon: '🛫',
+      category: 'Международные рейсы',
+      desc: 'Широкофюзеляжный межконтинентальный флагман с премиум-каютами.',
+      cost: 2800000000,         // 2.8 млрд
+      incomePerHour: 900000000, // +900 млн / час
+      count: 0
+    },
+    {
+      id: 'titan',
+      name: 'Двухпалубный Titan-800',
+      icon: '🌐',
+      category: 'Трансокеанский гигант',
+      desc: 'Крупнейший пассажирский аэробус на 850 пассажиров с залами отдыха.',
+      cost: 12000000000,         // 12 млрд
+      incomePerHour: 4200000000, // +4.2 млрд / час
+      count: 0
+    },
+    {
+      id: 'supersonic',
+      name: 'Сверхзвуковой Mach-3 VIP',
+      icon: '⚡',
+      category: 'Сверхзвуковой люкс',
+      desc: 'Полеты из Лондона в Нью-Йорк за 2.5 часа. Высшая точка авиационной роскоши.',
+      cost: 45000000000,          // 45 млрд
+      incomePerHour: 18000000000, // +18 млрд / час
+      count: 0
+    }
+  ]
+};
+
 // Вымышленный лидерборд богатейших людей (Forbes)
 // Первое место ровно 1 000 000 000 рублей по требованию ТЗ!
 const LEADERBOARD_BOTS = [
@@ -215,6 +278,7 @@ let state = {
   vibration: true,
   businesses: JSON.parse(JSON.stringify(DEFAULT_BUSINESSES)),
   realEstate: JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE)),
+  airline: JSON.parse(JSON.stringify(DEFAULT_AIRLINE)),
   stats: {
     totalEarned: 0,
     totalTaps: 0,
@@ -396,33 +460,76 @@ function getRebirthMultiplier(count = state.rebirthCount) {
   return Number((1.0 + count * 0.9).toFixed(1));
 }
 
+// ==========================================
+// КОНФИГУРАЦИЯ ТЕМ ОФОРМЛЕНИЯ КЛИКА (1..100)
+// ==========================================
+const CLICK_THEMES = [
+  { minLvl: 1,  maxLvl: 9,   tier: 'Ранг 1', name: 'Изумрудный Новичок', icon: '🌱', hue: 155, desc: 'Начальная энергия финансового роста. Чистый изумрудный поток.' },
+  { minLvl: 10, maxLvl: 19,  tier: 'Ранг 2', name: 'Неоновый Киберпанк', icon: '⚡', hue: 190, desc: 'Высокотехнологичный неоновый заряд для скоростных тапов.' },
+  { minLvl: 20, maxLvl: 29,  tier: 'Ранг 3', name: 'Золотой Синдикат',   icon: '👑', hue: 45,  desc: 'Истинный блеск чистого золота и премиального влияния.' },
+  { minLvl: 30, maxLvl: 39,  tier: 'Ранг 4', name: 'Рубиновый Шторм',    icon: '🔥', hue: 350, desc: 'Пылкая мощь рубинового пламени, сжигающего любые преграды.' },
+  { minLvl: 40, maxLvl: 49,  tier: 'Ранг 5', name: 'Аметистовый Мистик',  icon: '🔮', hue: 275, desc: 'Магическая фиолетовая аура тайных мировых инвестиций.' },
+  { minLvl: 50, maxLvl: 59,  tier: 'Ранг 6', name: 'Ледяной Сапфир',     icon: '❄️', hue: 215, desc: 'Холодный расчет и несокрушимая кристальная мощь сапфира.' },
+  { minLvl: 60, maxLvl: 69,  tier: 'Ранг 7', name: 'Солнечный Феникс',   icon: '☀️', hue: 25,  desc: 'Ослепительная солнечная вспышка возрождающегося капитала.' },
+  { minLvl: 70, maxLvl: 79,  tier: 'Ранг 8', name: 'Платиновый Титан',   icon: '⚙️', hue: 230, desc: 'Сверхпрочный титановый сплав для непоколебимых магнатов.' },
+  { minLvl: 80, maxLvl: 89,  tier: 'Ранг 9', name: 'Квантовый Космос',   icon: '🌌', hue: 290, desc: 'Энергия далеких галактик и квантовая сингулярность богатства.' },
+  { minLvl: 90, maxLvl: 100, tier: 'Ранг 10', name: 'Божественный Абсолют', icon: '✨', hue: 50, desc: 'Высшая точка вселенского изобилия. Абсолютный триумф!' }
+];
+
+function getThemeForLevel(level = state.tapLevel) {
+  const clamped = Math.max(1, Math.min(100, level));
+  const found = CLICK_THEMES.find(t => clamped >= t.minLvl && clamped <= t.maxLvl);
+  return found || CLICK_THEMES[0];
+}
+
 /**
- * Расчет силы тапа (базовая сила * множитель перерождения)
+ * Применение динамического оформления игры на каждом уровне
+ */
+function applyTheme(level = state.tapLevel) {
+  const currentLevel = Math.max(1, Math.min(100, level));
+  const theme = getThemeForLevel(currentLevel);
+  const dynamicHue = Math.round((theme.hue + (currentLevel - theme.minLvl) * 4) % 360);
+
+  const root = document.documentElement;
+  root.style.setProperty('--theme-hue', `${dynamicHue}deg`);
+  root.style.setProperty('--theme-primary', `hsl(${dynamicHue}, 88%, 52%)`);
+  root.style.setProperty('--theme-glow', `hsla(${dynamicHue}, 90%, 52%, 0.35)`);
+  root.style.setProperty('--theme-glow-strong', `hsla(${dynamicHue}, 100%, 60%, 0.6)`);
+  root.style.setProperty('--theme-gradient', `linear-gradient(135deg, hsl(${dynamicHue}, 85%, 46%) 0%, hsl(${(dynamicHue + 40) % 360}, 90%, 56%) 100%)`);
+
+  // Обновление карточки темы на экране Кошелька
+  const coreCenterIcon = document.getElementById('coreCenterIcon');
+  const walletThemeBadge = document.getElementById('walletThemeBadge');
+  const walletPowerVal = document.getElementById('walletPowerVal');
+
+  if (coreCenterIcon) coreCenterIcon.textContent = theme.icon;
+  if (walletThemeBadge) walletThemeBadge.textContent = `Стиль: ${theme.name} (ур. ${currentLevel})`;
+  if (walletPowerVal) walletPowerVal.textContent = `+${formatNumber(getTapPower(currentLevel))}`;
+}
+
+/**
+ * Сила тапа: от +1 до +100 с множителем перерождения (до 10x!)
  */
 function getTapPower(level = state.tapLevel) {
-  let base;
-  if (level <= 1) {
-    base = 1;
-  } else {
-    base = Math.round(Math.pow(1.5, level - 1) + (level - 1));
-  }
+  const base = Math.max(1, Math.min(100, level));
   const mult = getRebirthMultiplier();
   return Math.max(1, Math.round(base * mult));
 }
 
-/**
- * Стоимость улучшения тапа (экспоненциальное усложнение на 80% за уровень)
- */
-function getTapUpgradeCost(level = state.tapLevel) {
-  return Math.floor(100 * Math.pow(1.8, level - 1));
+function getBaseTapPower(level = state.tapLevel) {
+  return Math.max(1, Math.min(100, level));
 }
 
-function getTapDifficultyText(level = state.tapLevel) {
-  if (level <= 3) return 'Базовая';
-  if (level <= 6) return 'Умеренная (+80% стоимость)';
-  if (level <= 10) return 'Высокая (+80% стоимость)';
-  if (level <= 15) return 'Тяжелая (+80% стоимость)';
-  return 'Экстремальная (+80% стоимость)';
+/**
+ * Стоимость прокачки клика:
+ * Уровень 1 -> 2: ровно 1 000 000 (1 миллион рублей по ТЗ!)
+ * Уровни 2..99: прогрессивный рост до 100 уровня
+ * Уровень 100: МАКСИМУМ (Infinity)
+ */
+function getTapUpgradeCost(level = state.tapLevel) {
+  if (level >= 100) return Infinity;
+  if (level === 1) return 1000000;
+  return Math.floor(1000000 * Math.pow(level, 1.75));
 }
 
 function getBusinessCost(business) {
@@ -455,7 +562,6 @@ function calculateNetWorth() {
   // Бизнесы
   state.businesses.forEach(b => {
     if (b.count > 0) {
-      // Примерная инвестированная сумма
       let invested = 0;
       for (let i = 0; i < b.count; i++) {
         invested += Math.floor(b.baseCost * Math.pow(1.15, i));
@@ -464,7 +570,44 @@ function calculateNetWorth() {
     }
   });
 
+  // Авиакомпания и флот
+  if (state.airline && state.airline.founded) {
+    total += state.airline.baseCost;
+    state.airline.planes.forEach(p => {
+      let pInvested = 0;
+      for (let i = 0; i < p.count; i++) {
+        pInvested += Math.floor(p.cost * Math.pow(1.15, i));
+      }
+      total += pInvested;
+    });
+  }
+
   return Math.floor(total);
+}
+
+/**
+ * Расчет стоимости покупки самолета (с ростом 15% за единицу)
+ */
+function getPlaneCost(plane) {
+  return Math.floor(plane.cost * Math.pow(1.15, plane.count));
+}
+
+/**
+ * Расчет суммарного почасового дохода авиакомпании (с учетом множителя перерождения)
+ */
+function getAirlineHourlyIncome() {
+  if (!state.airline || !state.airline.founded) return 0;
+  const base = state.airline.planes.reduce((sum, p) => sum + (p.count * p.incomePerHour), 0);
+  const mult = getRebirthMultiplier();
+  return Math.round(base * mult);
+}
+
+/**
+ * Всего бортов в авиапарке
+ */
+function getTotalPlanesCount() {
+  if (!state.airline || !state.airline.planes) return 0;
+  return state.airline.planes.reduce((sum, p) => sum + p.count, 0);
 }
 
 /**
@@ -510,18 +653,48 @@ const billCenterSymbol = document.getElementById('billCenterSymbol');
 const tapTarget = document.getElementById('tapTarget');
 const particlesContainer = document.getElementById('particlesContainer');
 
-// Прокачка тапа
-const tapLevelBadge = document.getElementById('tapLevelBadge');
-const nextTapBoostBadge = document.getElementById('nextTapBoostBadge');
-const tapProgressPercent = document.getElementById('tapProgressPercent');
-const tapProgressBarFill = document.getElementById('tapProgressBarFill');
-const btnUpgradeTap = document.getElementById('btnUpgradeTap');
-const tapUpgradeCost = document.getElementById('tapUpgradeCost');
-const tapDifficultyText = document.getElementById('tapDifficultyText');
+// Элементы экрана Кошелька и тапалки по фону
+const walletTapArea = document.getElementById('walletTapArea');
+const ripplesContainer = document.getElementById('ripplesContainer');
+const wealthCore = document.getElementById('wealthCore');
+const coreCenterIcon = document.getElementById('coreCenterIcon');
+const coreCenterSymbol = document.getElementById('coreCenterSymbol');
+const walletThemeBadge = document.getElementById('walletThemeBadge');
+const walletPowerVal = document.getElementById('walletPowerVal');
+const btnGoEarnings = document.getElementById('btnGoEarnings');
+const btnHeaderSettings = document.getElementById('btnHeaderSettings');
+
+// Элементы экрана Заработок (прокачка клика +1..+100 и темы)
+const earningsPowerBig = document.getElementById('earningsPowerBig');
+const earningsLevelPill = document.getElementById('earningsLevelPill');
+const effectiveTapPowerVal = document.getElementById('effectiveTapPowerVal');
+const themePreviewIcon = document.getElementById('themePreviewIcon');
+const themeTierTag = document.getElementById('themeTierTag');
+const themeNameTitle = document.getElementById('themeNameTitle');
+const themeDesc = document.getElementById('themeDesc');
+const earningsProgressPercent = document.getElementById('earningsProgressPercent');
+const earningsProgressBarFill = document.getElementById('earningsProgressBarFill');
+const btnUpgradeClick = document.getElementById('btnUpgradeClick');
+const upgradeActionLabel = document.getElementById('upgradeActionLabel');
+const clickUpgradeCostText = document.getElementById('clickUpgradeCostText');
+const upgradeSkinHint = document.getElementById('upgradeSkinHint');
 
 // Бизнесы
 const businessesList = document.getElementById('businessesList');
 const businessBadge = document.getElementById('businessBadge');
+
+// Авиакомпания и флот
+const airlineMegacard = document.getElementById('airlineMegacard');
+const hangarModal = document.getElementById('hangarModal');
+const btnCloseHangar = document.getElementById('btnCloseHangar');
+const hangarAirlineTitle = document.getElementById('hangarAirlineTitle');
+const hangarTotalPlanes = document.getElementById('hangarTotalPlanes');
+const hangarHourlyIncome = document.getElementById('hangarHourlyIncome');
+const planesList = document.getElementById('planesList');
+const airlineRenameModal = document.getElementById('airlineRenameModal');
+const inputAirlineName = document.getElementById('inputAirlineName');
+const btnCancelRenameAirline = document.getElementById('btnCancelRenameAirline');
+const btnSaveAirlineName = document.getElementById('btnSaveAirlineName');
 
 // Недвижимость & Лидерборд
 const netWorthDisplay = document.getElementById('netWorthDisplay');
@@ -589,6 +762,9 @@ function updateCurrencySymbols() {
   if (billCenterSymbol) {
     billCenterSymbol.textContent = sym;
   }
+  if (coreCenterSymbol) {
+    coreCenterSymbol.textContent = sym;
+  }
 }
 
 /**
@@ -612,28 +788,58 @@ function updateHeader() {
 }
 
 /**
- * Обновление блока улучшения тапа
+ * Рендеринг экрана «Заработок» (прокачка клика от +1 до +100)
  */
-function updateTapUpgradeCard() {
-  const currentPower = getTapPower(state.tapLevel);
-  const nextPower = getTapPower(state.tapLevel + 1);
-  const cost = getTapUpgradeCost(state.tapLevel);
-  const gain = nextPower - currentPower;
+function renderEarningsScreen() {
+  const currentLevel = Math.max(1, Math.min(100, state.tapLevel));
+  const theme = getThemeForLevel(currentLevel);
+  const cost = getTapUpgradeCost(currentLevel);
+  const effectivePower = getTapPower(currentLevel);
 
-  tapLevelBadge.textContent = `Уровень ${state.tapLevel}`;
-  nextTapBoostBadge.textContent = `+${formatNumber(gain)} / тап (итого: ${formatNumber(nextPower)})`;
-  tapUpgradeCost.textContent = formatNumber(cost);
-  tapDifficultyText.textContent = getTapDifficultyText(state.tapLevel);
+  if (earningsPowerBig) earningsPowerBig.textContent = `+${currentLevel}`;
+  if (earningsLevelPill) earningsLevelPill.textContent = `Уровень ${currentLevel} из 100`;
+  if (effectiveTapPowerVal) effectiveTapPowerVal.textContent = `+${formatNumber(effectivePower)}`;
 
-  let percent = 0;
-  if (cost > 0) {
-    percent = Math.min(100, Math.floor((state.balance / cost) * 100));
+  if (themePreviewIcon) themePreviewIcon.textContent = theme.icon;
+  if (themeTierTag) themeTierTag.textContent = theme.tier;
+  if (themeNameTitle) themeNameTitle.textContent = theme.name;
+  if (themeDesc) themeDesc.textContent = theme.desc;
+
+  const progressPct = currentLevel; // 1..100%
+  if (earningsProgressPercent) earningsProgressPercent.textContent = `${progressPct}%`;
+  if (earningsProgressBarFill) earningsProgressBarFill.style.width = `${progressPct}%`;
+
+  if (walletPowerVal) walletPowerVal.textContent = `+${formatNumber(effectivePower)}`;
+  if (walletThemeBadge) walletThemeBadge.textContent = `Стиль: ${theme.name}`;
+
+  if (btnUpgradeClick) {
+    if (currentLevel >= 100) {
+      btnUpgradeClick.disabled = true;
+      if (upgradeActionLabel) upgradeActionLabel.textContent = 'Максимальный клик (+100)';
+      if (clickUpgradeCostText) clickUpgradeCostText.textContent = 'МАКСИМУМ';
+      if (upgradeSkinHint) upgradeSkinHint.textContent = '✨ Достигнут абсолютный предел силы тапа и дизайна!';
+    } else {
+      const nextLevel = currentLevel + 1;
+      const nextTheme = getThemeForLevel(nextLevel);
+      const canAfford = state.balance >= cost;
+      btnUpgradeClick.disabled = !canAfford;
+
+      if (upgradeActionLabel) upgradeActionLabel.textContent = `Улучшить клик до +${nextLevel}`;
+      if (clickUpgradeCostText) clickUpgradeCostText.textContent = formatNumber(cost);
+      if (upgradeSkinHint) {
+        if (nextTheme.name !== theme.name) {
+          upgradeSkinHint.textContent = `🎨 Разблокирует стиль: ${nextTheme.name} (${nextTheme.icon})`;
+        } else {
+          upgradeSkinHint.textContent = `🎨 Усиливает свечение и цветовую гамму стиля`;
+        }
+      }
+    }
   }
+}
 
-  tapProgressPercent.textContent = `${percent}%`;
-  tapProgressBarFill.style.width = `${percent}%`;
-
-  btnUpgradeTap.disabled = state.balance < cost;
+// Для совместимости
+function updateTapUpgradeCard() {
+  renderEarningsScreen();
 }
 
 /**
@@ -689,6 +895,9 @@ function renderBusinesses() {
     businessesList.appendChild(card);
   });
 
+  // Рендерим мега-бизнес: Авиакомпанию
+  renderAirlineCard();
+
   if (canAffordAny > 0) {
     businessBadge.style.display = 'block';
     businessBadge.textContent = canAffordAny;
@@ -715,12 +924,299 @@ function updateBusinessAffordability() {
     }
   });
 
+  // Проверка доступности покупки авиакомпании
+  if (state.airline && !state.airline.founded) {
+    const btnFound = airlineMegacard ? airlineMegacard.querySelector('#btnFoundAirline') : null;
+    if (btnFound) {
+      btnFound.disabled = state.balance < state.airline.baseCost;
+    }
+  }
+
   if (canAffordAny > 0) {
     businessBadge.style.display = 'block';
     businessBadge.textContent = canAffordAny;
   } else {
     businessBadge.style.display = 'none';
   }
+}
+
+// ==========================================
+// ЛОГИКА МЕГА-БИЗНЕСА: АВИАКОМПАНИЯ
+// ==========================================
+
+/**
+ * Рендеринг карточки Авиакомпании
+ */
+function renderAirlineCard() {
+  if (!airlineMegacard) return;
+  const sym = getCurrencySymbol();
+  const airline = state.airline;
+
+  if (!airline.founded) {
+    const canAfford = state.balance >= airline.baseCost;
+    airlineMegacard.innerHTML = `
+      <div class="airline-unfounded-box">
+        <div class="airline-badge-top">✈️ МЕГА-КОРПОРАЦИЯ</div>
+        <div class="airline-unfounded-title">Основать свою Авиакомпанию</div>
+        <div class="airline-unfounded-desc">
+          Выйдите на международный рынок авиаперевозок! Придумайте своё название, закупайте современный флот и получайте колоссальную прибыль <b>каждый час</b> за совершенные рейсы.
+        </div>
+        <button class="btn-found-airline" id="btnFoundAirline" ${canAfford ? '' : 'disabled'}>
+          <span>Основать компанию</span>
+          <span class="btn-buy-cost">${formatNumber(airline.baseCost)} ${sym}</span>
+        </button>
+      </div>
+    `;
+
+    const btnFound = airlineMegacard.querySelector('#btnFoundAirline');
+    if (btnFound) {
+      btnFound.addEventListener('click', () => {
+        foundAirline();
+      });
+    }
+  } else {
+    const hourlyIncome = getAirlineHourlyIncome();
+    const totalPlanes = getTotalPlanesCount();
+    const flightDuration = 3600;
+    const elapsed = Math.min(flightDuration, airline.flightElapsed || 0);
+    const progressPercent = Math.min(100, Math.floor((elapsed / flightDuration) * 100));
+    const remainingSeconds = Math.max(0, flightDuration - Math.floor(elapsed));
+    const mins = Math.floor(remainingSeconds / 60).toString().padStart(2, '0');
+    const secs = (remainingSeconds % 60).toString().padStart(2, '0');
+    const canCollect = airline.uncollectedRevenue > 0;
+
+    airlineMegacard.innerHTML = `
+      <div class="airline-founded-box">
+        <div class="airline-header-row">
+          <div class="airline-title-group">
+            <span style="font-size: 20px;">✈️</span>
+            <span class="airline-custom-name" id="airlineDisplayName">${airline.name}</span>
+            <button class="btn-rename-airline" id="btnOpenRenameModal" title="Изменить название">✏️</button>
+          </div>
+          <span class="airline-badge-top">АВИАЛИНИЯ</span>
+        </div>
+
+        <div class="airline-metrics-grid">
+          <div class="airline-metric-card">
+            <span class="airline-metric-label">Авиапарк</span>
+            <span class="airline-metric-val">${totalPlanes} бортов</span>
+          </div>
+          <div class="airline-metric-card">
+            <span class="airline-metric-label">Доход в час</span>
+            <span class="airline-metric-val">+${formatNumber(hourlyIncome)} ${sym}</span>
+          </div>
+        </div>
+
+        <!-- Трекер рейса -->
+        <div class="flight-status-card">
+          <div class="flight-route-info">
+            <div class="route-airports">
+              <span>🛫 SVO</span>
+              <span style="color: var(--text-dim);">➔</span>
+              <span>DXB 🛬</span>
+            </div>
+            <span style="color: var(--text-dim);">Рейс #${airline.totalFlights + 1}</span>
+          </div>
+          <div class="flight-track-bar">
+            <div class="flight-track-fill" id="flightTrackFill" style="width: ${progressPercent}%;"></div>
+            <div class="flight-airplane-icon" id="flightAirplaneIcon" style="left: ${progressPercent}%;">✈️</div>
+          </div>
+          <div class="flight-meta-row">
+            <span>Статус: <b style="color: #c7d2fe;">В полете</b></span>
+            <span class="flight-timer-text" id="flightTimerDisplay">${mins}:${secs}</span>
+          </div>
+        </div>
+
+        <div class="airline-actions-row">
+          <button class="btn-open-hangar" id="btnOpenHangarModal">
+            <span>🛩️</span> Ангар флота
+          </button>
+          <button class="btn-collect-flight" id="btnCollectFlight" ${canCollect ? '' : 'disabled'}>
+            <span>💰</span> ${canCollect ? `Забрать: +${formatNumber(airline.uncollectedRevenue)} ${sym}` : 'Касса рейсов'}
+          </button>
+        </div>
+      </div>
+    `;
+
+    airlineMegacard.querySelector('#btnOpenRenameModal')?.addEventListener('click', openRenameModal);
+    airlineMegacard.querySelector('#btnOpenHangarModal')?.addEventListener('click', openHangarModal);
+    airlineMegacard.querySelector('#btnCollectFlight')?.addEventListener('click', collectFlightRevenue);
+  }
+}
+
+function updateFlightUI() {
+  if (!state.airline || !state.airline.founded) return;
+  const fill = document.getElementById('flightTrackFill');
+  const icon = document.getElementById('flightAirplaneIcon');
+  const timer = document.getElementById('flightTimerDisplay');
+  const btnCollect = document.getElementById('btnCollectFlight');
+
+  const flightDuration = 3600;
+  const elapsed = Math.min(flightDuration, state.airline.flightElapsed || 0);
+  const progressPercent = Math.min(100, Math.floor((elapsed / flightDuration) * 100));
+  const remainingSeconds = Math.max(0, flightDuration - Math.floor(elapsed));
+  const mins = Math.floor(remainingSeconds / 60).toString().padStart(2, '0');
+  const secs = (remainingSeconds % 60).toString().padStart(2, '0');
+
+  if (fill) fill.style.width = `${progressPercent}%`;
+  if (icon) icon.style.left = `${progressPercent}%`;
+  if (timer) timer.textContent = `${mins}:${secs}`;
+
+  if (btnCollect) {
+    const rev = state.airline.uncollectedRevenue || 0;
+    if (rev > 0) {
+      btnCollect.disabled = false;
+      btnCollect.innerHTML = `<span>💰</span> Забрать: +${formatNumber(rev)} ${getCurrencySymbol()}`;
+    } else {
+      btnCollect.disabled = true;
+      btnCollect.innerHTML = `<span>💰</span> Касса рейсов`;
+    }
+  }
+}
+
+function renderHangar() {
+  if (!planesList) return;
+  const sym = getCurrencySymbol();
+  const mult = getRebirthMultiplier();
+  const airline = state.airline;
+
+  if (hangarAirlineTitle) hangarAirlineTitle.textContent = airline.name;
+  if (hangarTotalPlanes) hangarTotalPlanes.textContent = getTotalPlanesCount();
+  if (hangarHourlyIncome) hangarHourlyIncome.textContent = formatNumber(getAirlineHourlyIncome());
+
+  planesList.innerHTML = '';
+
+  airline.planes.forEach(plane => {
+    const cost = getPlaneCost(plane);
+    const canAfford = state.balance >= cost;
+    const hourlyBonus = Math.round(plane.incomePerHour * mult);
+
+    const card = document.createElement('div');
+    card.className = `plane-card ${canAfford ? 'can-afford' : ''}`;
+    card.innerHTML = `
+      <div class="plane-card-top">
+        <div class="plane-icon-box">${plane.icon}</div>
+        <div class="plane-info">
+          <div class="plane-title-row">
+            <span class="plane-name">${plane.name}</span>
+            <span class="plane-count-badge">${plane.count} шт.</span>
+          </div>
+          <div style="font-size: 10px; color: var(--color-cyan);">${plane.category}</div>
+          <div class="plane-hourly-income">⚡ +${formatNumber(hourlyBonus)} ${sym} / час</div>
+        </div>
+      </div>
+      <button class="btn-buy-plane" data-plane-id="${plane.id}" ${canAfford ? '' : 'disabled'}>
+        <span>Купить самолет</span>
+        <span class="btn-buy-cost">${formatNumber(cost)} ${sym}</span>
+      </button>
+    `;
+
+    const buyBtn = card.querySelector('.btn-buy-plane');
+    buyBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      buyPlane(plane.id);
+    });
+
+    planesList.appendChild(card);
+  });
+}
+
+function foundAirline() {
+  if (state.balance < state.airline.baseCost) {
+    soundManager.playError();
+    triggerHaptic('error');
+    return;
+  }
+
+  state.balance -= state.airline.baseCost;
+  state.airline.founded = true;
+  state.airline.flightElapsed = 0;
+
+  soundManager.playBusinessBuy();
+  triggerHaptic('success');
+
+  updateHeader();
+  renderBusinesses();
+  renderAirlineCard();
+  renderLeaderboard();
+  updateStatsUI();
+  saveGameState();
+
+  openRenameModal();
+}
+
+function buyPlane(planeId) {
+  const plane = state.airline.planes.find(p => p.id === planeId);
+  if (!plane) return;
+
+  const cost = getPlaneCost(plane);
+  if (state.balance < cost) {
+    soundManager.playError();
+    triggerHaptic('error');
+    return;
+  }
+
+  state.balance -= cost;
+  plane.count += 1;
+
+  soundManager.playBusinessBuy();
+  triggerHaptic('success');
+
+  updateHeader();
+  renderHangar();
+  renderAirlineCard();
+  renderLeaderboard();
+  updateStatsUI();
+  saveGameState();
+}
+
+function collectFlightRevenue() {
+  const rev = state.airline.uncollectedRevenue;
+  if (rev <= 0) return;
+
+  state.balance += rev;
+  state.stats.totalEarned += rev;
+  state.airline.uncollectedRevenue = 0;
+
+  soundManager.playBusinessBuy();
+  triggerHaptic('success');
+
+  updateHeader();
+  renderAirlineCard();
+  updateBusinessAffordability();
+  updateStatsUI();
+  saveGameState();
+}
+
+function openHangarModal() {
+  renderHangar();
+  hangarModal.classList.add('active');
+  soundManager.playTap();
+}
+
+function closeHangarModal() {
+  hangarModal.classList.remove('active');
+}
+
+function openRenameModal() {
+  inputAirlineName.value = state.airline.name;
+  airlineRenameModal.classList.add('active');
+  soundManager.playTap();
+}
+
+function closeRenameModal() {
+  airlineRenameModal.classList.remove('active');
+}
+
+function saveAirlineName() {
+  const val = inputAirlineName.value.trim();
+  if (val.length > 0) {
+    state.airline.name = val;
+  }
+  closeRenameModal();
+  renderAirlineCard();
+  soundManager.playTap();
+  saveGameState();
 }
 
 /**
@@ -952,11 +1448,40 @@ function handleTap(clientX, clientY) {
   balanceDisplay.classList.add('pulse-up');
   setTimeout(() => balanceDisplay.classList.remove('pulse-up'), 80);
 
+  // Пульсация центрального ядра богатства
+  if (wealthCore) {
+    wealthCore.classList.add('core-pulse');
+    setTimeout(() => wealthCore.classList.remove('core-pulse'), 110);
+  }
+
+  // Создаем расходящуюся световую волну в месте клика
+  createRippleWave(clientX, clientY);
+
+  // Создаем всплывающее число
   createFloatingNumber(clientX, clientY, `+${formatNumber(power)} ${getCurrencySymbol()}`);
 
   updateHeader();
-  updateTapUpgradeCard();
+  renderEarningsScreen();
   updateBusinessAffordability();
+}
+
+function createRippleWave(clientX, clientY) {
+  if (!ripplesContainer) return;
+  const rect = ripplesContainer.getBoundingClientRect();
+  const posX = (clientX !== undefined && clientX !== null ? clientX : (rect.left + rect.width / 2)) - rect.left;
+  const posY = (clientY !== undefined && clientY !== null ? clientY : (rect.top + rect.height / 2)) - rect.top;
+
+  const ripple = document.createElement('div');
+  ripple.className = 'ripple-wave';
+  ripple.style.left = `${posX}px`;
+  ripple.style.top = `${posY}px`;
+
+  ripplesContainer.appendChild(ripple);
+  setTimeout(() => {
+    if (ripple && ripple.parentNode) {
+      ripple.parentNode.removeChild(ripple);
+    }
+  }, 680);
 }
 
 function createFloatingNumber(x, y, text) {
@@ -982,7 +1507,11 @@ function createFloatingNumber(x, y, text) {
   }, 850);
 }
 
-function upgradeTap() {
+/**
+ * Прокачка силы клика от +1 до +100 с изменением стиля игры на каждом уровне
+ */
+function upgradeClickPower() {
+  if (state.tapLevel >= 100) return;
   const cost = getTapUpgradeCost(state.tapLevel);
   if (state.balance < cost) {
     soundManager.playError();
@@ -993,13 +1522,21 @@ function upgradeTap() {
   state.balance -= cost;
   state.tapLevel += 1;
 
+  // Динамически меняем оформление всей игры на каждом уровне!
+  applyTheme(state.tapLevel);
+
   soundManager.playUpgrade();
   triggerHaptic('success');
 
   updateHeader();
-  updateTapUpgradeCard();
+  renderEarningsScreen();
   updateBusinessAffordability();
   saveGameState();
+}
+
+// Алиас для обратной совместимости
+function upgradeTap() {
+  upgradeClickPower();
 }
 
 function buyBusiness(businessId) {
@@ -1021,7 +1558,7 @@ function buyBusiness(businessId) {
 
   updateHeader();
   renderBusinesses();
-  updateTapUpgradeCard();
+  renderEarningsScreen();
   updateStatsUI();
   saveGameState();
 }
@@ -1045,7 +1582,7 @@ function buyRealEstate(estateId) {
   updateHeader();
   renderRealEstate();
   renderLeaderboard();
-  updateTapUpgradeCard();
+  renderEarningsScreen();
   updateBusinessAffordability();
   updateStatsUI();
   saveGameState();
@@ -1058,7 +1595,7 @@ function selectCurrency(code) {
   renderCurrencyGrid();
   updateCurrencySymbols();
   updateHeader();
-  updateTapUpgradeCard();
+  renderEarningsScreen();
   renderBusinesses();
   renderRealEstate();
   renderLeaderboard();
@@ -1084,12 +1621,15 @@ function performRebirth() {
   state.tapLevel = 1;
   state.businesses.forEach(b => b.count = 0);
   state.realEstate.forEach(r => r.owned = false);
+  state.airline = JSON.parse(JSON.stringify(DEFAULT_AIRLINE));
+
+  applyTheme(state.tapLevel);
 
   soundManager.playRebirthPortal();
   triggerHaptic('success');
 
   updateHeader();
-  updateTapUpgradeCard();
+  renderEarningsScreen();
   renderBusinesses();
   renderRealEstate();
   renderLeaderboard();
@@ -1106,6 +1646,7 @@ function performRebirth() {
 
 const screens = {
   screenWallet: document.getElementById('screenWallet'),
+  screenEarnings: document.getElementById('screenEarnings'),
   screenBusiness: document.getElementById('screenBusiness'),
   screenRealEstate: document.getElementById('screenRealEstate'),
   screenRebirth: document.getElementById('screenRebirth'),
@@ -1114,10 +1655,10 @@ const screens = {
 
 const navTabs = {
   screenWallet: document.getElementById('navTabWallet'),
+  screenEarnings: document.getElementById('navTabEarnings'),
   screenBusiness: document.getElementById('navTabBusiness'),
   screenRealEstate: document.getElementById('navTabRealEstate'),
-  screenRebirth: document.getElementById('navTabRebirth'),
-  screenSettings: document.getElementById('navTabSettings')
+  screenRebirth: document.getElementById('navTabRebirth')
 };
 
 function switchScreen(targetScreenId) {
@@ -1135,6 +1676,8 @@ function switchScreen(targetScreenId) {
     }
   });
 
+  if (targetScreenId === 'screenEarnings') renderEarningsScreen();
+  if (targetScreenId === 'screenWallet') applyTheme(state.tapLevel);
   if (targetScreenId === 'screenSettings') updateStatsUI();
   if (targetScreenId === 'screenBusiness') renderBusinesses();
   if (targetScreenId === 'screenRealEstate') {
@@ -1209,6 +1752,26 @@ function gameLoop(currentTime) {
     updateBusinessAffordability();
   }
 
+  // Обновление рейсов авиакомпании (почасовой доход)
+  if (state.airline && state.airline.founded) {
+    state.airline.flightElapsed = (state.airline.flightElapsed || 0) + delta;
+    const flightDuration = 3600; // 1 час
+    if (state.airline.flightElapsed >= flightDuration) {
+      const hours = Math.floor(state.airline.flightElapsed / flightDuration);
+      state.airline.flightElapsed %= flightDuration;
+      const hourlyIncome = getAirlineHourlyIncome();
+      if (hourlyIncome > 0) {
+        state.airline.uncollectedRevenue = (state.airline.uncollectedRevenue || 0) + (hours * hourlyIncome);
+        state.airline.totalFlights = (state.airline.totalFlights || 0) + hours;
+        soundManager.playBusinessBuy();
+        triggerHaptic('success');
+      }
+      renderAirlineCard();
+    } else {
+      updateFlightUI();
+    }
+  }
+
   secondAccumulator += delta;
   if (secondAccumulator >= 1) {
     state.stats.playTimeSeconds += Math.floor(secondAccumulator);
@@ -1275,13 +1838,44 @@ function loadGameState() {
         });
       }
 
+      // Мерджим авиакомпанию и флот
+      if (saved.airline) {
+        state.airline.founded = Boolean(saved.airline.founded);
+        if (saved.airline.name) state.airline.name = saved.airline.name;
+        state.airline.flightElapsed = typeof saved.airline.flightElapsed === 'number' ? saved.airline.flightElapsed : 0;
+        state.airline.uncollectedRevenue = typeof saved.airline.uncollectedRevenue === 'number' ? saved.airline.uncollectedRevenue : 0;
+        state.airline.totalFlights = typeof saved.airline.totalFlights === 'number' ? saved.airline.totalFlights : 0;
+        if (Array.isArray(saved.airline.planes)) {
+          state.airline.planes.forEach(defaultPlane => {
+            const foundP = saved.airline.planes.find(p => p.id === defaultPlane.id);
+            if (foundP && typeof foundP.count === 'number') {
+              defaultPlane.count = foundP.count;
+            }
+          });
+        }
+      }
+
       // Расчет офлайн-дохода
       if (saved.lastSaved) {
         const offlineSeconds = (Date.now() - saved.lastSaved) / 1000;
         if (offlineSeconds > 15) {
           const validSeconds = Math.min(offlineSeconds, 28800);
           const passivePerSec = getTotalPassiveIncome();
-          const offlineEarned = Math.floor(passivePerSec * validSeconds);
+          let offlineEarned = Math.floor(passivePerSec * validSeconds);
+
+          // Доход за совершенные офлайн рейсы авиакомпании
+          if (state.airline && state.airline.founded) {
+            const hourly = getAirlineHourlyIncome();
+            const totalOfflineElapsed = (state.airline.flightElapsed || 0) + validSeconds;
+            const completedHours = Math.floor(totalOfflineElapsed / 3600);
+            state.airline.flightElapsed = totalOfflineElapsed % 3600;
+            if (completedHours > 0 && hourly > 0) {
+              const airlineProfit = completedHours * hourly;
+              state.airline.uncollectedRevenue = (state.airline.uncollectedRevenue || 0) + airlineProfit;
+              state.airline.totalFlights = (state.airline.totalFlights || 0) + completedHours;
+              offlineEarned += airlineProfit;
+            }
+          }
 
           if (offlineEarned > 0) {
             state.balance += offlineEarned;
@@ -1369,16 +1963,18 @@ btnConfirmReset.addEventListener('click', () => {
   state.vibration = true;
   state.businesses = JSON.parse(JSON.stringify(DEFAULT_BUSINESSES));
   state.realEstate = JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE));
+  state.airline = JSON.parse(JSON.stringify(DEFAULT_AIRLINE));
   state.stats = { totalEarned: 0, totalTaps: 0, playTimeSeconds: 0 };
 
   soundManager.setVolume(state.volume);
   vibrationToggle.checked = true;
 
+  applyTheme(state.tapLevel);
   updateVolumeUI();
   renderCurrencyGrid();
   updateCurrencySymbols();
   updateHeader();
-  updateTapUpgradeCard();
+  renderEarningsScreen();
   renderBusinesses();
   renderRealEstate();
   renderLeaderboard();
@@ -1389,15 +1985,56 @@ btnConfirmReset.addEventListener('click', () => {
   soundManager.playUpgrade();
 });
 
-// Слушатель кликов по купюре
-tapTarget.addEventListener('pointerdown', (e) => {
-  e.preventDefault();
-  handleTap(e.clientX, e.clientY);
-});
+// Слушатели модальных окон ангара и авиакомпании
+btnCloseHangar?.addEventListener('click', closeHangarModal);
+btnCancelRenameAirline?.addEventListener('click', closeRenameModal);
+btnSaveAirlineName?.addEventListener('click', saveAirlineName);
 
-btnUpgradeTap.addEventListener('click', () => {
-  upgradeTap();
-});
+// ==========================================
+// СЛУШАТЕЛИ ТАПА ПО ФОНУ И КНОПОК
+// ==========================================
+
+// 1. Тап по любому месту фона на экране Кошелька
+if (walletTapArea) {
+  walletTapArea.addEventListener('pointerdown', (e) => {
+    // Не запускаем тап, если игрок нажал на интерактивную кнопку
+    if (e.target.closest('button') || e.target.closest('input') || e.target.closest('.modal-backdrop')) {
+      return;
+    }
+    e.preventDefault();
+    handleTap(e.clientX, e.clientY);
+  });
+}
+
+// Запасной слушатель для tapTarget
+if (tapTarget) {
+  tapTarget.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
+    handleTap(e.clientX, e.clientY);
+  });
+}
+
+// 2. Кнопка прокачки клика во вкладке «Заработок»
+if (btnUpgradeClick) {
+  btnUpgradeClick.addEventListener('click', () => {
+    upgradeClickPower();
+  });
+}
+
+// 3. Кнопка «Прокачать клик ➔» в Кошельке (быстрый переход во вкладку Заработок)
+if (btnGoEarnings) {
+  btnGoEarnings.addEventListener('click', (e) => {
+    e.stopPropagation();
+    switchScreen('screenEarnings');
+  });
+}
+
+// 4. Кнопка шестеренки (Настройки) в верхней шапке
+if (btnHeaderSettings) {
+  btnHeaderSettings.addEventListener('click', () => {
+    switchScreen('screenSettings');
+  });
+}
 
 setInterval(saveGameState, 3000);
 window.addEventListener('beforeunload', saveGameState);
@@ -1409,12 +2046,15 @@ window.addEventListener('beforeunload', saveGameState);
 function initGame() {
   loadGameState();
   
+  // Применяем тему оформления кликера на старте
+  applyTheme(state.tapLevel);
+
   vibrationToggle.checked = state.vibration;
   updateVolumeUI();
   renderCurrencyGrid();
   updateCurrencySymbols();
   updateHeader();
-  updateTapUpgradeCard();
+  renderEarningsScreen();
   renderBusinesses();
   renderRealEstate();
   renderLeaderboard();
