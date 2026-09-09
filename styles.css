@@ -3409,12 +3409,43 @@ body {
   height: 26px;
 }
 
+.inv-income-highlight {
+  color: #34d399;
+  font-family: var(--font-num);
+}
+
+.inv-item-stats-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
 .inv-item-worth {
   font-family: var(--font-num);
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 800;
   color: var(--color-gold-light);
-  margin-top: 2px;
+}
+
+.inv-item-income {
+  font-family: var(--font-num);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-dim);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.inv-item-income.active {
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.15);
 }
 
 /* ==========================================================================
@@ -3755,6 +3786,30 @@ body {
   font-size: 14px;
   font-weight: 800;
   color: var(--color-gold-light);
+}
+
+.reward-income-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 4px;
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  padding: 4px 12px;
+  border-radius: 8px;
+}
+
+.reward-income-lbl {
+  font-size: 10.5px;
+  color: #a7f3d0;
+  font-weight: 700;
+}
+
+.reward-income-val {
+  font-family: var(--font-num);
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #34d399;
 }
 
 /* Баннеры дубликата / нового предмета */

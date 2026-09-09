@@ -348,6 +348,7 @@ const CASE_ITEMS = [
     icon: '🥫',
     rarity: 'common',
     cost: 15000,
+    income: 5,
     desc: 'Классическая балтийская килька в пряном томатном соусе. Вкус студенческих побед.'
   },
   {
@@ -357,6 +358,7 @@ const CASE_ITEMS = [
     icon: '🥪',
     rarity: 'common',
     cost: 25000,
+    income: 10,
     desc: 'Батон, сливочное масло и щедрый ломоть вареной колбасы — идеальный перекус.'
   },
   {
@@ -366,6 +368,7 @@ const CASE_ITEMS = [
     icon: '🧦',
     rarity: 'common',
     cost: 40000,
+    income: 20,
     desc: 'Теплые махровые носки с принтом монет, приносящие удачу при каждом шаге.'
   },
   {
@@ -375,6 +378,7 @@ const CASE_ITEMS = [
     icon: '🧢',
     rarity: 'uncommon',
     cost: 70000,
+    income: 45,
     desc: 'Стильная хлопковая бейсболка с вышитым золотым логотипом доллара.'
   },
   {
@@ -384,6 +388,7 @@ const CASE_ITEMS = [
     icon: '🎒',
     rarity: 'uncommon',
     cost: 100000,
+    income: 80,
     desc: 'Вместительный водонепроницаемый рюкзак для пачек наличных и ноутбука.'
   },
   {
@@ -393,6 +398,7 @@ const CASE_ITEMS = [
     icon: '🕶️',
     rarity: 'rare',
     cost: 160000,
+    income: 150,
     desc: 'Каплевидные поляризационные очки в тонкой золотистой оправе.'
   },
   {
@@ -402,6 +408,7 @@ const CASE_ITEMS = [
     icon: '🛹',
     rarity: 'rare',
     cost: 280000,
+    income: 300,
     desc: 'Легкий и маневренный круизер из многослойного клена и карбона.'
   },
   {
@@ -411,6 +418,7 @@ const CASE_ITEMS = [
     icon: '🛵',
     rarity: 'epic',
     cost: 550000,
+    income: 700,
     desc: 'Культовый итальянский двухколесный транспорт цвета морской волны.'
   },
   {
@@ -420,6 +428,7 @@ const CASE_ITEMS = [
     icon: '🏆',
     rarity: 'legendary',
     cost: 1800000,
+    income: 2500,
     desc: 'Тяжелый литой кубок за первые крупные достижения в бизнесе.'
   },
   {
@@ -429,6 +438,7 @@ const CASE_ITEMS = [
     icon: '🐟',
     rarity: 'ultra',
     cost: 1000000000000,
+    income: 100000000,
     desc: 'УЛЬТРА-МЕГА-АРТЕФАКТ ВСЕЛЕННОЙ! Божественная сияющая золотом рыба. Стоимость — 1 ТРИЛЛИОН ₽! Шанс выпадения — 1 к 1 000 000 000 000.'
   },
 
@@ -440,6 +450,7 @@ const CASE_ITEMS = [
     icon: '🎧',
     rarity: 'common',
     cost: 200000,
+    income: 250,
     desc: 'Активное шумоподавление и кристально чистый звук для продуктивной работы.'
   },
   {
@@ -449,6 +460,7 @@ const CASE_ITEMS = [
     icon: '📱',
     rarity: 'common',
     cost: 400000,
+    income: 550,
     desc: 'Флагманский титановый смартфон с тройной камерой и нейропроцессором.'
   },
   {
@@ -458,6 +470,7 @@ const CASE_ITEMS = [
     icon: '⌚',
     rarity: 'uncommon',
     cost: 700000,
+    income: 1000,
     desc: 'Умные часы с сапфировым стеклом, ЭКГ и мониторингом котировок акций.'
   },
   {
@@ -467,6 +480,7 @@ const CASE_ITEMS = [
     icon: '💻',
     rarity: 'uncommon',
     cost: 1000000,
+    income: 1600,
     desc: 'Мощный портативный компьютер для управления финансовой империей.'
   },
   {
@@ -476,6 +490,7 @@ const CASE_ITEMS = [
     icon: '🎮',
     rarity: 'rare',
     cost: 1500000,
+    income: 2600,
     desc: 'Игровая станция с поддержкой 8K и трассировки лучей для зоны отдыха.'
   },
   {
@@ -485,6 +500,7 @@ const CASE_ITEMS = [
     icon: '🛴',
     rarity: 'rare',
     cost: 2200000,
+    income: 4200,
     desc: 'Двухмоторный карбоновый самокат со скоростью до 80 км/ч.'
   },
   {
@@ -494,6 +510,7 @@ const CASE_ITEMS = [
     icon: '📷',
     rarity: 'rare',
     cost: 3500000,
+    income: 7000,
     desc: 'Шведская среднеформатная оптика для создания шедевров.'
   },
   {
@@ -503,6 +520,7 @@ const CASE_ITEMS = [
     icon: '🥽',
     rarity: 'epic',
     cost: 5500000,
+    income: 12000,
     desc: 'Гарнитура виртуальной реальности с прямым считыванием импульсов мозга.'
   },
   {
@@ -512,6 +530,7 @@ const CASE_ITEMS = [
     icon: '🛸',
     rarity: 'legendary',
     cost: 10000000,
+    income: 25000,
     desc: 'Сверхточный автономный дрон для картографирования и панорамных съемок.'
   },
   {
@@ -521,6 +540,7 @@ const CASE_ITEMS = [
     icon: '🤖',
     rarity: 'mythic',
     cost: 20000000,
+    income: 60000,
     desc: 'Бионический дворецкий на базе искусственного интеллекта последнего поколения.'
   },
 
@@ -532,6 +552,7 @@ const CASE_ITEMS = [
     icon: '🪙',
     rarity: 'common',
     cost: 3500000,
+    income: 8000,
     desc: 'Банковский мерный слиток высшей пробы из Швейцарского резерва.'
   },
   {
@@ -541,6 +562,7 @@ const CASE_ITEMS = [
     icon: '💍',
     rarity: 'common',
     cost: 6000000,
+    income: 15000,
     desc: 'Колумбийский изумруд чистой воды в оправе из платины 950 пробы.'
   },
   {
@@ -550,6 +572,7 @@ const CASE_ITEMS = [
     icon: '📱',
     rarity: 'uncommon',
     cost: 9000000,
+    income: 25000,
     desc: 'Корпус из фрагментов метеорита Муонионалуста и 24-каратного золота.'
   },
   {
@@ -559,6 +582,7 @@ const CASE_ITEMS = [
     icon: '💎',
     rarity: 'uncommon',
     cost: 13000000,
+    income: 40000,
     desc: 'Ювелирный шедевр от Cartier с россыпью безупречных бриллиантов.'
   },
   {
@@ -568,6 +592,7 @@ const CASE_ITEMS = [
     icon: '🏎️',
     rarity: 'rare',
     cost: 20000000,
+    income: 70000,
     desc: 'Скелетонизированный хронограф в корпусе из сапфирового стекла.'
   },
   {
@@ -577,6 +602,7 @@ const CASE_ITEMS = [
     icon: '👑',
     rarity: 'rare',
     cost: 30000000,
+    income: 120000,
     desc: 'Историческая реликвия европейской монаршей династии XIX века.'
   },
   {
@@ -586,6 +612,7 @@ const CASE_ITEMS = [
     icon: '🎫',
     rarity: 'rare',
     cost: 45000000,
+    income: 200000,
     desc: 'Пожизненный доступ в закрытые клубы Монако, Дубая и Лондона.'
   },
   {
@@ -595,6 +622,7 @@ const CASE_ITEMS = [
     icon: '🗝️',
     rarity: 'epic',
     cost: 70000000,
+    income: 350000,
     desc: 'Титан-электронный ключ от неприступной частной ячейки швейцарского банка.'
   },
   {
@@ -604,6 +632,7 @@ const CASE_ITEMS = [
     icon: '🪐',
     rarity: 'legendary',
     cost: 120000000,
+    income: 700000,
     desc: 'Редчайший образец внеземного базальта в гравитационном подвесе.'
   },
   {
@@ -613,6 +642,7 @@ const CASE_ITEMS = [
     icon: '🔮',
     rarity: 'mythic',
     cost: 250000000,
+    income: 1800000,
     desc: 'Древний мистический артефакт, притягивающий финансовую удачу своего владельца.'
   },
 
@@ -624,6 +654,7 @@ const CASE_ITEMS = [
     icon: '🏎️',
     rarity: 'common',
     cost: 35000000,
+    income: 150000,
     desc: 'Итальянский среднемоторный спорткар V8 мощностью 720 лошадиных сил.'
   },
   {
@@ -633,6 +664,7 @@ const CASE_ITEMS = [
     icon: '🏢',
     rarity: 'common',
     cost: 70000000,
+    income: 350000,
     desc: 'Видовые дизайнерские апартаменты на 65-м этаже башни «Федерация».'
   },
   {
@@ -642,6 +674,7 @@ const CASE_ITEMS = [
     icon: '⚡',
     rarity: 'uncommon',
     cost: 120000000,
+    income: 650000,
     desc: 'Легендарный квад-турбо W16 болид со скоростью свыше 420 км/ч.'
   },
   {
@@ -651,6 +684,7 @@ const CASE_ITEMS = [
     icon: '🏡',
     rarity: 'uncommon',
     cost: 180000000,
+    income: 1100000,
     desc: 'Средиземноморское поместье в Ницце с инфинити-бассейном и вертодромом.'
   },
   {
@@ -660,6 +694,7 @@ const CASE_ITEMS = [
     icon: '🚁',
     rarity: 'rare',
     cost: 260000000,
+    income: 1800000,
     desc: 'Двухдвигательный бизнес-вертолет с роскошным шумоизолированным салоном.'
   },
   {
@@ -669,6 +704,7 @@ const CASE_ITEMS = [
     icon: '🏰',
     rarity: 'rare',
     cost: 400000000,
+    income: 3000000,
     desc: 'Крепость XIV века в Баварских Альпах с винными погребами и парком.'
   },
   {
@@ -678,6 +714,7 @@ const CASE_ITEMS = [
     icon: '🛥️',
     rarity: 'rare',
     cost: 600000000,
+    income: 5000000,
     desc: 'Экспедиционная яхта с дальностью 5000 миль, пляжным клубом и спа.'
   },
   {
@@ -687,6 +724,7 @@ const CASE_ITEMS = [
     icon: '🏝️',
     rarity: 'epic',
     cost: 950000000,
+    income: 9000000,
     desc: 'Изолированный белоснежный остров с лагуной и частной взлетно-посадочной полосой.'
   },
   {
@@ -696,6 +734,7 @@ const CASE_ITEMS = [
     icon: '🏙️',
     rarity: 'legendary',
     cost: 1800000000,
+    income: 20000000,
     desc: '90-этажный многофункциональный небоскреб класса А+ в центре мегаполиса.'
   },
   {
@@ -705,6 +744,7 @@ const CASE_ITEMS = [
     icon: '🛰️',
     rarity: 'mythic',
     cost: 4000000000,
+    income: 50000000,
     desc: 'Частный орбитальный туристический комплекс с панорамным куполом Земли.'
   }
 ];
@@ -1039,13 +1079,25 @@ function getBusinessCost(business) {
 }
 
 /**
- * Суммарный пассивный доход в секунду (базовый доход всех бизнесов и подработок * множитель перерождения)
+ * Подсчет суммарного пассивного дохода от предметов в коллекции (в секунду)
+ */
+function calculateInventoryTotalIncome() {
+  if (!state.inventory) return 0;
+  return Object.keys(state.inventory).reduce((sum, itemId) => {
+    const item = CASE_ITEMS.find(it => it.id === itemId);
+    return sum + (item && item.income ? item.income : 0);
+  }, 0);
+}
+
+/**
+ * Суммарный пассивный доход в секунду (базовый доход всех бизнесов, подработок и предметов инвентаря * множитель перерождения)
  */
 function getTotalPassiveIncome() {
   let base = state.businesses.reduce((sum, b) => sum + (b.count * b.baseIncome), 0);
   if (state.sideJobs) {
     base += state.sideJobs.reduce((sum, j) => sum + (j.owned ? j.income : 0), 0);
   }
+  base += calculateInventoryTotalIncome();
   const mult = getRebirthMultiplier();
   return Math.round(base * mult);
 }
@@ -1242,6 +1294,7 @@ const casesShopView = document.getElementById('casesShopView');
 const casesInventoryView = document.getElementById('casesInventoryView');
 const inventoryCountBadge = document.getElementById('inventoryCountBadge');
 const inventoryValueBadge = document.getElementById('inventoryValueBadge');
+const inventoryIncomeBadge = document.getElementById('inventoryIncomeBadge');
 const invTotalBadge = document.getElementById('invTotalBadge');
 const btnToggleInventory = document.getElementById('btnToggleInventory');
 const btnInvToggleText = document.getElementById('btnInvToggleText');
@@ -1268,6 +1321,7 @@ const rewardIconBox = document.getElementById('rewardIconBox');
 const rewardItemName = document.getElementById('rewardItemName');
 const rewardItemDesc = document.getElementById('rewardItemDesc');
 const rewardValueAmount = document.getElementById('rewardValueAmount');
+const rewardIncomeAmount = document.getElementById('rewardIncomeAmount');
 const duplicateBanner = document.getElementById('duplicateBanner');
 const compensationAmount = document.getElementById('compensationAmount');
 const newItemBanner = document.getElementById('newItemBanner');
@@ -2163,10 +2217,12 @@ function getInventoryOwnedCount() {
 function renderCasesScreen() {
   const ownedCount = getInventoryOwnedCount();
   const totalValue = calculateInventoryTotalValue();
+  const totalIncome = calculateInventoryTotalIncome();
 
   if (inventoryCountBadge) inventoryCountBadge.textContent = `${ownedCount} / 40`;
   if (invTotalBadge) invTotalBadge.textContent = `${ownedCount}`;
   if (inventoryValueBadge) inventoryValueBadge.textContent = formatNumber(totalValue);
+  if (inventoryIncomeBadge) inventoryIncomeBadge.textContent = `+${formatNumber(totalIncome)}`;
 
   updateCaseButtonsAffordability();
 }
@@ -2194,7 +2250,10 @@ function renderInventory(filter = currentActiveInventoryFilter) {
       </div>
       <div class="inv-item-name">${item.name}</div>
       <div class="inv-item-desc">${item.desc}</div>
-      <div class="inv-item-worth">${formatNumber(item.cost)} <span class="currency-text">${getCurrencySymbol()}</span></div>
+      <div class="inv-item-stats-row">
+        <div class="inv-item-worth">${formatNumber(item.cost)} <span class="currency-text">${getCurrencySymbol()}</span></div>
+        <div class="inv-item-income ${isOwned ? 'active' : ''}">⚡ +${formatNumber(item.income)} <span class="currency-text">${getCurrencySymbol()}</span>/с</div>
+      </div>
     `;
     inventoryGrid.appendChild(card);
   });
@@ -2370,6 +2429,7 @@ function finishCaseOpening(wonItem) {
   if (rewardItemName) rewardItemName.textContent = wonItem.name;
   if (rewardItemDesc) rewardItemDesc.textContent = wonItem.desc;
   if (rewardValueAmount) rewardValueAmount.textContent = `${formatNumber(wonItem.cost)} ${getCurrencySymbol()}`;
+  if (rewardIncomeAmount) rewardIncomeAmount.textContent = `+${formatNumber(wonItem.income)} ${getCurrencySymbol()}/сек`;
   if (rewardItemCard) rewardItemCard.className = `reward-item-card ${rarity.class}`;
   if (rewardGlowBurst) rewardGlowBurst.style.background = rarity.color || '#818cf8';
 
