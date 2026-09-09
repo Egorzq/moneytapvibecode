@@ -1,5 +1,6 @@
 /* ==========================================================================
    ДЕНЕЖНЫЙ МАГНАТ — СТИЛИ МОБИЛЬНОЙ ИГРЫ-ТАПАЛКИ
+   Включает: 5 вкладок, Недвижимость, Лидерборд Forbes, Перерождение
    ========================================================================== */
 
 :root {
@@ -7,7 +8,7 @@
   --bg-surface: #0f1422;
   --bg-card: #151d30;
   --bg-card-hover: #1b263e;
-  --bg-nav: rgba(15, 20, 34, 0.94);
+  --bg-nav: rgba(15, 20, 34, 0.96);
   
   --color-primary: #10b981;
   --color-primary-light: #34d399;
@@ -16,6 +17,10 @@
   --color-gold: #f59e0b;
   --color-gold-light: #fef08a;
   --color-gold-glow: rgba(245, 158, 11, 0.35);
+
+  --color-purple: #8b5cf6;
+  --color-purple-light: #c084fc;
+  --color-purple-glow: rgba(139, 92, 246, 0.4);
 
   --color-cyan: #06b6d4;
   --color-danger: #ef4444;
@@ -53,7 +58,6 @@ html, body {
   touch-action: manipulation;
 }
 
-/* На десктопе центрируем в виде смартфона, на телефоне — на весь экран */
 body {
   display: flex;
   justify-content: center;
@@ -86,8 +90,8 @@ body {
    ШАПКА (HEADER)
    ========================================================================== */
 .game-header {
-  padding: 16px 18px 12px;
-  background: linear-gradient(180deg, rgba(21, 29, 48, 0.95) 0%, rgba(15, 20, 34, 0.8) 100%);
+  padding: 14px 16px 10px;
+  background: linear-gradient(180deg, rgba(21, 29, 48, 0.96) 0%, rgba(15, 20, 34, 0.82) 100%);
   border-bottom: 1px solid var(--border-subtle);
   position: relative;
   z-index: 10;
@@ -99,35 +103,53 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+}
+
+.header-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .player-rank {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
+  gap: 5px;
+  padding: 3px 9px;
   background: rgba(245, 158, 11, 0.12);
   border: 1px solid rgba(245, 158, 11, 0.3);
-  border-radius: 20px;
-  font-size: 12px;
+  border-radius: 18px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--color-gold-light);
-  letter-spacing: 0.3px;
+}
+
+.rebirth-multiplier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: rgba(139, 92, 246, 0.18);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 18px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-purple-light);
+  box-shadow: 0 0 10px var(--color-purple-glow);
 }
 
 .save-status {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-dim);
-  transition: opacity 0.3s ease;
 }
 
 .save-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--color-primary);
   box-shadow: 0 0 6px var(--color-primary);
@@ -143,11 +165,11 @@ body {
 }
 
 .balance-label {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 1.5px;
   color: var(--text-muted);
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 
 .balance-value-wrapper {
@@ -159,14 +181,14 @@ body {
 
 .balance-num {
   font-family: var(--font-num);
-  font-size: 34px;
+  font-size: 32px;
   font-weight: 800;
   letter-spacing: -0.5px;
   background: linear-gradient(180deg, #ffffff 30%, #e2e8f0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
-  transition: transform 0.1s ease;
+  transition: transform 0.08s ease;
 }
 
 .balance-num.pulse-up {
@@ -175,29 +197,28 @@ body {
 
 .currency-symbol {
   font-family: var(--font-main);
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 800;
   color: var(--color-primary-light);
   text-shadow: 0 0 12px var(--color-primary-glow);
 }
 
-/* Плашки доходности */
 .income-rates {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .rate-pill {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 5px 12px;
+  gap: 3px;
+  padding: 4px 10px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  font-size: 12px;
+  border-radius: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--text-main);
 }
@@ -209,7 +230,7 @@ body {
 }
 
 .rate-icon {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .rate-val {
@@ -219,7 +240,7 @@ body {
 
 .rate-label {
   color: var(--text-muted);
-  font-size: 11px;
+  font-size: 10.5px;
 }
 
 /* ==========================================================================
@@ -238,8 +259,8 @@ body {
   flex-direction: column;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(12px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  transform: translateY(10px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
   overflow: hidden;
 }
 
@@ -253,11 +274,10 @@ body {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 16px 16px calc(var(--nav-height) + 16px);
+  padding: 14px 14px calc(var(--nav-height) + 14px);
   -webkit-overflow-scrolling: touch;
 }
 
-/* Кастомный скроллбар */
 .screen-content::-webkit-scrollbar {
   width: 4px;
 }
@@ -267,18 +287,18 @@ body {
 }
 
 /* ==========================================================================
-   ВКЛАДКА: КОШЕЛЕК
+   1. ВКЛАДКА: КОШЕЛЕК
    ========================================================================== */
 .wallet-content {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: calc(var(--nav-height) + 14px);
+  padding-bottom: calc(var(--nav-height) + 12px);
 }
 
 .tap-stage {
   flex: 1;
-  min-height: 250px;
+  min-height: 240px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -288,8 +308,8 @@ body {
 
 .tap-glow {
   position: absolute;
-  width: 240px;
-  height: 240px;
+  width: 230px;
+  height: 230px;
   background: radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, rgba(245, 158, 11, 0.1) 50%, transparent 75%);
   filter: blur(35px);
   border-radius: 50%;
@@ -318,8 +338,8 @@ body {
 }
 
 .bill-3d {
-  width: 280px;
-  height: 155px;
+  width: 275px;
+  height: 152px;
   position: relative;
   filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 16px rgba(16, 185, 129, 0.3));
   transition: filter 0.15s ease;
@@ -336,15 +356,13 @@ body {
 }
 
 .tap-hint {
-  margin-top: 18px;
-  font-size: 13px;
+  margin-top: 16px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text-dim);
-  letter-spacing: 0.2px;
   text-align: center;
 }
 
-/* Вылетающие цифры тапа (+X) */
 .particles-container {
   position: absolute;
   inset: 0;
@@ -356,7 +374,7 @@ body {
 .floating-number {
   position: absolute;
   font-family: var(--font-num);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 800;
   color: #fef08a;
   text-shadow: 0 0 10px rgba(245, 158, 11, 0.8), 0 3px 6px rgba(0,0,0,0.8);
@@ -366,27 +384,17 @@ body {
 }
 
 @keyframes floatNumberUp {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(0.7) translateY(0);
-  }
-  30% {
-    transform: translate(-50%, -50%) scale(1.25) translateY(-25px);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1.05) translateY(-85px);
-  }
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.7) translateY(0); }
+  30% { transform: translate(-50%, -50%) scale(1.25) translateY(-25px); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.05) translateY(-85px); }
 }
 
-/* ==========================================================================
-   КАРТОЧКА ПРОКАЧКИ ТАПА С ПРОГРЕСС-БАРОМ
-   ========================================================================== */
+/* Карточка улучшения тапа */
 .tap-upgrade-card {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
-  border-radius: 24px;
-  padding: 16px 18px 18px;
+  border-radius: 22px;
+  padding: 14px 16px 16px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
@@ -396,9 +404,7 @@ body {
 .tap-upgrade-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-gold), transparent);
 }
@@ -407,7 +413,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .upgrade-info {
@@ -417,13 +423,13 @@ body {
 }
 
 .upgrade-title {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--text-main);
 }
 
 .upgrade-level {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   color: var(--color-cyan);
 }
@@ -432,23 +438,22 @@ body {
   background: rgba(16, 185, 129, 0.15);
   border: 1px solid rgba(16, 185, 129, 0.3);
   color: var(--color-primary-light);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 12px;
+  padding: 3px 9px;
+  border-radius: 10px;
 }
 
-/* Прогресс-бар */
 .progress-section {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .progress-meta {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--text-muted);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
   font-weight: 500;
 }
 
@@ -460,7 +465,7 @@ body {
 
 .progress-bar-track {
   width: 100%;
-  height: 10px;
+  height: 9px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 6px;
   overflow: hidden;
@@ -489,19 +494,18 @@ body {
   100% { transform: translateX(200%); }
 }
 
-/* Кнопка улучшения */
 .btn-upgrade-tap {
   width: 100%;
   background: linear-gradient(135deg, #059669 0%, #10b981 100%);
   border: none;
-  border-radius: 16px;
-  padding: 12px 16px;
+  border-radius: 14px;
+  padding: 11px 14px;
   color: #fff;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
   box-shadow: 0 6px 18px rgba(16, 185, 129, 0.35);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -510,10 +514,6 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(16, 185, 129, 0.5);
   background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-}
-
-.btn-upgrade-tap:active:not(:disabled) {
-  transform: translateY(1px);
 }
 
 .btn-upgrade-tap:disabled {
@@ -532,7 +532,7 @@ body {
 }
 
 .upgrade-btn-text {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
 }
 
@@ -541,48 +541,39 @@ body {
   align-items: baseline;
   gap: 3px;
   font-family: var(--font-num);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
   background: rgba(0, 0, 0, 0.25);
-  padding: 4px 10px;
-  border-radius: 10px;
-}
-
-.btn-upgrade-tap:disabled .upgrade-cost-wrapper {
-  background: rgba(0, 0, 0, 0.15);
-  color: #94a3b8;
+  padding: 3px 8px;
+  border-radius: 8px;
 }
 
 .upgrade-difficulty-tag {
-  font-size: 11px;
+  font-size: 10.5px;
   color: rgba(255, 255, 255, 0.85);
   font-weight: 500;
 }
 
-.btn-upgrade-tap:disabled .upgrade-difficulty-tag {
-  color: #64748b;
-}
-
 /* ==========================================================================
-   ВКЛАДКА: БИЗНЕС
+   2. ВКЛАДКА: БИЗНЕС
    ========================================================================== */
 .section-banner {
   background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%);
   border: 1px solid rgba(16, 185, 129, 0.2);
-  border-radius: 18px;
+  border-radius: 16px;
   padding: 12px 14px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .banner-title {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--color-primary-light);
   margin-bottom: 3px;
 }
 
 .banner-desc {
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--text-muted);
   line-height: 1.4;
 }
@@ -590,43 +581,41 @@ body {
 .businesses-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-/* Карточка отдельного бизнеса */
 .business-card {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
-  border-radius: 20px;
-  padding: 14px;
+  border-radius: 18px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  position: relative;
+  gap: 8px;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .business-card.can-afford {
   border-color: rgba(16, 185, 129, 0.35);
-  box-shadow: 0 4px 18px rgba(16, 185, 129, 0.12);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12);
 }
 
 .business-top-row {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
 }
 
 .business-icon-box {
-  width: 50px;
-  height: 50px;
-  min-width: 50px;
-  border-radius: 16px;
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  border-radius: 14px;
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
+  font-size: 24px;
   border: 1px solid var(--border-subtle);
 }
 
@@ -648,7 +637,7 @@ body {
 }
 
 .business-name {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--text-main);
   white-space: nowrap;
@@ -657,11 +646,11 @@ body {
 }
 
 .business-count-badge {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
   background: rgba(255, 255, 255, 0.08);
-  padding: 2px 8px;
-  border-radius: 8px;
+  padding: 2px 7px;
+  border-radius: 6px;
   color: var(--text-muted);
 }
 
@@ -671,19 +660,19 @@ body {
 }
 
 .business-desc {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-dim);
   line-height: 1.3;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .business-income-stat {
-  font-size: 11.5px;
+  font-size: 11px;
   color: var(--color-gold-light);
   font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
 }
 
 .business-bottom-row {
@@ -696,22 +685,17 @@ body {
   flex: 1;
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   border: none;
-  border-radius: 12px;
-  padding: 10px 12px;
+  border-radius: 11px;
+  padding: 9px 12px;
   color: #fff;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 700;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
-}
-
-.btn-buy-business:hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.25);
 }
 
 .btn-buy-business:disabled {
@@ -723,43 +707,552 @@ body {
 
 .btn-buy-cost {
   font-family: var(--font-num);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  background: rgba(0, 0, 0, 0.2);
-  padding: 2px 8px;
+  background: rgba(0, 0, 0, 0.22);
+  padding: 2px 7px;
   border-radius: 6px;
 }
 
 /* ==========================================================================
-   ВКЛАДКА: НАСТРОЙКИ
+   3. ВКЛАДКА: ИМУЩЕСТВО И ЛИДЕРБОРД FORBES
+   ========================================================================== */
+.networth-hero-card {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(21, 29, 48, 0.9) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 20px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.networth-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: var(--color-gold-light);
+}
+
+.networth-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.networth-num {
+  font-family: var(--font-num);
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.networth-rank-chip {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 12px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-gold-light);
+}
+
+/* Переключатель вкладок внутри экрана */
+.subtabs-pills {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 3px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  gap: 4px;
+}
+
+.subtab-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  padding: 8px 12px;
+  border-radius: 11px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.subtab-btn.active {
+  background: var(--bg-card);
+  color: var(--text-main);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-card);
+}
+
+.subview {
+  display: none;
+}
+
+.subview.active {
+  display: block;
+}
+
+/* Каталог недвижимости */
+.realestate-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.realestate-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.realestate-card.owned {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, var(--bg-card) 100%);
+}
+
+.realestate-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  border: 1px solid var(--border-subtle);
+}
+
+.realestate-card.owned .realestate-icon {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.realestate-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.realestate-tag {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--color-cyan);
+}
+
+.realestate-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 1px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.realestate-cost {
+  font-family: var(--font-num);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-gold-light);
+}
+
+.btn-buy-estate {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 8px 14px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-buy-estate:disabled {
+  background: #1e293b;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.badge-estate-owned {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: var(--color-primary-light);
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Лидерборд Forbes */
+.leaderboard-intro {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+.intro-title {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 2px;
+}
+
+.leaderboard-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.leader-row {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 16px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.leader-row.is-player {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(16, 185, 129, 0.15) 100%);
+  border: 2px solid var(--color-gold);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.3);
+  transform: scale(1.02);
+}
+
+.leader-rank-badge {
+  width: 28px;
+  font-family: var(--font-num);
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.leader-rank-1 { color: #facc15; font-size: 18px; }
+.leader-rank-2 { color: #e2e8f0; font-size: 17px; }
+.leader-rank-3 { color: #d97706; font-size: 16px; }
+
+.leader-avatar {
+  font-size: 22px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leader-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.leader-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.leader-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.you-tag {
+  background: var(--color-gold);
+  color: #000;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.leader-company {
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.leader-worth {
+  font-family: var(--font-num);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-gold-light);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   4. ВКЛАДКА: ПЕРЕРОЖДЕНИЕ (REBIRTH)
+   ========================================================================== */
+.rebirth-altar-card {
+  background: radial-gradient(circle at top, rgba(139, 92, 246, 0.25) 0%, var(--bg-card) 70%);
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  border-radius: 24px;
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(139, 92, 246, 0.15);
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.portal-vortex {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vortex-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px dashed rgba(192, 132, 252, 0.6);
+  animation: spinSlow 12s linear infinite;
+}
+
+.vortex-ring.ring-2 {
+  inset: 10px;
+  border-color: rgba(245, 158, 11, 0.6);
+  animation: spinSlowReverse 8s linear infinite;
+}
+
+@keyframes spinSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spinSlowReverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.vortex-center {
+  font-size: 38px;
+  z-index: 2;
+  filter: drop-shadow(0 0 10px rgba(192, 132, 252, 0.8));
+}
+
+.rebirth-counter-badge {
+  display: inline-block;
+  background: rgba(139, 92, 246, 0.25);
+  border: 1px solid var(--color-purple-light);
+  color: var(--color-purple-light);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11.5px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.rebirth-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.rebirth-desc {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-bottom: 16px;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.multiplier-showcase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.mult-card {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 10px 14px;
+  min-width: 105px;
+}
+
+.mult-card.next-mult {
+  border-color: var(--color-purple-light);
+  background: rgba(139, 92, 246, 0.15);
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.25);
+}
+
+.mult-label {
+  display: block;
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-bottom: 2px;
+}
+
+.mult-big {
+  font-family: var(--font-num);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--color-gold-light);
+}
+
+.next-mult .mult-big {
+  color: var(--color-purple-light);
+}
+
+.mult-arrow {
+  font-size: 18px;
+  color: var(--text-muted);
+}
+
+.rebirth-req-box {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.req-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  margin-bottom: 6px;
+}
+
+.req-label {
+  color: var(--text-muted);
+}
+
+.req-val {
+  font-family: var(--font-num);
+  font-weight: 700;
+  color: var(--color-primary-light);
+}
+
+.rebirth-progress-fill {
+  background: linear-gradient(90deg, #8b5cf6 0%, #c084fc 50%, #ec4899 100%);
+  box-shadow: 0 0 10px rgba(192, 132, 252, 0.6);
+}
+
+.req-progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+
+.btn-rebirth-action {
+  width: 100%;
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  border: none;
+  border-radius: 14px;
+  padding: 12px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  transition: all 0.2s ease;
+}
+
+.btn-rebirth-action:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.6);
+}
+
+.btn-rebirth-action:disabled {
+  background: #1e293b;
+  color: #64748b;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.rebirth-rules-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 14px;
+}
+
+.rules-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.rules-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   5. ВКЛАДКА: НАСТРОЙКИ
    ========================================================================== */
 .settings-content {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 .settings-card {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
-  border-radius: 20px;
-  padding: 16px;
+  border-radius: 18px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .settings-card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .settings-card-icon {
-  font-size: 24px;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  font-size: 22px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
   background: rgba(255, 255, 255, 0.05);
   display: flex;
   align-items: center;
@@ -770,89 +1263,79 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .settings-card-title {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--text-main);
 }
 
 .settings-card-subtitle {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-muted);
 }
 
-/* Сетка валют */
 .currency-selector-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-top: 4px;
+  gap: 6px;
+  margin-top: 2px;
 }
 
 .currency-btn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 10px 6px;
+  border-radius: 10px;
+  padding: 8px 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   cursor: pointer;
   color: var(--text-main);
   transition: all 0.2s ease;
 }
 
 .currency-btn .c-symbol {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
 }
 
 .currency-btn .c-name {
-  font-size: 10px;
+  font-size: 9.5px;
   color: var(--text-muted);
   font-weight: 600;
-}
-
-.currency-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
 }
 
 .currency-btn.active {
   background: rgba(16, 185, 129, 0.2);
   border-color: var(--color-primary);
-  box-shadow: 0 0 14px var(--color-primary-glow);
+  box-shadow: 0 0 12px var(--color-primary-glow);
 }
 
 .currency-btn.active .c-symbol {
   color: var(--color-primary-light);
 }
 
-.currency-btn.active .c-name {
-  color: #fff;
-}
-
-/* Управление громкостью */
 .volume-control-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .volume-slider-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .volume-range-input {
   flex: 1;
   -webkit-appearance: none;
   appearance: none;
-  height: 8px;
+  height: 7px;
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.1);
   outline: none;
@@ -861,8 +1344,8 @@ body {
 .volume-range-input::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
   cursor: pointer;
@@ -872,9 +1355,9 @@ body {
 
 .volume-percent-badge {
   font-family: var(--font-num);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  width: 46px;
+  width: 42px;
   text-align: right;
   color: var(--color-primary-light);
 }
@@ -888,51 +1371,41 @@ body {
   flex: 1;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--border-subtle);
-  border-radius: 12px;
-  padding: 8px 12px;
+  border-radius: 10px;
+  padding: 7px 10px;
   color: var(--text-main);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  transition: background 0.2s ease;
+  gap: 5px;
 }
 
-.btn-sound-toggle:hover, .btn-sound-test:hover {
-  background: rgba(255, 255, 255, 0.12);
-}
-
-/* Переключатель Toggle */
 .toggle-switch {
   position: relative;
-  width: 48px;
-  height: 26px;
+  width: 44px;
+  height: 24px;
   display: inline-block;
 }
 
-.toggle-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
 
 .toggle-slider {
   position: absolute;
   cursor: pointer;
   inset: 0;
   background: #334155;
-  border-radius: 26px;
+  border-radius: 24px;
   transition: 0.3s;
 }
 
 .toggle-slider::before {
   position: absolute;
   content: "";
-  height: 20px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
   left: 3px;
   bottom: 3px;
   background: #fff;
@@ -945,67 +1418,57 @@ body {
 }
 
 .toggle-switch input:checked + .toggle-slider::before {
-  transform: translateX(22px);
+  transform: translateX(20px);
 }
 
-/* Сетка статистики */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 8px;
 }
 
 .stat-box {
   background: rgba(255, 255, 255, 0.04);
-  border-radius: 12px;
-  padding: 10px;
+  border-radius: 10px;
+  padding: 8px 10px;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
 .stat-label {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-dim);
 }
 
 .stat-val {
   font-family: var(--font-num);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--text-main);
 }
 
-/* Сброс прогресса */
 .danger-card {
   border-color: rgba(239, 68, 68, 0.25);
   background: rgba(239, 68, 68, 0.04);
 }
 
-.danger-text {
-  color: var(--color-danger);
-}
+.danger-text { color: var(--color-danger); }
 
 .btn-danger {
   width: 100%;
   background: rgba(239, 68, 68, 0.15);
   border: 1px solid rgba(239, 68, 68, 0.3);
   color: #fca5a5;
-  border-radius: 12px;
-  padding: 10px;
-  font-size: 13px;
+  border-radius: 11px;
+  padding: 9px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-danger:hover {
-  background: rgba(239, 68, 68, 0.3);
-  color: #fff;
 }
 
 /* ==========================================================================
-   НИЖНЯЯ НАВИГАЦИОННАЯ ПАНЕЛЬ С БОЛЬШОЙ КНОПКОЙ ПОСЕРЕДИНЕ
+   НИЖНЯЯ НАВИГАЦИОННАЯ ПАНЕЛЬ С 5 ВКЛАДКАМИ
    ========================================================================== */
 .bottom-nav {
   position: absolute;
@@ -1018,7 +1481,7 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0 14px 6px;
+  padding: 0 6px 4px;
   z-index: 100;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -1032,12 +1495,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
-  padding: 6px 16px;
-  border-radius: 16px;
+  gap: 2px;
+  padding: 6px 8px;
+  border-radius: 12px;
   transition: all 0.2s ease;
   position: relative;
-  min-width: 76px;
+  flex: 1;
+  max-width: 68px;
 }
 
 .nav-tab-icon-wrap {
@@ -1048,19 +1512,17 @@ body {
 }
 
 .nav-tab-icon {
-  font-size: 22px;
+  font-size: 20px;
   transition: transform 0.2s ease;
 }
 
 .nav-tab-label {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.1px;
 }
 
-.nav-tab:hover {
-  color: var(--text-muted);
-}
+.nav-tab:hover { color: var(--text-muted); }
 
 .nav-tab.active {
   color: var(--color-primary-light);
@@ -1073,13 +1535,18 @@ body {
 .nav-tab-badge {
   position: absolute;
   top: -4px;
-  right: -8px;
+  right: -7px;
   background: var(--color-danger);
   color: #fff;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 800;
-  padding: 1px 5px;
-  border-radius: 10px;
+  padding: 1px 4px;
+  border-radius: 8px;
+}
+
+.nav-tab-badge.rebirth-badge {
+  background: var(--color-purple);
+  box-shadow: 0 0 6px var(--color-purple);
 }
 
 /* БОЛЬШАЯ ЦЕНТРАЛЬНАЯ КНОПКА: КОШЕЛЕК */
@@ -1091,28 +1558,30 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  top: -16px; /* Приподнята над навигационной панелью */
+  top: -15px; /* Возвышается над панелью */
   outline: none;
+  flex: 1;
+  max-width: 72px;
 }
 
 .center-btn-outer-glow {
   position: absolute;
-  top: 4px;
-  width: 68px;
-  height: 68px;
+  top: 2px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.4) 0%, rgba(16, 185, 129, 0.2) 60%, transparent 80%);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.45) 0%, rgba(16, 185, 129, 0.2) 60%, transparent 80%);
   filter: blur(8px);
   transition: all 0.3s ease;
   pointer-events: none;
 }
 
 .center-btn-circle {
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
-  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.45), 0 0 0 4px var(--bg-main);
+  box-shadow: 0 8px 22px rgba(245, 158, 11, 0.45), 0 0 0 4px var(--bg-main);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1122,17 +1591,16 @@ body {
 }
 
 .center-btn-icon {
-  font-size: 30px;
+  font-size: 28px;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
-  transition: transform 0.2s ease;
 }
 
 .center-btn-label {
-  margin-top: 6px;
-  font-size: 11.5px;
+  margin-top: 5px;
+  font-size: 10.5px;
   font-weight: 700;
   color: var(--color-gold-light);
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 
@@ -1141,11 +1609,11 @@ body {
 }
 
 .nav-tab-center.active .center-btn-circle {
-  box-shadow: 0 10px 28px rgba(245, 158, 11, 0.6), 0 0 0 4px var(--bg-main), 0 0 16px rgba(251, 191, 36, 0.5);
+  box-shadow: 0 10px 26px rgba(245, 158, 11, 0.6), 0 0 0 4px var(--bg-main), 0 0 16px rgba(251, 191, 36, 0.5);
 }
 
 .nav-tab-center.active .center-btn-outer-glow {
-  filter: blur(14px);
+  filter: blur(12px);
   transform: scale(1.2);
 }
 
@@ -1155,7 +1623,7 @@ body {
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(3, 5, 8, 0.85);
+  background: rgba(3, 5, 8, 0.88);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   display: flex;
@@ -1165,7 +1633,7 @@ body {
   z-index: 200;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.22s ease;
 }
 
 .modal-backdrop.active {
@@ -1176,14 +1644,14 @@ body {
 .modal-card {
   background: var(--bg-card);
   border: 1px solid var(--border-card);
-  border-radius: 24px;
-  padding: 24px 20px;
+  border-radius: 22px;
+  padding: 22px 18px;
   width: 100%;
   max-width: 340px;
   text-align: center;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
   transform: scale(0.92);
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .modal-backdrop.active .modal-card {
@@ -1191,43 +1659,43 @@ body {
 }
 
 .modal-badge-icon {
-  font-size: 44px;
-  margin-bottom: 12px;
+  font-size: 40px;
+  margin-bottom: 10px;
 }
 
-.modal-badge-icon.danger-icon {
-  color: var(--color-danger);
+.modal-badge-icon.rebirth-modal-icon {
+  filter: drop-shadow(0 0 10px var(--color-purple));
 }
 
 .modal-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
   margin-bottom: 8px;
   color: var(--text-main);
 }
 
 .modal-text {
-  font-size: 13px;
+  font-size: 12.5px;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.45;
   margin-bottom: 16px;
 }
 
 .modal-reward-box {
   background: rgba(16, 185, 129, 0.15);
   border: 1px solid rgba(16, 185, 129, 0.3);
-  border-radius: 16px;
-  padding: 12px;
-  margin-bottom: 20px;
+  border-radius: 14px;
+  padding: 10px;
+  margin-bottom: 18px;
   display: flex;
   align-items: baseline;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .modal-reward-box .reward-val {
   font-family: var(--font-num);
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 800;
   color: var(--color-primary-light);
 }
@@ -1237,26 +1705,31 @@ body {
   gap: 10px;
 }
 
-.btn-modal-action, .btn-modal-confirm-danger {
+.btn-modal-action {
   width: 100%;
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   border: none;
-  border-radius: 14px;
-  padding: 13px;
+  border-radius: 12px;
+  padding: 12px;
   color: #fff;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
+}
+
+.rebirth-confirm-btn {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
 }
 
 .btn-modal-cancel {
   flex: 1;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  padding: 13px;
+  border-radius: 12px;
+  padding: 12px;
   color: var(--text-main);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 600;
   cursor: pointer;
 }
@@ -1264,4 +1737,11 @@ body {
 .btn-modal-confirm-danger {
   flex: 1;
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
 }
