@@ -228,7 +228,7 @@
                 <span class="cases-hero-badge">🎁 ЛУТБОКСЫ & КОЛЛЕКЦИЯ</span>
                 <div class="cases-hero-title">Кейсы с сокровищами</div>
                 <div class="cases-hero-stats">
-                  <span>Собрано: <b id="inventoryCountBadge">0 / 30</b></span>
+                  <span>Собрано: <b id="inventoryCountBadge">0 / 40</b></span>
                   <span class="dot-sep">•</span>
                   <span>Ценность: <b id="inventoryValueBadge">0</b> <span class="currency-text">₽</span></span>
                 </div>
@@ -244,6 +244,38 @@
           <!-- ВИД 1: ВИТРИНА КЕЙСОВ (#casesShopView) -->
           <div class="cases-view-container active" id="casesShopView">
             
+            <!-- 0. Бронзовый кейс (100 000 ₽) -->
+            <div class="case-card case-bronze" id="cardCaseBronze">
+              <div class="case-glow-aura"></div>
+              <div class="case-card-header">
+                <div class="case-icon-box">🥉</div>
+                <div class="case-title-group">
+                  <div class="case-rarity-pill pill-bronze">СТАРТОВЫЙ & СЕКРЕТНЫЙ</div>
+                  <h3 class="case-name">Бронзовый кейс</h3>
+                  <div class="case-desc">10 предметов: уличные вещи, перекусы и ультра-мега-редкий «KILLKA» на 1 триллион ₽!</div>
+                </div>
+              </div>
+
+              <!-- Превью предметов -->
+              <div class="case-preview-row">
+                <span class="case-preview-tag">🥫 Килька</span>
+                <span class="case-preview-tag">🧦 Носки</span>
+                <span class="case-preview-tag">🎒 Рюкзак</span>
+                <span class="case-preview-tag tag-epic">🛵 Скутер</span>
+                <span class="case-preview-tag tag-ultra">🐟 KILLKA (1 Трлн)</span>
+              </div>
+
+              <div class="case-bottom-row">
+                <button class="btn-open-case btn-bronze" id="btnOpenBronzeCase">
+                  <span class="btn-case-action">Открыть кейс</span>
+                  <span class="btn-case-cost">
+                    <span>100 000</span>
+                    <span class="currency-text">₽</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
             <!-- 1. Серебряный кейс (1 000 000 ₽) -->
             <div class="case-card case-silver" id="cardCaseSilver">
               <div class="case-glow-aura"></div>
@@ -352,7 +384,8 @@
             </div>
 
             <div class="inv-filter-chips">
-              <button class="inv-chip active" data-filter="all">Все (30)</button>
+              <button class="inv-chip active" data-filter="all">Все (40)</button>
+              <button class="inv-chip" data-filter="bronze">🥉 Бронзовый</button>
               <button class="inv-chip" data-filter="silver">🥈 Серебряный</button>
               <button class="inv-chip" data-filter="diamond">💎 Алмазный</button>
               <button class="inv-chip" data-filter="property">🏰 Имущество</button>

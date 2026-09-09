@@ -295,10 +295,17 @@ const RANKS = [
 ];
 
 // ==========================================
-// КОНФИГУРАЦИЯ КЕЙСОВ И 30 ПРЕДМЕТОВ
+// КОНФИГУРАЦИЯ 4 КЕЙСОВ И 40 ПРЕДМЕТОВ
 // ==========================================
 
 const CASE_TYPES = {
+  bronze: {
+    id: 'bronze',
+    name: 'Бронзовый кейс',
+    cost: 100000,
+    icon: '🥉',
+    badge: 'СТАРТОВЫЙ & СЕКРЕТНЫЙ'
+  },
   silver: {
     id: 'silver',
     name: 'Серебряный кейс',
@@ -328,10 +335,103 @@ const RARITY_INFO = {
   rare: { name: 'Редкий', class: 'rarity-rare', color: '#60a5fa', weight: 18 },
   epic: { name: 'Эпический', class: 'rarity-epic', color: '#c084fc', weight: 7 },
   legendary: { name: 'Легендарный', class: 'rarity-legendary', color: '#fbbf24', weight: 2.6 },
-  mythic: { name: 'Мифический', class: 'rarity-mythic', color: '#f43f5e', weight: 0.4 }
+  mythic: { name: 'Мифический', class: 'rarity-mythic', color: '#f43f5e', weight: 0.4 },
+  ultra: { name: 'Ультра Мега Редкий', class: 'rarity-ultra', color: '#ec4899', weight: 0.000000000001 }
 };
 
 const CASE_ITEMS = [
+  // --- 0. БРОНЗОВЫЙ КЕЙС (10 предметов) ---
+  {
+    id: 'brz_sprat',
+    caseId: 'bronze',
+    name: 'Килька в томате',
+    icon: '🥫',
+    rarity: 'common',
+    cost: 15000,
+    desc: 'Классическая балтийская килька в пряном томатном соусе. Вкус студенческих побед.'
+  },
+  {
+    id: 'brz_sandwich',
+    caseId: 'bronze',
+    name: 'Бутерброд с докторской',
+    icon: '🥪',
+    rarity: 'common',
+    cost: 25000,
+    desc: 'Батон, сливочное масло и щедрый ломоть вареной колбасы — идеальный перекус.'
+  },
+  {
+    id: 'brz_socks',
+    caseId: 'bronze',
+    name: 'Счастливые носки',
+    icon: '🧦',
+    rarity: 'common',
+    cost: 40000,
+    desc: 'Теплые махровые носки с принтом монет, приносящие удачу при каждом шаге.'
+  },
+  {
+    id: 'brz_cap',
+    caseId: 'bronze',
+    name: 'Кепка уличного стиля',
+    icon: '🧢',
+    rarity: 'uncommon',
+    cost: 70000,
+    desc: 'Стильная хлопковая бейсболка с вышитым золотым логотипом доллара.'
+  },
+  {
+    id: 'brz_backpack',
+    caseId: 'bronze',
+    name: 'Городской рюкзак',
+    icon: '🎒',
+    rarity: 'uncommon',
+    cost: 100000,
+    desc: 'Вместительный водонепроницаемый рюкзак для пачек наличных и ноутбука.'
+  },
+  {
+    id: 'brz_glasses',
+    caseId: 'bronze',
+    name: 'Солнцезащитные очки Авиаторы',
+    icon: '🕶️',
+    rarity: 'rare',
+    cost: 160000,
+    desc: 'Каплевидные поляризационные очки в тонкой золотистой оправе.'
+  },
+  {
+    id: 'brz_skateboard',
+    caseId: 'bronze',
+    name: 'Карбоновый скейтборд',
+    icon: '🛹',
+    rarity: 'rare',
+    cost: 280000,
+    desc: 'Легкий и маневренный круизер из многослойного клена и карбона.'
+  },
+  {
+    id: 'brz_vespa',
+    caseId: 'bronze',
+    name: 'Винтажный скутер Retro',
+    icon: '🛵',
+    rarity: 'epic',
+    cost: 550000,
+    desc: 'Культовый итальянский двухколесный транспорт цвета морской волны.'
+  },
+  {
+    id: 'brz_trophy',
+    caseId: 'bronze',
+    name: 'Бронзовый кубок Чемпиона',
+    icon: '🏆',
+    rarity: 'legendary',
+    cost: 1800000,
+    desc: 'Тяжелый литой кубок за первые крупные достижения в бизнесе.'
+  },
+  {
+    id: 'brz_killka',
+    caseId: 'bronze',
+    name: 'KILLKA',
+    icon: '🐟',
+    rarity: 'ultra',
+    cost: 1000000000000,
+    desc: 'УЛЬТРА-МЕГА-АРТЕФАКТ ВСЕЛЕННОЙ! Божественная сияющая золотом рыба. Стоимость — 1 ТРИЛЛИОН ₽! Шанс выпадения — 1 к 1 000 000 000 000.'
+  },
+
   // --- 1. СЕРЕБРЯНЫЙ КЕЙС (10 предметов) ---
   {
     id: 'sil_headphones',
@@ -820,22 +920,23 @@ class SoundManager {
         rare: [587.33, 739.99, 880.00, 1174.66],
         epic: [659.25, 830.61, 987.77, 1318.51],
         legendary: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98],
-        mythic: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00]
+        mythic: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00],
+        ultra: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00, 2637.02, 3135.96]
       };
       const notes = chordMap[rarity] || chordMap.common;
       notes.forEach((freq, idx) => {
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
         const startTime = this.ctx.currentTime + idx * 0.07;
-        osc.type = (rarity === 'mythic' || rarity === 'legendary') ? 'sawtooth' : 'triangle';
+        osc.type = (rarity === 'ultra' || rarity === 'mythic' || rarity === 'legendary') ? 'sawtooth' : 'triangle';
         osc.frequency.setValueAtTime(freq, startTime);
-        const peakGain = (rarity === 'mythic' || rarity === 'legendary') ? 0.22 : 0.28;
+        const peakGain = (rarity === 'ultra') ? 0.32 : (rarity === 'mythic' || rarity === 'legendary') ? 0.22 : 0.28;
         gain.gain.setValueAtTime(peakGain, startTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.55);
+        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.65);
         osc.connect(gain);
         gain.connect(this.masterGain);
         osc.start(startTime);
-        osc.stop(startTime + 0.6);
+        osc.stop(startTime + 0.7);
       });
     } catch (e) {}
   }
@@ -1146,6 +1247,7 @@ const btnToggleInventory = document.getElementById('btnToggleInventory');
 const btnInvToggleText = document.getElementById('btnInvToggleText');
 const btnBackToCases = document.getElementById('btnBackToCases');
 const inventoryGrid = document.getElementById('inventoryGrid');
+const btnOpenBronzeCase = document.getElementById('btnOpenBronzeCase');
 const btnOpenSilverCase = document.getElementById('btnOpenSilverCase');
 const btnOpenDiamondCase = document.getElementById('btnOpenDiamondCase');
 const btnOpenPropertyCase = document.getElementById('btnOpenPropertyCase');
@@ -1232,11 +1334,12 @@ function updateCurrencySymbols() {
 }
 
 function updateCaseButtonsAffordability() {
+  if (btnOpenBronzeCase) btnOpenBronzeCase.disabled = state.balance < CASE_TYPES.bronze.cost;
   if (btnOpenSilverCase) btnOpenSilverCase.disabled = state.balance < CASE_TYPES.silver.cost;
   if (btnOpenDiamondCase) btnOpenDiamondCase.disabled = state.balance < CASE_TYPES.diamond.cost;
   if (btnOpenPropertyCase) btnOpenPropertyCase.disabled = state.balance < CASE_TYPES.property.cost;
   if (casesBadge) {
-    const canAffordAny = state.balance >= CASE_TYPES.silver.cost;
+    const canAffordAny = state.balance >= CASE_TYPES.bronze.cost;
     casesBadge.style.display = canAffordAny ? 'block' : 'none';
   }
 }
@@ -2061,7 +2164,7 @@ function renderCasesScreen() {
   const ownedCount = getInventoryOwnedCount();
   const totalValue = calculateInventoryTotalValue();
 
-  if (inventoryCountBadge) inventoryCountBadge.textContent = `${ownedCount} / 30`;
+  if (inventoryCountBadge) inventoryCountBadge.textContent = `${ownedCount} / 40`;
   if (invTotalBadge) invTotalBadge.textContent = `${ownedCount}`;
   if (inventoryValueBadge) inventoryValueBadge.textContent = formatNumber(totalValue);
 
@@ -2121,17 +2224,29 @@ function toggleCasesViews() {
 
 /**
  * Выбор случайного предмета с учетом весов редкостей
+ * Ультра-мега-редкий предмет «KILLKA» проверяется отдельно с шансом 1 к триллиону (1e-12)
  */
 function pickRandomItemForCase(caseId) {
   const items = CASE_ITEMS.filter(it => it.caseId === caseId);
-  const totalWeight = items.reduce((sum, it) => sum + (RARITY_INFO[it.rarity]?.weight || 10), 0);
+
+  // Проверка на ультра мега редкий предмет (шанс 1 к 1 000 000 000 000)
+  const ultraItem = items.find(it => it.rarity === 'ultra');
+  if (ultraItem) {
+    if (Math.random() < 1e-12) {
+      return ultraItem;
+    }
+  }
+
+  // Обычные предметы разыгрываются по стандартным весам редкостей
+  const regularItems = items.filter(it => it.rarity !== 'ultra');
+  const totalWeight = regularItems.reduce((sum, it) => sum + (RARITY_INFO[it.rarity]?.weight || 10), 0);
   let r = Math.random() * totalWeight;
-  for (const item of items) {
+  for (const item of regularItems) {
     const w = RARITY_INFO[item.rarity]?.weight || 10;
     if (r < w) return item;
     r -= w;
   }
-  return items[0] || CASE_ITEMS[0];
+  return regularItems[0] || items[0] || CASE_ITEMS[0];
 }
 
 /**
@@ -2180,7 +2295,17 @@ function openCase(caseId) {
       if (i === WINNING_INDEX) {
         item = wonItem;
       } else {
-        item = casePool[Math.floor(Math.random() * casePool.length)];
+        // Тизер в рулетке: при открытии бронзового кейса показываем KILLKA на 33-м слоте как тизер
+        if (caseId === 'bronze' && i === 33 && wonItem.rarity !== 'ultra') {
+          const killkaItem = casePool.find(it => it.rarity === 'ultra');
+          item = killkaItem || casePool[Math.floor(Math.random() * casePool.length)];
+        } else {
+          // Исключаем ультра из случайного наполнения рулетки, чтобы она оставалась супер-секретной
+          const regularPool = casePool.filter(it => it.rarity !== 'ultra');
+          item = regularPool.length > 0
+            ? regularPool[Math.floor(Math.random() * regularPool.length)]
+            : casePool[Math.floor(Math.random() * casePool.length)];
+        }
       }
 
       const rarity = RARITY_INFO[item.rarity] || RARITY_INFO.common;
@@ -2592,6 +2717,7 @@ btnConfirmRebirth?.addEventListener('click', () => {
 // СЛУШАТЕЛИ КЕЙСОВ И ИНВЕНТАРЯ
 // ==========================================
 
+btnOpenBronzeCase?.addEventListener('click', () => openCase('bronze'));
 btnOpenSilverCase?.addEventListener('click', () => openCase('silver'));
 btnOpenDiamondCase?.addEventListener('click', () => openCase('diamond'));
 btnOpenPropertyCase?.addEventListener('click', () => openCase('property'));
