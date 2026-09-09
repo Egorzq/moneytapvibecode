@@ -69,6 +69,7 @@ body {
   width: 100%;
   max-width: 440px;
   height: 100%;
+  height: 100dvh;
   max-height: 940px;
   background: var(--bg-main);
   position: relative;
@@ -87,10 +88,13 @@ body {
 }
 
 /* ==========================================================================
-   ШАПКА (HEADER)
+   ШАПКА (HEADER) — с поддержкой Dynamic Island и челки на iPhone
    ========================================================================== */
 .game-header {
   padding: 14px 16px 10px;
+  padding-top: calc(14px + env(safe-area-inset-top, 0px));
+  padding-left: calc(16px + env(safe-area-inset-left, 0px));
+  padding-right: calc(16px + env(safe-area-inset-right, 0px));
   background: linear-gradient(180deg, rgba(21, 29, 48, 0.96) 0%, rgba(15, 20, 34, 0.82) 100%);
   border-bottom: 1px solid var(--border-subtle);
   position: relative;
@@ -274,7 +278,7 @@ body {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 14px 14px calc(var(--nav-height) + 14px);
+  padding: 14px 14px calc(var(--nav-height) + 14px + env(safe-area-inset-bottom, 0px));
   -webkit-overflow-scrolling: touch;
 }
 
@@ -293,7 +297,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: calc(var(--nav-height) + 12px);
+  padding-bottom: calc(var(--nav-height) + 12px + env(safe-area-inset-bottom, 0px));
 }
 
 .tap-stage {
@@ -1475,13 +1479,13 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: var(--nav-height);
+  height: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
   background: var(--bg-nav);
   border-top: 1px solid var(--border-subtle);
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  padding: 0 6px 4px;
+  align-items: flex-start;
+  padding: 6px 6px calc(4px + env(safe-area-inset-bottom, 0px));
   z-index: 100;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
