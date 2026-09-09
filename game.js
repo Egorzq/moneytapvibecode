@@ -17,6 +17,37 @@ const CURRENCIES = {
   USDT: { symbol: '₮', name: 'USDT', code: 'USDT' }
 };
 
+// Стартовые подработки (помогают на старте, покупка строго 1 раз)
+const DEFAULT_SIDE_JOBS = [
+  {
+    id: 'shop_job',
+    name: 'Подработка в магазине',
+    icon: '🏪',
+    desc: 'Выкладка товаров и помощь на кассе в супермаркете у дома.',
+    cost: 100, // 100 рублей по ТЗ
+    income: 1, // 1 рубль в секунду по ТЗ
+    owned: false
+  },
+  {
+    id: 'starbucks_job',
+    name: 'Подработка в Starbucks',
+    icon: '☕',
+    desc: 'Приготовление кофе и десертов для спешащих горожан.',
+    cost: 1000, // 1000 рублей по ТЗ
+    income: 10, // 10 рублей в секунду по ТЗ
+    owned: false
+  },
+  {
+    id: 'construction_job',
+    name: 'Подработка на стройке',
+    icon: '🏗️',
+    desc: 'Помощь бригаде на строительстве современного жилого квартала.',
+    cost: 2000, // 2000 рублей по ТЗ
+    income: 30, // 30 рублей в секунду по ТЗ
+    owned: false
+  }
+];
+
 // 8 бизнесов (от 7 500 до 600 млн руб)
 const DEFAULT_BUSINESSES = [
   {
@@ -591,6 +622,7 @@ let state = {
   currency: 'RUB',
   volume: 80,
   vibration: true,
+  sideJobs: JSON.parse(JSON.stringify(DEFAULT_SIDE_JOBS)),
   businesses: JSON.parse(JSON.stringify(DEFAULT_BUSINESSES)),
   realEstate: JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE)),
   airline: JSON.parse(JSON.stringify(DEFAULT_AIRLINE)),
@@ -906,10 +938,13 @@ function getBusinessCost(business) {
 }
 
 /**
- * Суммарный пассивный доход в секунду (базовый доход всех бизнесов * множитель перерождения)
+ * Суммарный пассивный доход в секунду (базовый доход всех бизнесов и подработок * множитель перерождения)
  */
 function getTotalPassiveIncome() {
-  const base = state.businesses.reduce((sum, b) => sum + (b.count * b.baseIncome), 0);
+  let base = state.businesses.reduce((sum, b) => sum + (b.count * b.baseIncome), 0);
+  if (state.sideJobs) {
+    base += state.sideJobs.reduce((sum, j) => sum + (j.owned ? j.income : 0), 0);
+  }
   const mult = getRebirthMultiplier();
   return Math.round(base * mult);
 }
@@ -921,6 +956,13 @@ function getTotalPassiveIncome() {
 function calculateNetWorth() {
   let total = state.balance;
   
+  // Стартовые подработки
+  if (state.sideJobs) {
+    state.sideJobs.forEach(j => {
+      if (j.owned) total += j.cost;
+    });
+  }
+
   // Недвижимость
   state.realEstate.forEach(item => {
     if (item.owned) {
@@ -1058,7 +1100,8 @@ const upgradeActionLabel = document.getElementById('upgradeActionLabel');
 const clickUpgradeCostText = document.getElementById('clickUpgradeCostText');
 const upgradeSkinHint = document.getElementById('upgradeSkinHint');
 
-// Бизнесы
+// Подработки и Бизнесы
+const sideJobsList = document.getElementById('sideJobsList');
 const businessesList = document.getElementById('businessesList');
 const businessBadge = document.getElementById('businessBadge');
 
@@ -1276,12 +1319,121 @@ function updateTapUpgradeCard() {
 }
 
 /**
+ * Рендеринг начальных подработок (покупка строго 1 раз)
+ */
+function renderSideJobs() {
+  if (!sideJobsList) return;
+  sideJobsList.innerHTML = '';
+  const mult = getRebirthMultiplier();
+
+  state.sideJobs.forEach(job => {
+    const canAfford = state.balance >= job.cost;
+    const currentIncome = Math.round(job.income * mult);
+
+    const card = document.createElement('div');
+    card.className = `sidejob-card ${job.owned ? 'owned' : ''} ${canAfford && !job.owned ? 'can-afford' : ''}`;
+    card.innerHTML = `
+      <div class="sidejob-top-row">
+        <div class="sidejob-icon-box">${job.icon}</div>
+        <div class="sidejob-main-info">
+          <div class="sidejob-title-row">
+            <span class="sidejob-name">${job.name}</span>
+            <span class="sidejob-status-pill">${job.owned ? '✅ Устроен' : 'Доступно'}</span>
+          </div>
+          <div class="sidejob-desc">${job.desc}</div>
+          <div class="sidejob-income-stat">
+            <span>⚡ Доход:</span>
+            <span class="sidejob-income-num">+${formatNumber(currentIncome)}</span>
+            <span class="currency-text">${getCurrencySymbol()}</span>
+            <span>/ сек</span>
+          </div>
+        </div>
+      </div>
+      <div class="sidejob-bottom-row">
+        <button class="btn-buy-sidejob" data-job-id="${job.id}" ${job.owned || !canAfford ? 'disabled' : ''}>
+          <span>${job.owned ? '✅ Устроен(а) на работу' : 'Устроиться на подработку'}</span>
+          ${job.owned ? '' : `<span class="btn-sidejob-cost">${formatNumber(job.cost)} <span class="currency-text">${getCurrencySymbol()}</span></span>`}
+        </button>
+      </div>
+    `;
+
+    if (!job.owned) {
+      const buyBtn = card.querySelector('.btn-buy-sidejob');
+      buyBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        buySideJob(job.id);
+      });
+    }
+
+    sideJobsList.appendChild(card);
+  });
+}
+
+function updateSideJobsAffordability() {
+  if (!sideJobsList) return;
+  const cards = sideJobsList.querySelectorAll('.sidejob-card');
+
+  state.sideJobs.forEach((job, index) => {
+    const card = cards[index];
+    if (!card) return;
+
+    if (job.owned) {
+      card.classList.add('owned');
+      card.classList.remove('can-afford');
+      const btn = card.querySelector('.btn-buy-sidejob');
+      if (btn) btn.disabled = true;
+      return;
+    }
+
+    const canAfford = state.balance >= job.cost;
+    if (canAfford) card.classList.add('can-afford');
+    else card.classList.remove('can-afford');
+
+    const btn = card.querySelector('.btn-buy-sidejob');
+    if (btn) btn.disabled = !canAfford;
+  });
+}
+
+function buySideJob(jobId) {
+  const job = state.sideJobs.find(j => j.id === jobId);
+  if (!job || job.owned) return;
+
+  if (state.balance < job.cost) {
+    soundManager.playError();
+    triggerHaptic('error');
+    return;
+  }
+
+  state.balance -= job.cost;
+  job.owned = true;
+
+  soundManager.playBusinessBuy();
+  triggerHaptic('success');
+
+  updateHeader();
+  renderSideJobs();
+  renderBusinesses();
+  renderEarningsScreen();
+  updateStatsUI();
+  saveGameState();
+}
+
+/**
  * Рендеринг списка бизнесов
  */
 function renderBusinesses() {
+  renderSideJobs();
+
   businessesList.innerHTML = '';
   let canAffordAny = 0;
   const mult = getRebirthMultiplier();
+
+  // Учитываем подработки в бейдже
+  if (state.sideJobs) {
+    state.sideJobs.forEach(j => {
+      if (!j.owned && state.balance >= j.cost) canAffordAny++;
+    });
+  }
 
   state.businesses.forEach(b => {
     const cost = getBusinessCost(b);
@@ -1341,6 +1493,15 @@ function renderBusinesses() {
 
 function updateBusinessAffordability() {
   let canAffordAny = 0;
+
+  // Проверка доступности подработок
+  if (state.sideJobs) {
+    state.sideJobs.forEach(j => {
+      if (!j.owned && state.balance >= j.cost) canAffordAny++;
+    });
+  }
+  updateSideJobsAffordability();
+
   const cards = businessesList.querySelectorAll('.business-card');
   
   state.businesses.forEach((b, index) => {
@@ -2296,6 +2457,7 @@ function performRebirth() {
   state.tapLevel = 1;
   state.businesses.forEach(b => b.count = 0);
   state.realEstate.forEach(r => r.owned = false);
+  if (state.sideJobs) state.sideJobs.forEach(j => j.owned = false);
   state.airline = JSON.parse(JSON.stringify(DEFAULT_AIRLINE));
 
   applyTheme(state.tapLevel);
@@ -2549,6 +2711,16 @@ function loadGameState() {
         state.stats.playTimeSeconds = saved.stats.playTimeSeconds || 0;
       }
 
+      // Мерджим подработки
+      if (Array.isArray(saved.sideJobs)) {
+        state.sideJobs.forEach(defaultJob => {
+          const found = saved.sideJobs.find(j => j.id === defaultJob.id);
+          if (found && typeof found.owned === 'boolean') {
+            defaultJob.owned = found.owned;
+          }
+        });
+      }
+
       // Мерджим бизнесы
       if (Array.isArray(saved.businesses)) {
         state.businesses.forEach(defaultBiz => {
@@ -2699,6 +2871,7 @@ btnConfirmReset.addEventListener('click', () => {
   state.currency = 'RUB';
   state.volume = 80;
   state.vibration = true;
+  state.sideJobs = JSON.parse(JSON.stringify(DEFAULT_SIDE_JOBS));
   state.businesses = JSON.parse(JSON.stringify(DEFAULT_BUSINESSES));
   state.realEstate = JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE));
   state.airline = JSON.parse(JSON.stringify(DEFAULT_AIRLINE));
@@ -2714,6 +2887,7 @@ btnConfirmReset.addEventListener('click', () => {
   updateCurrencySymbols();
   updateHeader();
   renderEarningsScreen();
+  renderSideJobs();
   renderBusinesses();
   renderRealEstate();
   renderLeaderboard();
