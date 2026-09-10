@@ -330,6 +330,21 @@
 
           <!-- ВИД 1: ВИТРИНА КЕЙСОВ (#casesShopView) -->
           <div class="cases-view-container active" id="casesShopView">
+
+            <!-- Быстрое открытие кейсов (переключатель без ожидания анимации) -->
+            <div class="cases-quick-bar">
+              <div class="quick-bar-info">
+                <span class="quick-bar-icon">⚡</span>
+                <div class="quick-bar-texts">
+                  <span class="quick-bar-title">Быстрое открытие</span>
+                  <span class="quick-bar-desc">Пропуск анимации рулетки (мгновенный результат)</span>
+                </div>
+              </div>
+              <label class="toggle-switch" for="toggleFastCaseOpen" aria-label="Быстрое открытие кейсов">
+                <input type="checkbox" id="toggleFastCaseOpen">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
             
             <!-- 0. Кейс «Новичок» (10 000 ₽) -->
             <div class="case-card case-novice" id="cardCaseNovice">
@@ -927,8 +942,23 @@
                 <span class="settings-card-title">Тактильный отклик</span>
                 <span class="settings-card-subtitle">Вибрация при тапе (для смартфонов)</span>
               </div>
-              <label class="toggle-switch">
+              <label class="toggle-switch" for="vibrationToggle">
                 <input type="checkbox" id="vibrationToggle" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Настройка быстрого открытия кейсов -->
+          <div class="settings-card">
+            <div class="settings-card-header">
+              <div class="settings-card-icon">⚡</div>
+              <div class="settings-card-title-group">
+                <span class="settings-card-title">Быстрое открытие кейсов</span>
+                <span class="settings-card-subtitle">Мгновенное открытие без ожидания анимации</span>
+              </div>
+              <label class="toggle-switch" for="toggleSettingsFastCaseOpen">
+                <input type="checkbox" id="toggleSettingsFastCaseOpen">
                 <span class="toggle-slider"></span>
               </label>
             </div>
@@ -1242,6 +1272,13 @@
       
       <div class="case-modal-header">
         <span class="case-opening-pill" id="caseOpeningTitle">Открытие кейса</span>
+        <label class="modal-fast-switch-wrap" for="toggleModalFastCaseOpen" title="Быстрое открытие кейсов">
+          <span class="modal-fast-switch-text">⚡ Быстро</span>
+          <span class="toggle-switch toggle-switch-sm">
+            <input type="checkbox" id="toggleModalFastCaseOpen">
+            <span class="toggle-slider"></span>
+          </span>
+        </label>
         <button class="btn-modal-close" id="btnCloseCaseModal" aria-label="Закрыть">✕</button>
       </div>
 

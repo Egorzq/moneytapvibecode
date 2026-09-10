@@ -1703,6 +1703,7 @@ let state = {
   realEstate: JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE)),
   airline: JSON.parse(JSON.stringify(DEFAULT_AIRLINE)),
   servers: {},
+  fastCaseOpen: false,
   apiKeys: {},
   inventory: {}, // itemId: { count: 1, date: timestamp }
   market: {
@@ -2727,6 +2728,27 @@ const newItemBanner = document.getElementById('newItemBanner');
 const btnCaseCollect = document.getElementById('btnCaseCollect');
 const btnCaseReopen = document.getElementById('btnCaseReopen');
 
+// Быстрое открытие кейсов
+const toggleFastCaseOpen = document.getElementById('toggleFastCaseOpen');
+const toggleModalFastCaseOpen = document.getElementById('toggleModalFastCaseOpen');
+const toggleSettingsFastCaseOpen = document.getElementById('toggleSettingsFastCaseOpen');
+
+function syncFastCaseOpenUI() {
+  const isFast = Boolean(state.fastCaseOpen);
+  if (toggleFastCaseOpen) toggleFastCaseOpen.checked = isFast;
+  if (toggleModalFastCaseOpen) toggleModalFastCaseOpen.checked = isFast;
+  if (toggleSettingsFastCaseOpen) toggleSettingsFastCaseOpen.checked = isFast;
+}
+
+function setFastCaseOpen(enabled) {
+  state.fastCaseOpen = Boolean(enabled);
+  syncFastCaseOpenUI();
+  soundManager.playTap();
+  triggerHaptic('light');
+  saveGameState();
+}
+
+
 // Перерождение
 const rebirthStageBadge = document.getElementById('rebirthStageBadge');
 const currentMultText = document.getElementById('currentMultText');
@@ -2967,6 +2989,8 @@ function buyClickModifier(modId) {
   if (!state.clickModifiers) {
     state.servers = {};
   state.apiKeys = {};
+  state.fastCaseOpen = false;
+  syncFastCaseOpenUI();
   state.clickModifiers = { power_mult: 0, crit_tap: 0, resonance: 0, golden_touch: 0 };
   }
 
@@ -4183,6 +4207,18 @@ function openCase(caseId) {
   const wonItem = pickRandomItemForCase(caseId);
   lastWonItem = wonItem;
 
+  // Быстрое открытие (мгновенный пропуск анимации рулетки)
+  if (state.fastCaseOpen) {
+    isRouletteSpinning = false;
+    if (caseOpeningTitle) caseOpeningTitle.textContent = `Открытие: ${caseDef.name}`;
+    if (rouletteContainer) rouletteContainer.style.display = 'none';
+    if (caseRewardStage) caseRewardStage.style.display = 'flex';
+    if (caseOpenModal) caseOpenModal.classList.add('active');
+    finishCaseOpening(wonItem);
+    return;
+  }
+
+
   // Подготовка модального окна рулетки
   if (caseOpeningTitle) caseOpeningTitle.textContent = `Открытие: ${caseDef.name}`;
   if (caseRewardStage) caseRewardStage.style.display = 'none';
@@ -4280,7 +4316,12 @@ function finishCaseOpening(wonItem) {
     if (rewardItemDesc) rewardItemDesc.textContent = wonItem.desc;
     if (rewardValueAmount) rewardValueAmount.textContent = isDuplicate ? `${formatNumber(wonItem.cost)} ${getCurrencySymbol()}` : 'Ключ Доступа';
     if (rewardIncomeAmount) rewardIncomeAmount.textContent = 'Разблокировка сервера';
-    if (rewardItemCard) rewardItemCard.className = `reward-item-card ${rarity.class}`;
+    if (rewardItemCard) {
+      rewardItemCard.className = `reward-item-card ${rarity.class}`;
+      rewardItemCard.classList.remove('reward-item-pop');
+      void rewardItemCard.offsetHeight;
+      rewardItemCard.classList.add('reward-item-pop');
+    }
     if (rewardGlowBurst) rewardGlowBurst.style.background = rarity.color || '#818cf8';
 
     soundManager.playCaseWin(wonItem.rarity);
@@ -5614,6 +5655,16 @@ document.querySelectorAll('.inv-chip').forEach(chip => {
 if (btnCloseCaseModal) bindTouchClick(btnCloseCaseModal, closeCaseModal);
 if (btnCaseCollect) bindTouchClick(btnCaseCollect, closeCaseModal);
 
+// Слушатели тумблеров быстрого открытия кейсов
+[toggleFastCaseOpen, toggleModalFastCaseOpen, toggleSettingsFastCaseOpen].forEach(toggle => {
+  if (toggle) {
+    toggle.addEventListener('change', (e) => {
+      setFastCaseOpen(e.target.checked);
+    });
+  }
+});
+
+
 if (btnCaseReopen) {
   bindTouchClick(btnCaseReopen, () => {
     if (currentOpeningCaseId) {
@@ -5923,6 +5974,14 @@ function loadGameState() {
 
 
       // Мерджим API-ключи и сервера
+
+      if (typeof saved.fastCaseOpen === 'boolean') {
+        state.fastCaseOpen = saved.fastCaseOpen;
+      } else {
+        state.fastCaseOpen = false;
+      }
+      syncFastCaseOpenUI();
+
       if (saved.apiKeys && typeof saved.apiKeys === 'object') {
         state.apiKeys = saved.apiKeys;
       } else {
@@ -6233,6 +6292,8 @@ function initGame() {
       }
     });
   }
+
+  syncFastCaseOpenUI();
 
   const unlockAudio = () => {
     soundManager.init();
