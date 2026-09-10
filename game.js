@@ -50,15 +50,18 @@ const DEFAULT_SIDE_JOBS = [
 
 // 9 бизнесов (от 1 млн до 1 трлн руб)
 // Первая прокачка автофарма стоит строго 1 000 000 рублей по ТЗ!
+// 21 бизнес (от 1 млн руб до 120 секстиллионов)
+// Разблокируются по уровням перерождений (reqRebirth: 0..25)
 const DEFAULT_BUSINESSES = [
   {
     id: 'coffee',
     name: 'Франшиза кофеен',
     icon: '☕',
     desc: 'Сеть стильных кофеен с крафтовым зерном и стабильным потоком гостей.',
-    baseCost: 1000000, // Первый бизнес строго 1 000 000 руб по ТЗ!
+    baseCost: 1000000,
     baseIncome: 2500,
-    count: 0
+    count: 0,
+    reqRebirth: 0
   },
   {
     id: 'carwash',
@@ -67,7 +70,8 @@ const DEFAULT_BUSINESSES = [
     desc: 'Бесконтактная мойка самообслуживания на оживленном шоссе.',
     baseCost: 5000000,
     baseIncome: 15000,
-    count: 0
+    count: 0,
+    reqRebirth: 0
   },
   {
     id: 'barbershop',
@@ -76,7 +80,8 @@ const DEFAULT_BUSINESSES = [
     desc: 'Премиальный салон мужского стиля с зоной отдыха.',
     baseCost: 25000000,
     baseIncome: 80000,
-    count: 0
+    count: 0,
+    reqRebirth: 0
   },
   {
     id: 'it_company',
@@ -85,7 +90,8 @@ const DEFAULT_BUSINESSES = [
     desc: 'Разработка мобильных приложений и AI-сервисов по подписке.',
     baseCost: 120000000,
     baseIncome: 450000,
-    count: 0
+    count: 0,
+    reqRebirth: 0
   },
   {
     id: 'bank',
@@ -94,7 +100,8 @@ const DEFAULT_BUSINESSES = [
     desc: 'Управление инвестициями, выдача займов и венчурный фонд.',
     baseCost: 600000000,
     baseIncome: 2500000,
-    count: 0
+    count: 0,
+    reqRebirth: 0
   },
   {
     id: 'hotel_chain',
@@ -103,7 +110,8 @@ const DEFAULT_BUSINESSES = [
     desc: 'Роскошные курортные отели с казино и вертолетными площадками.',
     baseCost: 3000000000,
     baseIncome: 14000000,
-    count: 0
+    count: 0,
+    reqRebirth: 1
   },
   {
     id: 'oil_company',
@@ -112,7 +120,8 @@ const DEFAULT_BUSINESSES = [
     desc: 'Добыча, переработка черного золота и международный экспорт.',
     baseCost: 20000000000,
     baseIncome: 100000000,
-    count: 0
+    count: 0,
+    reqRebirth: 1
   },
   {
     id: 'space_corp',
@@ -121,7 +130,8 @@ const DEFAULT_BUSINESSES = [
     desc: 'Орбитальные полеты, добыча ресурсов на астероидах и спутники.',
     baseCost: 150000000000,
     baseIncome: 800000000,
-    count: 0
+    count: 0,
+    reqRebirth: 2
   },
   {
     id: 'quantum_ai',
@@ -130,7 +140,128 @@ const DEFAULT_BUSINESSES = [
     desc: 'Суперкомпьютеры на квантовых чипах и глобальные нейросети.',
     baseCost: 1000000000000,
     baseIncome: 6000000000,
-    count: 0
+    count: 0,
+    reqRebirth: 2
+  },
+  {
+    id: 'fusion_energy',
+    name: 'Завод термоядерных реакторов',
+    icon: '⚛️',
+    desc: 'Чистая энергия синтеза изотопов водорода для целых континентов.',
+    baseCost: 8000000000000,
+    baseIncome: 50000000000,
+    count: 0,
+    reqRebirth: 3
+  },
+  {
+    id: 'lunar_mining',
+    name: 'Лунная база добычи гелия-3',
+    icon: '🌖',
+    desc: 'Автономные комбайны перерабатывают лунный реголит на экспорт.',
+    baseCost: 60000000000000,
+    baseIncome: 400000000000,
+    count: 0,
+    reqRebirth: 3
+  },
+  {
+    id: 'orbital_shipyard',
+    name: 'Орбитальная мегаверфь',
+    icon: '🛸',
+    desc: 'Строительство колониальных звездолетов на геостационарной орбите.',
+    baseCost: 500000000000000,
+    baseIncome: 3500000000000,
+    count: 0,
+    reqRebirth: 5
+  },
+  {
+    id: 'space_elevator',
+    name: 'Космический лифт Земля-Орбита',
+    icon: '🛰️',
+    desc: 'Углеродный нанотрос высотой 36 000 км с непрерывной доставкой грузов.',
+    baseCost: 4000000000000000,
+    baseIncome: 30000000000000,
+    count: 0,
+    reqRebirth: 5
+  },
+  {
+    id: 'dyson_swarm',
+    name: 'Сфера Дайсона вокруг Солнца',
+    icon: '☀️',
+    desc: 'Миллионы зеркал улавливают 100% энергии солнечного излучения.',
+    baseCost: 35000000000000000,
+    baseIncome: 280000000000000,
+    count: 0,
+    reqRebirth: 8
+  },
+  {
+    id: 'interstellar_trade',
+    name: 'Межзвездная торговая гильдия',
+    icon: '🌌',
+    desc: 'Варп-караваны между звездными системами с экзотическими ресурсами.',
+    baseCost: 300000000000000000,
+    baseIncome: 2500000000000000,
+    count: 0,
+    reqRebirth: 8
+  },
+  {
+    id: 'antimatter_factory',
+    name: 'Коллайдерная фабрика антиматерии',
+    icon: '⚡',
+    desc: 'Синтез килограммов чистого антивещества высочайшей энергоемкости.',
+    baseCost: 2500000000000000000,
+    baseIncome: 22000000000000000,
+    count: 0,
+    reqRebirth: 12
+  },
+  {
+    id: 'stellar_forge',
+    name: 'Генератор искусственных звезд',
+    icon: '🌟',
+    desc: 'Создание нейтронных звезд и белых карликов для питания цивилизации.',
+    baseCost: 20000000000000000000,
+    baseIncome: 180000000000000000,
+    count: 0,
+    reqRebirth: 12
+  },
+  {
+    id: 'terraforming_corp',
+    name: 'Корпорация терраформирования планет',
+    icon: '🪐',
+    desc: 'Превращение необитаемых миров в цветущие райские оазисы за годы.',
+    baseCost: 180000000000000000000,
+    baseIncome: 1700000000000000000,
+    count: 0,
+    reqRebirth: 18
+  },
+  {
+    id: 'intergalactic_web',
+    name: 'Межгалактический квантовый интернет',
+    icon: '🌐',
+    desc: 'Мгновенная передача данных сквозь световые года через квантовую запутанность.',
+    baseCost: 1500000000000000000000,
+    baseIncome: 15000000000000000000,
+    count: 0,
+    reqRebirth: 18
+  },
+  {
+    id: 'multiverse_bank',
+    name: 'Банк Мультивселенной',
+    icon: '🏛️',
+    desc: 'Инвестиции в триллионы параллельных реальностей одновременно.',
+    baseCost: 15000000000000000000000,
+    baseIncome: 160000000000000000000,
+    count: 0,
+    reqRebirth: 25
+  },
+  {
+    id: 'dimension_forge',
+    name: 'Архитектура высших измерений',
+    icon: '🌀',
+    desc: 'Повелевание пространством, временем и физическими законами вселенной.',
+    baseCost: 120000000000000000000000,
+    baseIncome: 1400000000000000000000,
+    count: 0,
+    reqRebirth: 25
   }
 ];
 
@@ -440,6 +571,150 @@ const DEFAULT_REAL_ESTATE = [
       { id: 'gravity_module', name: 'Модуль искусственной гравитации', icon: '🪐', cost: 500000000000, bonusValue: 900000000000, bought: false },
       { id: 'space_taxi', name: 'Многоразовый космический шаттл', icon: '🚀', cost: 600000000000, bonusValue: 1100000000000, bought: false }
     ]
+  },
+  {
+    id: 'cyber_penthouse',
+    category: 'Недвижимость',
+    name: 'Кибер-пентхаус Neo-Tokyo',
+    icon: '🏙️',
+    desc: 'Двухуровневый пентхаус на 180 этаже башни Синдзюку с голографическим садом и посадочной площадкой для спидеров.',
+    cost: 1200000000000,
+    owned: false,
+    location: 'Токио, Нео-Синдзюку',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'holo_garden', name: 'Голографический сад сакуры', icon: '🌸', cost: 250000000000, bonusValue: 400000000000, bought: false },
+      { id: 'shield_matrix', name: 'Силовое защитное поле', icon: '🛡️', cost: 350000000000, bonusValue: 550000000000, bought: false }
+    ]
+  },
+  {
+    id: 'underwater_palace',
+    category: 'Недвижимость',
+    name: 'Подводный коралловый дворец',
+    icon: '🌊',
+    desc: 'Атлантический дворец на глубине 50 метров из сверхпрочного акрила с обзором кораллового рифа 360°.',
+    cost: 2500000000000,
+    owned: false,
+    location: 'Мальдивы, Атолл Ари',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'sub_dock', name: 'Причал батискафов Triton', icon: '🤿', cost: 600000000000, bonusValue: 950000000000, bought: false },
+      { id: 'coral_spa', name: 'SPA-хаммам с морской водой', icon: '🧖‍♂️', cost: 750000000000, bonusValue: 1200000000000, bought: false }
+    ]
+  },
+  {
+    id: 'aspen_resort',
+    category: 'Недвижимость',
+    name: 'Частный курорт в Аспене',
+    icon: '🏔️',
+    desc: 'Целая заснеженная гора с частными подъемниками, вертолетным ангаром и спа-отелем из канадского кедра.',
+    cost: 6000000000000,
+    owned: false,
+    location: 'Колорадо, Аспен',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'heated_slopes', name: 'Подогрев горнолыжных трасс', icon: '⛷️', cost: 1500000000000, bonusValue: 2400000000000, bought: false },
+      { id: 'chalet_heli', name: 'Парк вертолетов Airbus H160', icon: '🚁', cost: 1800000000000, bonusValue: 2900000000000, bought: false }
+    ]
+  },
+  {
+    id: 'floating_megacity',
+    category: 'Недвижимость',
+    name: 'Автономный океанический полис',
+    icon: '🏝️',
+    desc: 'Искусственный плавучий остров-город в нейтральных водах с собственной конституцией, банком и аэропортом.',
+    cost: 15000000000000,
+    owned: false,
+    location: 'Тихий океан, Экватор',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'wave_power', name: 'Океаническая гео-электростанция', icon: '⚡', cost: 3500000000000, bonusValue: 5600000000000, bought: false },
+      { id: 'superyacht_marina', name: 'Глубоководная гавань на 50 мегаяхт', icon: '🛥️', cost: 4500000000000, bonusValue: 7200000000000, bought: false }
+    ]
+  },
+  {
+    id: 'lunar_citadel',
+    category: 'Недвижимость',
+    name: 'Лунная цитадель в Море Спокойствия',
+    icon: '🌖',
+    desc: 'Герметичный биосферный комплекс под защитным куполом с искусственной гравитацией и видом на восход Земли.',
+    cost: 45000000000000,
+    owned: false,
+    location: 'Луна, Залив Радуги',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'gravity_gen', name: 'Генератор земной гравитации 1G', icon: '🪐', cost: 11000000000000, bonusValue: 18000000000000, bought: false },
+      { id: 'earth_observatory', name: 'Телескоп высокого разрешения', icon: '🔭', cost: 13000000000000, bonusValue: 21000000000000, bought: false }
+    ]
+  },
+  {
+    id: 'mars_biosphere',
+    category: 'Недвижимость',
+    name: 'Марсианская биосферная вилла',
+    icon: '🪐',
+    desc: 'Огромный терраформированный кратер с сосновым бором, пресным озером и личным космодромом на Марсе.',
+    cost: 120000000000000,
+    owned: false,
+    location: 'Марс, Долина Маринер',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'atmosphere_gen', name: 'Генератор кислородной атмосферы', icon: '💨', cost: 28000000000000, bonusValue: 46000000000000, bought: false },
+      { id: 'mars_spaceport', name: 'Частный шаттл-порт для межпланетных перелетов', icon: '🚀', cost: 35000000000000, bonusValue: 58000000000000, bought: false }
+    ]
+  },
+  {
+    id: 'orbital_hotel_ring',
+    category: 'Недвижимость',
+    name: 'Кольцевой орбитальный отель-станция',
+    icon: '🛰️',
+    desc: 'Вращающаяся станция диаметром 2 километра на геостационарной орбите. Люкс-сьюты с видом на континенты.',
+    cost: 350000000000000,
+    owned: false,
+    location: 'Околоземная орбита (400 км)',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'zero_g_casino', name: 'Казино в невесомости Zero-G', icon: '🎰', cost: 80000000000000, bonusValue: 130000000000000, bought: false },
+      { id: 'space_dock_vip', name: 'VIP-шлюзы для частных звездолетов', icon: '🛸', cost: 100000000000000, bonusValue: 165000000000000, bought: false }
+    ]
+  },
+  {
+    id: 'galaxy_sector',
+    category: 'Недвижимость',
+    name: 'Частный галактический сектор',
+    icon: '🌌',
+    desc: 'Целая звездная система с тремя обитаемыми планетами, астероидным кольцом из чистого золота и пространственными вратами.',
+    cost: 1000000000000000,
+    owned: false,
+    location: 'Сектор Альфа Центавра',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'warp_gate', name: 'Врата межпространственного перехода', icon: '🌀', cost: 240000000000000, bonusValue: 390000000000000, bought: false },
+      { id: 'dyson_crown', name: 'Венец управления звездной системой', icon: '👑', cost: 300000000000000, bonusValue: 500000000000000, bought: false }
+    ]
   }
 ];
 
@@ -509,16 +784,36 @@ const DEFAULT_AIRLINE = {
 // Вымышленный лидерборд богатейших людей (Forbes)
 // Первое место ровно 1 000 000 000 рублей по требованию ТЗ!
 const LEADERBOARD_BOTS = [
-  { id: 'b1', name: 'Александр Громов', company: 'Global Energy Corp', worth: 1000000000, avatar: '👑' },
-  { id: 'b2', name: 'Виктория Ротшильд', company: 'Rothschild Financial', worth: 750000000, avatar: '💎' },
-  { id: 'b3', name: 'Герман фон Бауэр', company: 'Bauer Heavy Industries', worth: 520000000, avatar: '🏭' },
-  { id: 'b4', name: 'Маркус Вэйлор', company: 'Quantum AI Systems', worth: 340000000, avatar: '🤖' },
-  { id: 'b5', name: 'Елена Морозова', company: 'Morozov Retail Group', worth: 210000000, avatar: '🏬' },
-  { id: 'b6', name: 'Дэвид Чэнь', company: 'Dragon Oceanic Logistics', worth: 130000000, avatar: '🚢' },
-  { id: 'b7', name: 'Роман Заславский', company: 'Zaslavsky Gold Mines', worth: 80000000, avatar: '⛏️' },
-  { id: 'b8', name: 'София Бельмонте', company: 'Haute Couture Group', worth: 45000000, avatar: '✨' },
-  { id: 'b9', name: 'Артем Смирнов', company: 'PharmLife Biotech', worth: 20000000, avatar: '🧪' },
-  { id: 'b10', name: 'Кристиан Вульф', company: 'Wolf Express Delivery', worth: 10000000, avatar: '📦' }
+  { id: 'b1', name: 'Император Астрал', company: 'OmniVerse Singularity', worth: 100000000000000000000, avatar: '🌌' },
+  { id: 'b2', name: 'Властелин Кронос', company: 'Temporal Continuum Corp', worth: 25000000000000000000, avatar: '⏳' },
+  { id: 'b3', name: 'Кибероракул Нео', company: 'Matrix Quantum Mind', worth: 5000000000000000000, avatar: '🤖' },
+  { id: 'b4', name: 'Серафим Голдман', company: 'Interstellar Galactic Bank', worth: 1200000000000000000, avatar: '👑' },
+  { id: 'b5', name: 'Герцог Дайсон', company: 'Solar Dyson Syndicate', worth: 300000000000000000, avatar: '☀️' },
+  { id: 'b6', name: 'Барон Антиматерии', company: 'Collider Energy Holdings', worth: 75000000000000000, avatar: '⚡' },
+  { id: 'b7', name: 'Адмирал Скайуорд', company: 'Orbital Heavy Fleet', worth: 18000000000000000, avatar: '🛸' },
+  { id: 'b8', name: 'Лорд Терраформер', company: 'Mars Genesis Corp', worth: 4500000000000000, avatar: '🪐' },
+  { id: 'b9', name: 'Селена фон Луна', company: 'Lunar Helium Syndicate', worth: 1200000000000000, avatar: '🌖' },
+  { id: 'b10', name: 'Квант Магнат Ли', company: 'Deep Quantum Core', worth: 300000000000000, avatar: '🧠' },
+  { id: 'b11', name: 'Александр Громов', company: 'Global Energy Corp', worth: 75000000000000, avatar: '🛢️' },
+  { id: 'b12', name: 'Виктория Ротшильд', company: 'Rothschild Financial', worth: 20000000000000, avatar: '💎' },
+  { id: 'b13', name: 'Герман фон Бауэр', company: 'Bauer Heavy Industries', worth: 5000000000000, avatar: '🏭' },
+  { id: 'b14', name: 'Маркус Вэйлор', company: 'Quantum AI Systems', worth: 1500000000000, avatar: '💻' },
+  { id: 'b15', name: 'Елена Морозова', company: 'Morozov Retail Group', worth: 500000000000, avatar: '🏬' },
+  { id: 'b16', name: 'Дэвид Чэнь', company: 'Dragon Oceanic Logistics', worth: 200000000000, avatar: '🚢' },
+  { id: 'b17', name: 'Роман Заславский', company: 'Zaslavsky Gold Mines', worth: 80000000000, avatar: '⛏️' },
+  { id: 'b18', name: 'София Бельмонте', company: 'Haute Couture Group', worth: 35000000000, avatar: '✨' },
+  { id: 'b19', name: 'Артем Смирнов', company: 'PharmLife Biotech', worth: 15000000000, avatar: '🧪' },
+  { id: 'b20', name: 'Кристиан Вульф', company: 'Wolf Express Delivery', worth: 6000000000, avatar: '📦' },
+  { id: 'b21', name: 'Хироши Танака', company: 'Cybernetic Prosthetics', worth: 2500000000, avatar: '🦾' },
+  { id: 'b22', name: 'Изабелла Фонсека', company: 'Amazonia Eco Estate', worth: 1000000000, avatar: '🌿' },
+  { id: 'b23', name: 'Оливер Смит', company: 'AeroSky Private Jet', worth: 500000000, avatar: '✈️' },
+  { id: 'b24', name: 'Наталья Соколова', company: 'Imperial Vodka & Food', worth: 250000000, avatar: '🍸' },
+  { id: 'b25', name: 'Маттео Риччи', company: 'Milano Supercar Club', worth: 120000000, avatar: '🏎️' },
+  { id: 'b26', name: 'Олег Воронов', company: 'Nordic Timber & Metal', worth: 60000000, avatar: '🌲' },
+  { id: 'b27', name: 'Клэр Дюбуа', company: 'Boutique Hotel Collection', worth: 30000000, avatar: '🏨' },
+  { id: 'b28', name: 'Юсуф аль-Мансур', company: 'Desert Pearl Jewelers', worth: 15000000, avatar: '💍' },
+  { id: 'b29', name: 'Стивен Холл', company: 'Silicon Venture Studio', worth: 8000000, avatar: '📱' },
+  { id: 'b30', name: 'Максим Лебедев', company: 'Early Bird Startups', worth: 3000000, avatar: '🌱' }
 ];
 
 // Требования капитала для каждого из 30 перерождений (максимум 30x)
@@ -571,6 +866,13 @@ const RANKS = [
 // ==========================================
 
 const CASE_TYPES = {
+  novice: {
+    id: 'novice',
+    name: 'Кейс «Новичок»',
+    cost: 10000,
+    icon: '🌱',
+    badge: 'СТАРТОВЫЙ БОНУС'
+  },
   bronze: {
     id: 'bronze',
     name: 'Бронзовый кейс',
@@ -585,6 +887,13 @@ const CASE_TYPES = {
     icon: '🧰',
     badge: 'ГАДЖЕТЫ & ДЕВАЙСЫ'
   },
+  gold: {
+    id: 'gold',
+    name: 'Золотой кейс',
+    cost: 5000000,
+    icon: '👑',
+    badge: 'ЮВЕЛИРНЫЙ БЛЕСК'
+  },
   diamond: {
     id: 'diamond',
     name: 'Алмазный кейс',
@@ -592,12 +901,40 @@ const CASE_TYPES = {
     icon: '💎',
     badge: 'РОСКОШЬ & VIP'
   },
+  crypto: {
+    id: 'crypto',
+    name: 'Крипто-кейс',
+    cost: 50000000,
+    icon: '🪙',
+    badge: 'WEB3 & БЛОКЧЕЙН'
+  },
   property: {
     id: 'property',
     name: 'Кейс с имуществом',
     cost: 100000000,
     icon: '🏰',
     badge: 'ЭЛИТНАЯ НЕДВИЖИМОСТЬ'
+  },
+  cyberpunk: {
+    id: 'cyberpunk',
+    name: 'Киберпанк-кейс',
+    cost: 500000000,
+    icon: '⚡',
+    badge: 'КИБЕР-ТЕХНОЛОГИИ'
+  },
+  space: {
+    id: 'space',
+    name: 'Космический кейс',
+    cost: 5000000000,
+    icon: '🚀',
+    badge: 'КОСМИЧЕСКИЙ ЛЮКС'
+  },
+  mythic: {
+    id: 'mythic',
+    name: 'Кейс «Властелин Времени»',
+    cost: 50000000000,
+    icon: '✨',
+    badge: 'МИФИЧЕСКИЙ & МУЛЬТИВСЕЛЕННАЯ'
   }
 };
 
@@ -612,6 +949,17 @@ const RARITY_INFO = {
 };
 
 const CASE_ITEMS = [
+  // --- 0. КЕЙС «НОВИЧОК» (10 предметов, стоимость до 10 000 ₽, доход до 100 ₽/с) ---
+  { id: 'nov_coin', caseId: 'novice', name: 'Счастливая монетка 1898 года', icon: '🪙', rarity: 'common', cost: 1000, income: 5, desc: 'Старинная медная монетка, приносящая финансовую удачу.' },
+  { id: 'nov_wallet', caseId: 'novice', name: 'Кожаный кошелек ручной работы', icon: '👛', rarity: 'common', cost: 2000, income: 10, desc: 'Компактный итальянский кошелек с потайным отделением.' },
+  { id: 'nov_pen', caseId: 'novice', name: 'Перьевая ручка Parker', icon: '✒️', rarity: 'common', cost: 3000, income: 15, desc: 'Элегантный пишущий инструмент для подписания первых договоров.' },
+  { id: 'nov_player', caseId: 'novice', name: 'Винтажный кассетный плеер', icon: '🎧', rarity: 'rare', cost: 4500, income: 25, desc: 'Стильный ретро-плеер с теплым аналоговым звучанием.' },
+  { id: 'nov_lighter', caseId: 'novice', name: 'Зажигалка Zippo Classic', icon: '🔥', rarity: 'rare', cost: 5500, income: 35, desc: 'Надежная хромированная зажигалка с характерным металлическим кликом.' },
+  { id: 'nov_sunglasses', caseId: 'novice', name: 'Солнцезащитные очки Aviator', icon: '🕶️', rarity: 'rare', cost: 6500, income: 45, desc: 'Классические темные очки в золотистой оправе.' },
+  { id: 'nov_watch', caseId: 'novice', name: 'Кварцевые японские часы', icon: '⌚', rarity: 'epic', cost: 8000, income: 60, desc: 'Точный механизм с сапфировым стеклом и водозащитой.' },
+  { id: 'nov_bracelet', caseId: 'novice', name: 'Серебряный браслет удачи', icon: '📿', rarity: 'epic', cost: 9000, income: 75, desc: 'Плетение из чистого серебра с гравировкой знака бесконечности.' },
+  { id: 'nov_cufflinks', caseId: 'novice', name: 'Запонки с ониксом', icon: '👔', rarity: 'legendary', cost: 9800, income: 85, desc: 'Изысканное дополнение к деловому костюму начинающего магната.' },
+  { id: 'nov_token', caseId: 'novice', name: 'Золотой жетон триумфа', icon: '🏆', rarity: 'mythic', cost: 10000, income: 100, desc: 'Сверкающий золотой медальон, открывающий путь к миллиардам.' },
   // --- 0. БРОНЗОВЫЙ КЕЙС (10 предметов) ---
   {
     id: 'brz_sprat',
@@ -1018,7 +1366,66 @@ const CASE_ITEMS = [
     cost: 4000000000,
     income: 50000000,
     desc: 'Частный орбитальный туристический комплекс с панорамным куполом Земли.'
-  }
+  },
+  // --- 3. ЗОЛОТОЙ КЕЙС (10 предметов) ---
+  { id: 'gld_pen', caseId: 'gold', name: 'Золотая ручка Montblanc', icon: '✒️', rarity: 'common', cost: 800000, income: 3500, desc: 'Позолоченный пишущий прибор для подписания многомиллионных контрактов.' },
+  { id: 'gld_cufflinks', caseId: 'gold', name: 'Запонки с рубинами 750 пробы', icon: '✨', rarity: 'common', cost: 1200000, income: 5500, desc: 'Швейцарское ювелирное мастерство с натуральными бирманскими рубинами.' },
+  { id: 'gld_lighter', caseId: 'gold', name: 'Зажигалка S.T. Dupont из золота', icon: '🔥', rarity: 'common', cost: 1800000, income: 8000, desc: 'Французская золотая зажигалка со звонким переливом при открытии.' },
+  { id: 'gld_pendant', caseId: 'gold', name: 'Изумрудный кулон «Султан»', icon: '💚', rarity: 'rare', cost: 2600000, income: 12000, desc: 'Колумбийский изумруд чистейшей прозрачности в окружении бриллиантов.' },
+  { id: 'gld_bar_small', caseId: 'gold', name: 'Слиток золота 100г 999 пробы', icon: '🪙', rarity: 'rare', cost: 3500000, income: 18000, desc: 'Банковский слиток с сертификатом швейцарского аффинажного завода.' },
+  { id: 'gld_ring', caseId: 'gold', name: 'Перстень с сапфиром Cartier', icon: '💍', rarity: 'rare', cost: 4800000, income: 25000, desc: 'Фамильная драгоценность с глубоким синим кашмирским сапфиром.' },
+  { id: 'gld_watch', caseId: 'gold', name: 'Часы Rolex Submariner Gold', icon: '⌚', rarity: 'epic', cost: 7000000, income: 40000, desc: 'Легендарные швейцарские часы из 18-каратного желтого золота.' },
+  { id: 'gld_necklace', caseId: 'gold', name: 'Бриллиантовое колье Tiffany', icon: '💎', rarity: 'epic', cost: 11000000, income: 70000, desc: 'Сверкающая бриллиантовая нить, сияющая на закрытых светских раутах.' },
+  { id: 'gld_tiara', caseId: 'gold', name: 'Королевская тиара с жемчугом', icon: '👑', rarity: 'legendary', cost: 18000000, income: 130000, desc: 'Музейная реликвия европейского монаршего дома.' },
+  { id: 'gld_grail', caseId: 'gold', name: 'Золотой Грааль Мидаса', icon: '🏆', rarity: 'mythic', cost: 35000000, income: 300000, desc: 'Мифический золотой кубок, превращающий всё вокруг в богатство.' },
+
+  // --- 5. КРИПТО-КЕЙС (10 предметов) ---
+  { id: 'crp_wallet', caseId: 'crypto', name: 'Аппаратный сейф Ledger Gold', icon: '💳', rarity: 'common', cost: 8000000, income: 45000, desc: 'Бронированный крипто-кошелек с биометрическим доступом.' },
+  { id: 'crp_asic', caseId: 'crypto', name: 'ASIC-майнер Antminer S21 Pro', icon: '💻', rarity: 'common', cost: 14000000, income: 85000, desc: 'Сверхмощный вычислительный блок для добычи топовых блокчейнов.' },
+  { id: 'crp_hydro', caseId: 'crypto', name: 'Гидро-ферма охлаждения', icon: '🌊', rarity: 'common', cost: 22000000, income: 150000, desc: 'Бесшумный дата-центр в диэлектрической жидкости с КПД 99%.' },
+  { id: 'crp_node', caseId: 'crypto', name: 'Мастернода валидатора Ethereum', icon: '🌐', rarity: 'rare', cost: 38000000, income: 280000, desc: 'Стейкинг 1000 ETH с автоматическим получением комиссий от глобальной сети.' },
+  { id: 'crp_quantum_key', caseId: 'crypto', name: 'Квантовый шифратор сигнатур', icon: '🗝️', rarity: 'rare', cost: 55000000, income: 450000, desc: 'Криптографический модуль, неуязвимый для квантовых суперкомпьютеров.' },
+  { id: 'crp_defi', caseId: 'crypto', name: 'Автономный DeFi-арбитражный бот', icon: '📈', rarity: 'rare', cost: 80000000, income: 700000, desc: 'Высокочастотный AI-алгоритм торговли на DEX-биржах в миллисекунды.' },
+  { id: 'crp_flash', caseId: 'crypto', name: 'Флешка Сатоши Накамото', icon: '💾', rarity: 'epic', cost: 130000000, income: 1300000, desc: 'Легендарный накопитель с исходным кодом первого блока Genesis.' },
+  { id: 'crp_satellite', caseId: 'crypto', name: 'Орбитальный блокчейн-спутник', icon: '🛰️', rarity: 'epic', cost: 220000000, income: 2400000, desc: 'Спутниковый узел связи для межконтинентальных крипто-транзакций.' },
+  { id: 'crp_genesis_block', caseId: 'crypto', name: 'Кристалл Первичного Блока', icon: '💎', rarity: 'legendary', cost: 400000000, income: 5000000, desc: 'Физический носитель с нерушимым хешем основания цифровой эры.' },
+  { id: 'crp_ai_oracle', caseId: 'crypto', name: 'Квантовый Оракул Сети', icon: '🔮', rarity: 'mythic', cost: 850000000, income: 12000000, desc: 'Всевидящий алгоритм распределенного реестра будущего.' },
+
+  // --- 7. КИБЕРПАНК-КЕЙС (10 предметов) ---
+  { id: 'cyb_visor', caseId: 'cyberpunk', name: 'Нейро-очки дополненной реальности', icon: '🥽', rarity: 'common', cost: 80000000, income: 550000, desc: 'Голографический интерфейс с биосканером и трейдером рынков.' },
+  { id: 'cyb_deck', caseId: 'cyberpunk', name: 'Кибердека Arasaka Onyx', icon: '📟', rarity: 'common', cost: 140000000, income: 1050000, desc: 'Взлом сетевых протоколов и мгновенный доступ к закрытым базам данных.' },
+  { id: 'cyb_arm', caseId: 'cyberpunk', name: 'Бионический титановый манипулятор', icon: '🦾', rarity: 'common', cost: 220000000, income: 1800000, desc: 'Сверхточный протез с микромоторами и позолоченным покрытием.' },
+  { id: 'cyb_katana', caseId: 'cyberpunk', name: 'Молекулярная катана Kusanagi', icon: '🗡️', rarity: 'rare', cost: 360000000, income: 3200000, desc: 'Лезвие толщиной в одну молекулу с неоновой плазменной кромкой.' },
+  { id: 'cyb_hover', caseId: 'cyberpunk', name: 'Антигравитационный ховерборд Apex', icon: '🛹', rarity: 'rare', cost: 550000000, income: 5200000, desc: 'Полеты над ночными улицами мегаполиса со скоростью 300 км/ч.' },
+  { id: 'cyb_drone', caseId: 'cyberpunk', name: 'Боевой AI-дрон «Цербер»', icon: '🛸', rarity: 'rare', cost: 850000000, income: 8500000, desc: 'Автономный дрон-телохранитель с лазерной системой перехвата.' },
+  { id: 'cyb_exo', caseId: 'cyberpunk', name: 'Силовой экзоскелет Titan-V', icon: '🛡️', rarity: 'epic', cost: 1400000000, income: 15000000, desc: 'Военный экзокостюм с кинетическими щитами и реактивным ранцем.' },
+  { id: 'cyb_sandevistan', caseId: 'cyberpunk', name: 'Военный имплант Sandevistan', icon: '⚡', rarity: 'epic', cost: 2500000000, income: 30000000, desc: 'Ускоряет восприятие и рефлексы владельца в сотни раз.' },
+  { id: 'cyb_car', caseId: 'cyberpunk', name: 'Летающий спидер Quadra Turbo', icon: '🏎️', rarity: 'legendary', cost: 4500000000, income: 60000000, desc: 'Реактивный аэрокар для скоростных полетов между небоскребами.' },
+  { id: 'cyb_singularity_core', caseId: 'cyberpunk', name: 'Ядро ИИ «Сингулярность»', icon: '🤖', rarity: 'mythic', cost: 9000000000, income: 140000000, desc: 'Истинный сверхразум, способный оптимизировать глобальную экономику.' },
+
+  // --- 8. КОСМИЧЕСКИЙ КЕЙС (10 предметов) ---
+  { id: 'spc_meteor', caseId: 'space', name: 'Метеорит с платиной и палладием', icon: '🪨', rarity: 'common', cost: 800000000, income: 6000000, desc: 'Внеземной астероидный фрагмент с плотнейшими драгоценными металлами.' },
+  { id: 'spc_suit', caseId: 'space', name: 'Скафандр глубокого космоса EVA', icon: '👨‍🚀', rarity: 'common', cost: 1500000000, income: 12000000, desc: 'Кевларово-графеновый скафандр с радиационной защитой 5 класса.' },
+  { id: 'spc_telescope', caseId: 'space', name: 'Космический инфракрасный телескоп', icon: '🔭', rarity: 'common', cost: 2600000000, income: 22000000, desc: 'Сканирование далеких звездных систем в поисках ресурсных планет.' },
+  { id: 'spc_rover', caseId: 'space', name: 'Исследовательский марсоход Ares', icon: '🚜', rarity: 'rare', cost: 4200000000, income: 38000000, desc: 'Шестиколесный атомный вездеход для геологической разведки Марса.' },
+  { id: 'spc_engine', caseId: 'space', name: 'Ионно-плазменный двигатель V-9', icon: '🚀', rarity: 'rare', cost: 6800000000, income: 65000000, desc: 'Фотонный реактивный привод для межпланетных перелетов.' },
+  { id: 'spc_capsule', caseId: 'space', name: 'Капсула с чистой антиматерией', icon: '⚡', rarity: 'rare', cost: 11000000000, income: 110000000, desc: 'Магнитная ловушка с 1 граммом позитронов огромной энергоемкости.' },
+  { id: 'spc_station', caseId: 'space', name: 'Орбитальная солнечная батарея', icon: '🛰️', rarity: 'epic', cost: 18000000000, income: 190000000, desc: 'Километровое зеркало, передающее тераватты энергии на Землю лазером.' },
+  { id: 'spc_colony_base', caseId: 'space', name: 'Купольный модуль лунной колонии', icon: '🌕', rarity: 'epic', cost: 30000000000, income: 350000000, desc: 'Герметичный биосферный комплекс для проживания инженеров на Луне.' },
+  { id: 'spc_dreadnought', caseId: 'space', name: 'Тяжелый звездный крейсер Apex', icon: '🛸', rarity: 'legendary', cost: 55000000000, income: 700000000, desc: 'Флагман частного флота для защиты межзвездных торговых путей.' },
+  { id: 'spc_dark_sphere', caseId: 'space', name: 'Сфера Темной Энергии', icon: '🌌', rarity: 'mythic', cost: 110000000000, income: 1600000000, desc: 'Космический феномен, генерирующий гравитационную прибыль.' },
+
+  // --- 9. КЕЙС «ВЛАСТЕЛИН ВРЕМЕНИ» (10 предметов) ---
+  { id: 'myt_chronometer', caseId: 'mythic', name: 'Хронометр Вечности', icon: '⏳', rarity: 'common', cost: 9000000000, income: 90000000, desc: 'Песочные часы с пыльцой расколотых временных континуумов.' },
+  { id: 'myt_prism', caseId: 'mythic', name: 'Призма Четвертого Измерения', icon: '💎', rarity: 'common', cost: 16000000000, income: 170000000, desc: 'Кристалл, преломляющий время и умножающий финансовые потоки.' },
+  { id: 'myt_compass', caseId: 'mythic', name: 'Астральный Компас Реальностей', icon: '🧭', rarity: 'common', cost: 28000000000, income: 320000000, desc: 'Указывает на вселенные с наивысшей инвестиционной доходностью.' },
+  { id: 'myt_singularity', caseId: 'mythic', name: 'Микро-Сингулярность в Стазисе', icon: '🔮', rarity: 'rare', cost: 48000000000, income: 600000000, desc: 'Миниатюрная черная дыра, черпающая бесконечную энергию из вакуума.' },
+  { id: 'myt_mirror', caseId: 'mythic', name: 'Зеркало Параллельных Судеб', icon: '🪞', rarity: 'rare', cost: 80000000000, income: 1100000000, desc: 'Отражает версии будущего, где вы уже владеете всей галактикой.' },
+  { id: 'myt_key', caseId: 'mythic', name: 'Ключ от Портала Мультивселенной', icon: '🗝️', rarity: 'rare', cost: 130000000000, income: 1900000000, desc: 'Открывает доступ к рынкам бесконечного множества миров.' },
+  { id: 'myt_orb', caseId: 'mythic', name: 'Сфера Временной Петли', icon: '🌀', rarity: 'epic', cost: 220000000000, income: 3500000000, desc: 'Позволяет циклично капитализировать доходы из вчерашнего дня.' },
+  { id: 'myt_scepter', caseId: 'mythic', name: 'Скипетр Абсолютного Хроноса', icon: '🪄', rarity: 'epic', cost: 400000000000, income: 7000000000, desc: 'Останавливает время для соперников и многократно ускоряет ваш рост.' },
+  { id: 'myt_crown', caseId: 'mythic', name: 'Венец Властелина Мультивселенной', icon: '👑', rarity: 'legendary', cost: 800000000000, income: 16000000000, desc: 'Корона владыки, объединившего триллионы звездных империй.' },
+  { id: 'myt_eye', caseId: 'mythic', name: 'Око Вечного Творца Реальности', icon: '👁️', rarity: 'mythic', cost: 2000000000000, income: 45000000000, desc: 'Абсолютный источник бытия. Повелевает материей, временем и триллионами.' },
 ];
 
 const STORAGE_KEY = 'money_tapper_save_v2';
@@ -1030,7 +1437,13 @@ const STORAGE_KEY = 'money_tapper_save_v2';
 let state = {
   balance: 0,
   tapLevel: 1,
-  rebirthCount: 0, // от 0 до 10 (максимум)
+  selectedThemeId: null, // null = авто-выбор по уровню клика
+  rainbowBoost: {
+    active: false,
+    timeLeft: 0,
+    multiplier: 5
+  },
+  rebirthCount: 0, // от 0 до 30 (максимум)
   currency: 'RUB',
   volume: 80,
   vibration: true,
@@ -1042,6 +1455,13 @@ let state = {
   market: {
     lastUpdate: Date.now(),
     multipliers: {}
+  },
+  crystals: 0, // Премиум-валюта (пока нельзя получить)
+  clickModifiers: {
+    power_mult: 0,
+    crit_tap: 0,
+    resonance: 0,
+    golden_touch: 0
   },
   stats: {
     totalEarned: 0,
@@ -1383,6 +1803,81 @@ class SoundManager {
       });
     } catch (e) {}
   }
+
+  /**
+   * Предупреждение об автокликере: тревожный кибер-бип
+   */
+  playWarning() {
+    if (state.volume <= 0) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const t = this.ctx.currentTime;
+      [260, 207].forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(freq, t + idx * 0.12);
+        gain.gain.setValueAtTime(0.0001, t + idx * 0.12);
+        gain.gain.linearRampToValueAtTime(0.18, t + idx * 0.12 + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + idx * 0.12 + 0.11);
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(t + idx * 0.12);
+        osc.stop(t + idx * 0.12 + 0.12);
+      });
+    } catch (e) {}
+  }
+
+  /**
+   * Критический удар: звонкий кристальный аккорд
+   */
+  playCrit() {
+    if (state.volume <= 0) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const t = this.ctx.currentTime;
+      [880, 1318.51, 1760].forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, t + idx * 0.04);
+        gain.gain.setValueAtTime(0.0001, t + idx * 0.04);
+        gain.gain.linearRampToValueAtTime(0.2, t + idx * 0.04 + 0.006);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + idx * 0.04 + 0.18);
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(t + idx * 0.04);
+        osc.stop(t + idx * 0.04 + 0.2);
+      });
+    } catch (e) {}
+  }
+
+  /**
+   * Джекпот клика: праздничное восходящее арпеджио
+   */
+  playJackpot() {
+    if (state.volume <= 0) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const t = this.ctx.currentTime;
+      [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00].forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, t + idx * 0.04);
+        gain.gain.setValueAtTime(0.0001, t + idx * 0.04);
+        gain.gain.linearRampToValueAtTime(0.22, t + idx * 0.04 + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, t + idx * 0.04 + 0.3);
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(t + idx * 0.04);
+        osc.stop(t + idx * 0.04 + 0.32);
+      });
+    } catch (e) {}
+  }
 }
 
 const soundManager = new SoundManager();
@@ -1405,16 +1900,16 @@ function getRebirthMultiplier(count = state.rebirthCount) {
 // КОНФИГУРАЦИЯ ТЕМ ОФОРМЛЕНИЯ КЛИКА (1..100)
 // ==========================================
 const CLICK_THEMES = [
-  { minLvl: 1,  maxLvl: 9,   tier: 'Ранг 1', name: 'Изумрудный Новичок', icon: '🌱', hue: 155, desc: 'Начальная энергия финансового роста. Чистый изумрудный поток.' },
-  { minLvl: 10, maxLvl: 19,  tier: 'Ранг 2', name: 'Неоновый Киберпанк', icon: '⚡', hue: 190, desc: 'Высокотехнологичный неоновый заряд для скоростных тапов.' },
-  { minLvl: 20, maxLvl: 29,  tier: 'Ранг 3', name: 'Золотой Синдикат',   icon: '👑', hue: 45,  desc: 'Истинный блеск чистого золота и премиального влияния.' },
-  { minLvl: 30, maxLvl: 39,  tier: 'Ранг 4', name: 'Рубиновый Шторм',    icon: '🔥', hue: 350, desc: 'Пылкая мощь рубинового пламени, сжигающего любые преграды.' },
-  { minLvl: 40, maxLvl: 49,  tier: 'Ранг 5', name: 'Аметистовый Мистик',  icon: '🔮', hue: 275, desc: 'Магическая фиолетовая аура тайных мировых инвестиций.' },
-  { minLvl: 50, maxLvl: 59,  tier: 'Ранг 6', name: 'Ледяной Сапфир',     icon: '❄️', hue: 215, desc: 'Холодный расчет и несокрушимая кристальная мощь сапфира.' },
-  { minLvl: 60, maxLvl: 69,  tier: 'Ранг 7', name: 'Солнечный Феникс',   icon: '☀️', hue: 25,  desc: 'Ослепительная солнечная вспышка возрождающегося капитала.' },
-  { minLvl: 70, maxLvl: 79,  tier: 'Ранг 8', name: 'Платиновый Титан',   icon: '⚙️', hue: 230, desc: 'Сверхпрочный титановый сплав для непоколебимых магнатов.' },
-  { minLvl: 80, maxLvl: 89,  tier: 'Ранг 9', name: 'Квантовый Космос',   icon: '🌌', hue: 290, desc: 'Энергия далеких галактик и квантовая сингулярность богатства.' },
-  { minLvl: 90, maxLvl: 100, tier: 'Ранг 10', name: 'Божественный Абсолют', icon: '✨', hue: 50, desc: 'Высшая точка вселенского изобилия. Абсолютный триумф!' }
+  { id: 'emerald', minLvl: 1,  maxLvl: 9,   tier: 'Ранг 1', name: 'Изумрудный Новичок', icon: '🌱', hue: 155, desc: 'Начальная энергия финансового роста. Чистый изумрудный поток.' },
+  { id: 'cyber', minLvl: 10, maxLvl: 19,  tier: 'Ранг 2', name: 'Неоновый Киберпанк', icon: '⚡', hue: 190, desc: 'Высокотехнологичный неоновый заряд для скоростных тапов.' },
+  { id: 'gold', minLvl: 20, maxLvl: 29,  tier: 'Ранг 3', name: 'Золотой Синдикат',   icon: '👑', hue: 45,  desc: 'Истинный блеск чистого золота и премиального влияния.' },
+  { id: 'ruby', minLvl: 30, maxLvl: 39,  tier: 'Ранг 4', name: 'Рубиновый Шторм',    icon: '🔥', hue: 350, desc: 'Пылкая мощь рубинового пламени, сжигающего любые преграды.' },
+  { id: 'amethyst', minLvl: 40, maxLvl: 49,  tier: 'Ранг 5', name: 'Аметистовый Мистик',  icon: '🔮', hue: 275, desc: 'Магическая фиолетовая аура тайных мировых инвестиций.' },
+  { id: 'sapphire', minLvl: 50, maxLvl: 59,  tier: 'Ранг 6', name: 'Ледяной Сапфир',     icon: '❄️', hue: 215, desc: 'Холодный расчет и несокрушимая кристальная мощь сапфира.' },
+  { id: 'phoenix', minLvl: 60, maxLvl: 69,  tier: 'Ранг 7', name: 'Солнечный Феникс',   icon: '☀️', hue: 25,  desc: 'Ослепительная солнечная вспышка возрождающегося капитала.' },
+  { id: 'titan', minLvl: 70, maxLvl: 79,  tier: 'Ранг 8', name: 'Платиновый Титан',   icon: '⚙️', hue: 230, desc: 'Сверхпрочный титановый сплав для непоколебимых магнатов.' },
+  { id: 'space', minLvl: 80, maxLvl: 89,  tier: 'Ранг 9', name: 'Квантовый Космос',   icon: '🌌', hue: 290, desc: 'Энергия далеких галактик и квантовая сингулярность богатства.' },
+  { id: 'absolute', minLvl: 90, maxLvl: 100, tier: 'Ранг 10', name: 'Божественный Абсолют', icon: '✨', hue: 50, desc: 'Высшая точка вселенского изобилия. Абсолютный триумф!' }
 ];
 
 function getThemeForLevel(level = state.tapLevel) {
@@ -1428,8 +1923,17 @@ function getThemeForLevel(level = state.tapLevel) {
  */
 function applyTheme(level = state.tapLevel) {
   const currentLevel = Math.max(1, Math.min(100, level));
-  const theme = getThemeForLevel(currentLevel);
-  const dynamicHue = Math.round((theme.hue + (currentLevel - theme.minLvl) * 4) % 360);
+  let theme = null;
+  if (state.selectedThemeId) {
+    theme = CLICK_THEMES.find(t => t.id === state.selectedThemeId);
+  }
+  if (!theme) {
+    theme = getThemeForLevel(currentLevel);
+  }
+
+  const dynamicHue = state.selectedThemeId
+    ? theme.hue
+    : Math.round((theme.hue + (currentLevel - theme.minLvl) * 4) % 360);
 
   const root = document.documentElement;
   root.style.setProperty('--theme-hue', `${dynamicHue}deg`);
@@ -1444,17 +1948,83 @@ function applyTheme(level = state.tapLevel) {
   const walletPowerVal = document.getElementById('walletPowerVal');
 
   if (coreCenterIcon) coreCenterIcon.textContent = theme.icon;
-  if (walletThemeBadge) walletThemeBadge.textContent = `Стиль: ${theme.name} (ур. ${currentLevel})`;
+  if (walletThemeBadge) {
+    const isCustom = Boolean(state.selectedThemeId);
+    walletThemeBadge.textContent = `Стиль: ${theme.name}${isCustom ? ' (кастом)' : ` (ур. ${currentLevel})`}`;
+  }
   if (walletPowerVal) walletPowerVal.textContent = `+${formatNumber(getTapPower(currentLevel))}`;
 }
 
 /**
- * Сила тапа: от +1 до +100 с множителем перерождения (до 10x!)
+ * Конфигурация дополнительных модификаторов клика
+ */
+const CLICK_MODIFIERS = [
+  {
+    id: 'power_mult',
+    name: 'Силовой импульс',
+    icon: '⚡',
+    desc: 'Умножает базовую силу каждого клика на прогрессивный коэффициент.',
+    maxLevel: 10,
+    baseCost: 5000000,
+    costMult: 2.2,
+    getBonusText: (lvl) => lvl === 0 ? 'Базовый (x1.00)' : `x${(1 + lvl * 0.25).toFixed(2)} к силе тапа`,
+    getMultiplier: (lvl) => 1 + lvl * 0.25
+  },
+  {
+    id: 'crit_tap',
+    name: 'Критический удар',
+    icon: '🎯',
+    desc: 'Шанс нанести сокрушительный критический клик с уроном x10!',
+    maxLevel: 10,
+    baseCost: 10000000,
+    costMult: 2.5,
+    getBonusText: (lvl) => lvl === 0 ? '0% (нет крита)' : `${lvl * 3}% шанс (урон x10)`,
+    getCritChance: (lvl) => lvl * 0.03
+  },
+  {
+    id: 'resonance',
+    name: 'Денежный резонанс',
+    icon: '🌊',
+    desc: 'Добавляет процент от общего пассивного дохода/сек прямо в каждый тап!',
+    maxLevel: 10,
+    baseCost: 25000000,
+    costMult: 2.8,
+    getBonusText: (lvl) => lvl === 0 ? '0%' : `+${(lvl * 0.5).toFixed(1)}% дохода/сек в тап`,
+    getResonanceShare: (lvl) => lvl * 0.005
+  },
+  {
+    id: 'golden_touch',
+    name: 'Золотое касание',
+    icon: '👑',
+    desc: 'Шанс сорвать мгновенный Джекпот в размере x50 от силы тапа!',
+    maxLevel: 10,
+    baseCost: 50000000,
+    costMult: 3.0,
+    getBonusText: (lvl) => lvl === 0 ? '0%' : `${(lvl * 0.3).toFixed(1)}% шанс на Джекпот x50`,
+    getJackpotChance: (lvl) => lvl * 0.003
+  }
+];
+
+function getClickModifierCost(mod, level) {
+  if (level >= mod.maxLevel) return Infinity;
+  return Math.floor(mod.baseCost * Math.pow(mod.costMult, level));
+}
+
+/**
+ * Сила тапа: от +1 до +100 с множителями, модификаторами и бонусом от дохода
  */
 function getTapPower(level = state.tapLevel) {
   const base = Math.max(1, Math.min(100, level));
   const mult = getRebirthMultiplier();
-  return Math.max(1, Math.round(base * mult));
+  const rainbow = (state.rainbowBoost && state.rainbowBoost.active) ? (state.rainbowBoost.multiplier || 5) : 1;
+  const powerModLvl = state.clickModifiers ? (state.clickModifiers.power_mult || 0) : 0;
+  const powerMult = 1 + powerModLvl * 0.25;
+
+  const resonanceLvl = state.clickModifiers ? (state.clickModifiers.resonance || 0) : 0;
+  const passiveIncome = (typeof getTotalPassiveIncome === 'function') ? getTotalPassiveIncome() : 0;
+  const resonanceBonus = resonanceLvl > 0 ? Math.round(passiveIncome * (resonanceLvl * 0.005)) : 0;
+
+  return Math.max(1, Math.round(base * powerMult * mult * rainbow) + resonanceBonus);
 }
 
 function getBaseTapPower(level = state.tapLevel) {
@@ -1531,7 +2101,8 @@ function getTotalPassiveIncome() {
   }
   base += calculateInventoryTotalIncome();
   const mult = getRebirthMultiplier();
-  return Math.round(base * mult);
+  const rainbow = (state.rainbowBoost && state.rainbowBoost.active) ? (state.rainbowBoost.multiplier || 5) : 1;
+  return Math.round(base * mult * rainbow);
 }
 
 /**
@@ -1740,10 +2311,16 @@ const btnToggleInventory = document.getElementById('btnToggleInventory');
 const btnInvToggleText = document.getElementById('btnInvToggleText');
 const btnBackToCases = document.getElementById('btnBackToCases');
 const inventoryGrid = document.getElementById('inventoryGrid');
+const btnOpenNoviceCase = document.getElementById('btnOpenNoviceCase');
 const btnOpenBronzeCase = document.getElementById('btnOpenBronzeCase');
 const btnOpenSilverCase = document.getElementById('btnOpenSilverCase');
+const btnOpenGoldCase = document.getElementById('btnOpenGoldCase');
 const btnOpenDiamondCase = document.getElementById('btnOpenDiamondCase');
+const btnOpenCryptoCase = document.getElementById('btnOpenCryptoCase');
 const btnOpenPropertyCase = document.getElementById('btnOpenPropertyCase');
+const btnOpenCyberpunkCase = document.getElementById('btnOpenCyberpunkCase');
+const btnOpenSpaceCase = document.getElementById('btnOpenSpaceCase');
+const btnOpenMythicCase = document.getElementById('btnOpenMythicCase');
 
 // Модальное окно открытия кейса (рулетка)
 const caseOpenModal = document.getElementById('caseOpenModal');
@@ -1854,12 +2431,19 @@ function updateCurrencySymbols() {
 }
 
 function updateCaseButtonsAffordability() {
-  if (btnOpenBronzeCase) btnOpenBronzeCase.disabled = state.balance < CASE_TYPES.bronze.cost;
-  if (btnOpenSilverCase) btnOpenSilverCase.disabled = state.balance < CASE_TYPES.silver.cost;
-  if (btnOpenDiamondCase) btnOpenDiamondCase.disabled = state.balance < CASE_TYPES.diamond.cost;
-  if (btnOpenPropertyCase) btnOpenPropertyCase.disabled = state.balance < CASE_TYPES.property.cost;
+  if (btnOpenNoviceCase) btnOpenNoviceCase.disabled = state.balance < (CASE_TYPES.novice?.cost || 10000);
+  if (btnOpenBronzeCase) btnOpenBronzeCase.disabled = state.balance < (CASE_TYPES.bronze?.cost || 100000);
+  if (btnOpenSilverCase) btnOpenSilverCase.disabled = state.balance < (CASE_TYPES.silver?.cost || 1000000);
+  if (btnOpenGoldCase) btnOpenGoldCase.disabled = state.balance < (CASE_TYPES.gold?.cost || 5000000);
+  if (btnOpenDiamondCase) btnOpenDiamondCase.disabled = state.balance < (CASE_TYPES.diamond?.cost || 10000000);
+  if (btnOpenCryptoCase) btnOpenCryptoCase.disabled = state.balance < (CASE_TYPES.crypto?.cost || 50000000);
+  if (btnOpenPropertyCase) btnOpenPropertyCase.disabled = state.balance < (CASE_TYPES.property?.cost || 100000000);
+  if (btnOpenCyberpunkCase) btnOpenCyberpunkCase.disabled = state.balance < (CASE_TYPES.cyberpunk?.cost || 500000000);
+  if (btnOpenSpaceCase) btnOpenSpaceCase.disabled = state.balance < (CASE_TYPES.space?.cost || 5000000000);
+  if (btnOpenMythicCase) btnOpenMythicCase.disabled = state.balance < (CASE_TYPES.mythic?.cost || 50000000000);
+
   if (casesBadge) {
-    const canAffordAny = state.balance >= CASE_TYPES.bronze.cost;
+    const canAffordAny = state.balance >= (CASE_TYPES.novice?.cost || 10000);
     casesBadge.style.display = canAffordAny ? 'block' : 'none';
   }
 }
@@ -1872,6 +2456,9 @@ function updateHeader() {
   tapIncomeDisplay.textContent = `+${formatNumber(getTapPower())}`;
   passiveIncomeDisplay.textContent = `+${formatNumber(getTotalPassiveIncome())}`;
   headerMultiplierVal.textContent = `x${getRebirthMultiplier().toFixed(1)}`;
+
+  const crystalsDisplay = document.getElementById('crystalsDisplay');
+  if (crystalsDisplay) crystalsDisplay.textContent = formatNumber(state.crystals || 0);
 
   const currentTotal = state.stats.totalEarned;
   let activeRank = RANKS[0];
@@ -1934,6 +2521,83 @@ function renderEarningsScreen() {
       }
     }
   }
+
+  renderClickModifiers();
+}
+
+/**
+ * Рендеринг карточек дополнительных модификаторов клика
+ */
+function renderClickModifiers() {
+  const grid = document.getElementById('clickUpgradesGrid');
+  if (!grid) return;
+
+  grid.innerHTML = '';
+  CLICK_MODIFIERS.forEach(mod => {
+    const currentLvl = state.clickModifiers ? (state.clickModifiers[mod.id] || 0) : 0;
+    const isMaxed = currentLvl >= mod.maxLevel;
+    const cost = getClickModifierCost(mod, currentLvl);
+    const canAfford = !isMaxed && state.balance >= cost;
+    const bonusText = mod.getBonusText(currentLvl);
+
+    const card = document.createElement('div');
+    card.className = 'click-upgrade-card';
+
+    card.innerHTML = `
+      <div class="click-card-top">
+        <div class="click-card-title-group">
+          <div class="click-card-icon">${mod.icon}</div>
+          <div class="click-card-name">${mod.name}</div>
+        </div>
+        <div class="click-card-level-pill ${isMaxed ? 'maxed' : ''}">
+          ${isMaxed ? 'МАКСИМУМ' : `Ур. ${currentLvl} / ${mod.maxLevel}`}
+        </div>
+      </div>
+      <p class="click-card-desc">${mod.desc}</p>
+      <div class="click-card-bonus-row">
+        <span class="click-bonus-label">Текущий бонус:</span>
+        <span class="click-bonus-val">${bonusText}</span>
+      </div>
+      <button class="btn-buy-click-mod ${isMaxed ? 'is-maxed' : ''}" data-mod-id="${mod.id}" ${isMaxed || !canAfford ? 'disabled' : ''}>
+        <span>${isMaxed ? 'Максимальный уровень' : `Улучшить до Ур. ${currentLvl + 1}`}</span>
+        ${isMaxed ? '' : `<span>${formatNumber(cost)} ${getCurrencySymbol()}</span>`}
+      </button>
+    `;
+
+    const buyBtn = card.querySelector('.btn-buy-click-mod');
+    if (buyBtn && !isMaxed) {
+      buyBtn.addEventListener('click', () => {
+        buyClickModifier(mod.id);
+      });
+    }
+
+    grid.appendChild(card);
+  });
+}
+
+function buyClickModifier(modId) {
+  const mod = CLICK_MODIFIERS.find(m => m.id === modId);
+  if (!mod) return;
+
+  if (!state.clickModifiers) {
+    state.clickModifiers = { power_mult: 0, crit_tap: 0, resonance: 0, golden_touch: 0 };
+  }
+
+  const currentLvl = state.clickModifiers[modId] || 0;
+  if (currentLvl >= mod.maxLevel) return;
+
+  const cost = getClickModifierCost(mod, currentLvl);
+  if (state.balance < cost) return;
+
+  state.balance -= cost;
+  state.clickModifiers[modId] = currentLvl + 1;
+
+  soundManager.playUpgrade();
+  triggerHaptic('medium');
+
+  updateHeader();
+  renderEarningsScreen();
+  saveGameState();
 }
 
 // Для совместимости
@@ -2060,22 +2724,24 @@ function renderBusinesses() {
 
   state.businesses.forEach(b => {
     const cost = getBusinessCost(b);
-    const canAfford = state.balance >= cost;
+    const isLockedByRebirth = (state.rebirthCount || 0) < (b.reqRebirth || 0);
+    const canAfford = state.balance >= cost && !isLockedByRebirth;
     if (canAfford) canAffordAny++;
 
     const totalIncome = Math.round(b.count * b.baseIncome * mult);
     const singleIncome = Math.round(b.baseIncome * mult);
 
     const card = document.createElement('div');
-    card.className = `business-card ${b.count > 0 ? 'owned' : ''} ${canAfford ? 'can-afford' : ''}`;
+    card.className = `business-card ${b.count > 0 ? 'owned' : ''} ${canAfford ? 'can-afford' : ''} ${isLockedByRebirth ? 'locked-rebirth' : ''}`;
     card.innerHTML = `
       <div class="business-top-row">
         <div class="business-icon-box">${b.icon}</div>
         <div class="business-main-info">
           <div class="business-title-row">
             <span class="business-name">${b.name}</span>
-            <span class="business-count-badge">${b.count > 0 ? `Lvl ${b.count}` : 'Не куплен'}</span>
+            <span class="business-count-badge">${b.count > 0 ? `Lvl ${b.count}` : (isLockedByRebirth ? 'Заблокирован' : 'Не куплен')}</span>
           </div>
+          ${isLockedByRebirth ? `<div class="rebirth-lock-badge">🔒 Требуется Перерождение ${b.reqRebirth}</div>` : ''}
           <div class="business-desc">${b.desc}</div>
           <div class="business-income-stat">
             <span>⚡ Доход:</span>
@@ -2088,8 +2754,8 @@ function renderBusinesses() {
       </div>
       <div class="business-bottom-row">
         <button class="btn-buy-business" data-biz-id="${b.id}" ${canAfford ? '' : 'disabled'}>
-          <span>${b.count === 0 ? 'Купить бизнес' : 'Улучшить бизнес'}</span>
-          <span class="btn-buy-cost">${formatNumber(cost)} <span class="currency-text">${getCurrencySymbol()}</span></span>
+          <span>${isLockedByRebirth ? '🔒 Заблокировано' : (b.count === 0 ? 'Купить бизнес' : 'Улучшить бизнес')}</span>
+          <span class="btn-buy-cost">${isLockedByRebirth ? `Требуется Перерождение ${b.reqRebirth}` : `${formatNumber(cost)} <span class="currency-text">${getCurrencySymbol()}</span>`}</span>
         </button>
       </div>
     `;
@@ -2919,7 +3585,7 @@ function updateStatsUI() {
   const totalRealEstate = state.realEstate.filter(x => x.owned).length;
   statRealEstateOwned.textContent = `${totalRealEstate} из ${state.realEstate.length}`;
 
-  statRebirthsCount.textContent = `${state.rebirthCount} / 10 (бонус ${getRebirthMultiplier().toFixed(1)}x)`;
+  statRebirthsCount.textContent = `${state.rebirthCount} / 30 (бонус ${getRebirthMultiplier().toFixed(1)}x)`;
 
   const minutes = Math.floor(state.stats.playTimeSeconds / 60);
   statTimePlayed.textContent = `${minutes} мин`;
@@ -2978,7 +3644,7 @@ function renderCasesScreen() {
   const totalValue = calculateInventoryTotalValue();
   const totalIncome = calculateInventoryTotalIncome();
 
-  if (inventoryCountBadge) inventoryCountBadge.textContent = `${ownedCount} / 40`;
+  if (inventoryCountBadge) inventoryCountBadge.textContent = `${ownedCount} / 100`;
   if (invTotalBadge) invTotalBadge.textContent = `${ownedCount}`;
   if (inventoryValueBadge) inventoryValueBadge.textContent = formatNumber(totalValue);
   if (inventoryIncomeBadge) inventoryIncomeBadge.textContent = `+${formatNumber(totalIncome)}`;
@@ -3239,18 +3905,247 @@ function closeCaseModal() {
   renderCasesScreen();
 }
 
+
+// ==========================================
+// РАДУЖНЫЙ ДОЛЛАР (FRENZY СПЕЦ-СОБЫТИЕ)
+// ==========================================
+let lastRainbowSpawnTime = 0;
+let activeRainbowDollarEl = null;
+let rainbowSecondAccumulator = 0;
+
+function maybeSpawnRainbowDollar() {
+  if (state.rainbowBoost && state.rainbowBoost.active) return;
+  if (activeRainbowDollarEl) return;
+  const now = Date.now();
+  if (now - lastRainbowSpawnTime < 15000) return;
+  if (Math.random() > 0.02) return;
+
+  lastRainbowSpawnTime = now;
+  spawnRainbowDollar();
+}
+
+function spawnRainbowDollar() {
+  const container = document.getElementById('rainbowDollarContainer') || document.querySelector('.mobile-frame');
+  if (!container) return;
+
+  const dollar = document.createElement('div');
+  dollar.className = 'rainbow-dollar-float';
+  dollar.innerHTML = `
+    <div class="rainbow-dollar-icon">💵</div>
+    <div class="rainbow-dollar-tag">РАДУЖНЫЙ БУСТ x5! ЖМИ!</div>
+  `;
+
+  dollar.style.left = `${Math.floor(Math.random() * 60) + 15}%`;
+  dollar.style.top = `${Math.floor(Math.random() * 35) + 35}%`;
+
+  const onCollect = (e) => {
+    e.stopPropagation();
+    collectRainbowDollar(dollar);
+  };
+  dollar.addEventListener('click', onCollect);
+  dollar.addEventListener('touchstart', onCollect, { passive: false });
+
+  container.appendChild(dollar);
+  activeRainbowDollarEl = dollar;
+  soundManager.playCoin();
+
+  setTimeout(() => {
+    if (dollar && dollar.parentNode) {
+      dollar.parentNode.removeChild(dollar);
+    }
+    if (activeRainbowDollarEl === dollar) {
+      activeRainbowDollarEl = null;
+    }
+  }, 11000);
+}
+
+function collectRainbowDollar(dollarEl) {
+  if (dollarEl && dollarEl.parentNode) {
+    dollarEl.parentNode.removeChild(dollarEl);
+  }
+  activeRainbowDollarEl = null;
+
+  soundManager.playCaseWin('mythic');
+  triggerHaptic('success');
+
+  if (!state.rainbowBoost) state.rainbowBoost = {};
+  state.rainbowBoost.active = true;
+  state.rainbowBoost.timeLeft = 30;
+  state.rainbowBoost.multiplier = 5;
+
+  updateRainbowBannerUI();
+  updateHeader();
+  renderEarningsScreen();
+  createFloatingNumber(null, null, '🌈 БУСТ x5 АКТИВИРОВАН!');
+}
+
+function updateRainbowBannerUI() {
+  const banner = document.getElementById('rainbowBoostBanner');
+  const timeVal = document.getElementById('rainbowBoostTimeVal');
+  if (!banner) return;
+
+  if (state.rainbowBoost && state.rainbowBoost.active && state.rainbowBoost.timeLeft > 0) {
+    banner.classList.add('active');
+    if (timeVal) timeVal.textContent = `${state.rainbowBoost.timeLeft}s`;
+  } else {
+    banner.classList.remove('active');
+  }
+}
+
+// ==========================================
+// ВЫБОР ОФОРМЛЕНИЯ В НАСТРОЙКАХ
+// ==========================================
+function renderThemesSelector() {
+  const grid = document.getElementById('themesSelectorGrid');
+  if (!grid) return;
+
+  grid.innerHTML = '';
+
+  const isAuto = state.selectedThemeId === null;
+  const currentLevelTheme = getThemeForLevel(state.tapLevel);
+
+  // Опция авто-выбора
+  const autoCard = document.createElement('div');
+  autoCard.className = `theme-select-card ${isAuto ? 'active' : ''}`;
+  autoCard.innerHTML = `
+    <div class="theme-card-top">
+      <span class="theme-card-icon">⚡</span>
+      <span class="theme-card-badge">${isAuto ? 'АКТИВНО ✓' : 'АВТО'}</span>
+    </div>
+    <div class="theme-card-name">Авто-выбор</div>
+    <div class="theme-card-desc">Динамически меняется с уровнем клика (сейчас: ${currentLevelTheme.name})</div>
+    <div class="theme-card-status">${isAuto ? 'Текущий режим ✓' : 'Нажмите, чтобы включить'}</div>
+  `;
+  autoCard.addEventListener('click', () => {
+    state.selectedThemeId = null;
+    applyTheme();
+    renderThemesSelector();
+    saveGameState();
+    soundManager.playTap();
+    triggerHaptic('light');
+  });
+  grid.appendChild(autoCard);
+
+  CLICK_THEMES.forEach(t => {
+    const isUnlocked = state.tapLevel >= t.minLvl;
+    const isSelected = state.selectedThemeId === t.id;
+    const card = document.createElement('div');
+    card.className = `theme-select-card ${isSelected ? 'active' : ''} ${isUnlocked ? '' : 'locked'}`;
+    card.innerHTML = `
+      <div class="theme-card-top">
+        <span class="theme-card-icon">${t.icon}</span>
+        <span class="theme-card-badge">${t.tier}</span>
+      </div>
+      <div class="theme-card-name">${t.name}</div>
+      <div class="theme-card-desc">${t.desc}</div>
+      <div class="theme-card-status">
+        ${isSelected 
+          ? 'Выбрано ✓' 
+          : (isUnlocked ? 'Нажмите для выбора' : `🔒 Откроется на ${t.minLvl} ур. клика`)
+        }
+      </div>
+    `;
+
+    if (isUnlocked) {
+      card.addEventListener('click', () => {
+        state.selectedThemeId = t.id;
+        applyTheme();
+        renderThemesSelector();
+        saveGameState();
+        soundManager.playTap();
+        triggerHaptic('light');
+      });
+    } else {
+      card.addEventListener('click', () => {
+        soundManager.playError();
+        triggerHaptic('error');
+      });
+    }
+
+    grid.appendChild(card);
+  });
+}
+
+
+// ==========================================
+// ЛИМИТ КЛИКОВ: СТРОГО 30 CPS (CLICKS PER SECOND)
+// ==========================================
+
+const tapLimiter = {
+  maxCPS: 30,
+  minIntervalMs: 1000 / 30, // 33.33ms (максимально 30 кликов в секунду)
+  recentTaps: [], // метки времени кликов за последнюю секунду
+  lastTapTime: 0,
+
+  canTap() {
+    const now = performance.now();
+
+    // 1. Проверка минимального интервала между последовательными тапами (33.33 мс)
+    if (this.lastTapTime && (now - this.lastTapTime < this.minIntervalMs)) {
+      return false; // Превышение мгновенного лимита 30 CPS
+    }
+
+    // 2. Скользящее окно 1000 мс (1 секунда)
+    const windowStart = now - 1000;
+    while (this.recentTaps.length > 0 && this.recentTaps[0] < windowStart) {
+      this.recentTaps.shift();
+    }
+
+    // Если за последнюю секунду уже зарегистрировано 30 тапов — клик не проходит
+    if (this.recentTaps.length >= this.maxCPS) {
+      return false; // Строго не более 30 кликов в секунду
+    }
+
+    // Разрешаем клик и регистрируем время
+    this.lastTapTime = now;
+    this.recentTaps.push(now);
+    return true;
+  }
+};
+
 // ==========================================
 // ИГРОВЫЕ ДЕЙСТВИЯ (ACTIONS)
 // ==========================================
 
-function handleTap(clientX, clientY) {
-  const power = getTapPower();
-  state.balance += power;
-  state.stats.totalEarned += power;
-  state.stats.totalTaps += 1;
+function handleTap(clientX, clientY, e) {
+  // Строгий лимит 30 CPS: больше 30 кликов в секунду сделать физически невозможно
+  if (!tapLimiter.canTap()) return;
 
-  soundManager.playTap();
-  triggerHaptic('light');
+  const basePower = getTapPower();
+  let finalPower = basePower;
+  let floatText = `+${formatNumber(finalPower)} ${getCurrencySymbol()}`;
+  let floatClass = '';
+
+  // Проверка Золотого касания (Джекпот x50)
+  const jackLvl = state.clickModifiers ? (state.clickModifiers.golden_touch || 0) : 0;
+  const jackChance = jackLvl * 0.003;
+  const isJackpot = jackChance > 0 && Math.random() < jackChance;
+
+  // Проверка Критического удара (Крит x10)
+  const critLvl = state.clickModifiers ? (state.clickModifiers.crit_tap || 0) : 0;
+  const critChance = critLvl * 0.03;
+  const isCrit = !isJackpot && critChance > 0 && Math.random() < critChance;
+
+  if (isJackpot) {
+    finalPower = basePower * 50;
+    floatText = `👑 ДЖЕКПОТ x50! +${formatNumber(finalPower)} ${getCurrencySymbol()}`;
+    floatClass = 'jackpot';
+    soundManager.playJackpot();
+    triggerHaptic('heavy');
+  } else if (isCrit) {
+    finalPower = basePower * 10;
+    floatText = `🎯 КРИТ x10! +${formatNumber(finalPower)} ${getCurrencySymbol()}`;
+    floatClass = 'crit';
+    soundManager.playCrit();
+    triggerHaptic('medium');
+  } else {
+    soundManager.playTap();
+    triggerHaptic('light');
+  }
+
+  state.balance += finalPower;
+  state.stats.totalEarned += finalPower;
+  state.stats.totalTaps += 1;
 
   balanceDisplay.classList.add('pulse-up');
   setTimeout(() => balanceDisplay.classList.remove('pulse-up'), 80);
@@ -3265,11 +4160,12 @@ function handleTap(clientX, clientY) {
   createRippleWave(clientX, clientY);
 
   // Создаем всплывающее число
-  createFloatingNumber(clientX, clientY, `+${formatNumber(power)} ${getCurrencySymbol()}`);
+  createFloatingNumber(clientX, clientY, floatText, floatClass);
 
   updateHeader();
   renderEarningsScreen();
   updateBusinessAffordability();
+  maybeSpawnRainbowDollar();
 }
 
 function createRippleWave(clientX, clientY) {
@@ -3291,14 +4187,14 @@ function createRippleWave(clientX, clientY) {
   }, 680);
 }
 
-function createFloatingNumber(x, y, text) {
+function createFloatingNumber(x, y, text, extraClass = '') {
   if (!particlesContainer) return;
   const rect = particlesContainer.getBoundingClientRect();
   const posX = (x || (rect.left + rect.width / 2)) - rect.left;
   const posY = (y || (rect.top + rect.height / 2)) - rect.top;
 
   const el = document.createElement('div');
-  el.className = 'floating-number';
+  el.className = `floating-number ${extraClass}`.trim();
   el.textContent = text;
   
   const offsetX = (Math.random() - 0.5) * 30;
@@ -3311,7 +4207,7 @@ function createFloatingNumber(x, y, text) {
     if (el && el.parentNode) {
       el.parentNode.removeChild(el);
     }
-  }, 850);
+  }, 950);
 }
 
 /**
@@ -3349,6 +4245,12 @@ function upgradeTap() {
 function buyBusiness(businessId) {
   const business = state.businesses.find(b => b.id === businessId);
   if (!business) return;
+
+  if ((state.rebirthCount || 0) < (business.reqRebirth || 0)) {
+    soundManager.playError();
+    triggerHaptic('error');
+    return;
+  }
 
   const cost = getBusinessCost(business);
   if (state.balance < cost) {
@@ -3501,6 +4403,7 @@ function switchScreen(targetScreenId) {
     updateStatsUI();
     renderCurrencyGrid();
     updateVolumeUI();
+    renderThemesSelector();
   }
   if (targetScreenId === 'screenBusiness') renderBusinesses();
   if (targetScreenId === 'screenCases') {
@@ -3603,10 +4506,16 @@ btnConfirmRebirth?.addEventListener('click', () => {
 // СЛУШАТЕЛИ КЕЙСОВ И ИНВЕНТАРЯ
 // ==========================================
 
+btnOpenNoviceCase?.addEventListener('click', () => openCase('novice'));
 btnOpenBronzeCase?.addEventListener('click', () => openCase('bronze'));
 btnOpenSilverCase?.addEventListener('click', () => openCase('silver'));
+btnOpenGoldCase?.addEventListener('click', () => openCase('gold'));
 btnOpenDiamondCase?.addEventListener('click', () => openCase('diamond'));
+btnOpenCryptoCase?.addEventListener('click', () => openCase('crypto'));
 btnOpenPropertyCase?.addEventListener('click', () => openCase('property'));
+btnOpenCyberpunkCase?.addEventListener('click', () => openCase('cyberpunk'));
+btnOpenSpaceCase?.addEventListener('click', () => openCase('space'));
+btnOpenMythicCase?.addEventListener('click', () => openCase('mythic'));
 
 btnToggleInventory?.addEventListener('click', toggleCasesViews);
 btnBackToCases?.addEventListener('click', showCasesShopView);
@@ -3716,6 +4625,23 @@ function gameLoop(currentTime) {
     secondAccumulator = 0;
   }
 
+  // Обработка таймера радужного буста
+  if (state.rainbowBoost && state.rainbowBoost.active) {
+    rainbowSecondAccumulator += delta;
+    if (rainbowSecondAccumulator >= 1) {
+      state.rainbowBoost.timeLeft -= Math.floor(rainbowSecondAccumulator);
+      rainbowSecondAccumulator = 0;
+      if (state.rainbowBoost.timeLeft <= 0) {
+        state.rainbowBoost.active = false;
+        state.rainbowBoost.timeLeft = 0;
+        soundManager.playUpgrade();
+      }
+      updateRainbowBannerUI();
+      updateHeader();
+      renderEarningsScreen();
+    }
+  }
+
   requestAnimationFrame(gameLoop);
 }
 
@@ -3749,6 +4675,19 @@ function loadGameState() {
       state.currency = saved.currency && CURRENCIES[saved.currency] ? saved.currency : 'RUB';
       state.volume = typeof saved.volume === 'number' ? saved.volume : 80;
       state.vibration = typeof saved.vibration === 'boolean' ? saved.vibration : true;
+      if (typeof saved.selectedThemeId === 'string' || saved.selectedThemeId === null) {
+        state.selectedThemeId = saved.selectedThemeId;
+      }
+
+      state.crystals = typeof saved.crystals === 'number' ? saved.crystals : 0;
+      if (saved.clickModifiers && typeof saved.clickModifiers === 'object') {
+        state.clickModifiers = {
+          power_mult: typeof saved.clickModifiers.power_mult === 'number' ? saved.clickModifiers.power_mult : 0,
+          crit_tap: typeof saved.clickModifiers.crit_tap === 'number' ? saved.clickModifiers.crit_tap : 0,
+          resonance: typeof saved.clickModifiers.resonance === 'number' ? saved.clickModifiers.resonance : 0,
+          golden_touch: typeof saved.clickModifiers.golden_touch === 'number' ? saved.clickModifiers.golden_touch : 0
+        };
+      }
       
       if (saved.stats) {
         state.stats.totalEarned = saved.stats.totalEarned || 0;
@@ -3938,20 +4877,30 @@ btnConfirmReset.addEventListener('click', () => {
 
   state.balance = 0;
   state.tapLevel = 1;
+  state.selectedThemeId = null;
+  state.rainbowBoost = { active: false, timeLeft: 0, multiplier: 5 };
   state.rebirthCount = 0;
   state.currency = 'RUB';
   state.volume = 80;
   state.vibration = true;
+  state.sideJobs = JSON.parse(JSON.stringify(DEFAULT_SIDE_JOBS));
+  state.crystals = 0;
+  state.clickModifiers = { power_mult: 0, crit_tap: 0, resonance: 0, golden_touch: 0 };
   state.businesses = JSON.parse(JSON.stringify(DEFAULT_BUSINESSES));
   state.realEstate = JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE));
   state.airline = JSON.parse(JSON.stringify(DEFAULT_AIRLINE));
+  state.inventory = {};
+  state.market = { lastUpdate: Date.now(), multipliers: {} };
   state.stats = { totalEarned: 0, totalTaps: 0, playTimeSeconds: 0 };
 
   soundManager.setVolume(state.volume);
   vibrationToggle.checked = true;
 
+  applyTheme();
+  updateRainbowBannerUI();
   updateVolumeUI();
   renderCurrencyGrid();
+  renderThemesSelector();
   updateCurrencySymbols();
   updateHeader();
   updateTapUpgradeCard();
@@ -3970,16 +4919,38 @@ btnCloseHangar?.addEventListener('click', closeHangarModal);
 btnCancelRenameAirline?.addEventListener('click', closeRenameModal);
 btnSaveAirlineName?.addEventListener('click', saveAirlineName);
 
+// Слушатели модального окна кристаллов
+const crystalsPill = document.getElementById('crystalsPill');
+const crystalsInfoModal = document.getElementById('crystalsInfoModal');
+const btnCloseCrystalsModal = document.getElementById('btnCloseCrystalsModal');
+const btnOkCrystalsModal = document.getElementById('btnOkCrystalsModal');
+const modalCrystalsVal = document.getElementById('modalCrystalsVal');
+
+crystalsPill?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (modalCrystalsVal) modalCrystalsVal.textContent = formatNumber(state.crystals || 0);
+  crystalsInfoModal?.classList.add('active');
+  soundManager.playTap();
+});
+
+btnCloseCrystalsModal?.addEventListener('click', () => {
+  crystalsInfoModal?.classList.remove('active');
+});
+
+btnOkCrystalsModal?.addEventListener('click', () => {
+  crystalsInfoModal?.classList.remove('active');
+});
+
 // Слушатель кликов по купюре и по фону кошелька
 tapTarget?.addEventListener('pointerdown', (e) => {
   e.preventDefault();
-  handleTap(e.clientX, e.clientY);
+  handleTap(e.clientX, e.clientY, e);
 });
 
 screens.screenWallet?.addEventListener('pointerdown', (e) => {
-  if (e.target.closest('button, input, select, a, .btn-upgrade-click')) return;
+  if (e.target.closest('button, input, select, a, .btn-upgrade-click, .btn-go-earnings, .rate-pill')) return;
   e.preventDefault();
-  handleTap(e.clientX, e.clientY);
+  handleTap(e.clientX, e.clientY, e);
 });
 
 btnUpgradeClick?.addEventListener('click', () => {

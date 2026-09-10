@@ -46,7 +46,7 @@
           <span class="currency-symbol currency-text">₽</span>
         </div>
         
-        <!-- Индикаторы доходности -->
+        <!-- Индикаторы доходности и кристаллов -->
         <div class="income-rates">
           <div class="rate-pill" id="tapRatePill">
             <span class="rate-icon">👆</span>
@@ -60,9 +60,33 @@
             <span class="currency-text">₽</span>
             <span class="rate-label">/ сек</span>
           </div>
+          <button class="rate-pill rate-crystals" id="crystalsPill" type="button" title="Кристаллы — премиум-валюта. Нажмите для информации!">
+            <span class="rate-icon">💎</span>
+            <span class="rate-val" id="crystalsDisplay">0</span>
+            <span class="rate-label">Кристаллы</span>
+            <span class="crystal-lock-icon" title="Пока нельзя получить">🔒</span>
+          </button>
         </div>
       </div>
     </header>
+
+    <!-- Баннер активного радужного буста (30 секунд) -->
+    <div class="rainbow-boost-banner" id="rainbowBoostBanner">
+      <div class="rainbow-banner-left">
+        <span class="rainbow-banner-icon">🌈</span>
+        <div class="rainbow-banner-text-group">
+          <span class="rainbow-banner-title">РАДУЖНЫЙ БУСТ x5 АКТИВЕН!</span>
+          <span class="rainbow-banner-subtitle">Тап и доход в секунду умножены в 5 раз!</span>
+        </div>
+      </div>
+      <div class="rainbow-banner-timer-badge">
+        <span>⏳</span>
+        <span id="rainbowBoostTimeVal">30s</span>
+      </div>
+    </div>
+
+    <!-- Контейнер для парящего радужного доллара -->
+    <div id="rainbowDollarContainer"></div>
 
     <!-- Основное игровое полотно с переключаемыми экранами -->
     <main class="screens-viewport">
@@ -163,6 +187,17 @@
             </button>
           </div>
 
+          <!-- Дополнительные модификаторы тапа -->
+          <div class="earnings-extra-section">
+            <div class="section-subheading">
+              <span class="subheading-icon">⚡</span>
+              <span class="subheading-title">Модификаторы и прокачка клика</span>
+            </div>
+            <div class="click-upgrades-grid" id="clickUpgradesGrid">
+              <!-- Генерируется динамически через game.js -->
+            </div>
+          </div>
+
           <!-- Информационный блок -->
           <div class="earnings-info-card">
             <div class="earnings-info-title">✨ Особенности прокачки клика</div>
@@ -247,7 +282,39 @@
           <!-- ВИД 1: ВИТРИНА КЕЙСОВ (#casesShopView) -->
           <div class="cases-view-container active" id="casesShopView">
             
-            <!-- 0. Бронзовый кейс (100 000 ₽) -->
+            <!-- 0. Кейс «Новичок» (10 000 ₽) -->
+            <div class="case-card case-novice" id="cardCaseNovice">
+              <div class="case-glow-aura"></div>
+              <div class="case-card-header">
+                <div class="case-icon-box">🌱</div>
+                <div class="case-title-group">
+                  <div class="case-rarity-pill">СТАРТОВЫЙ БОНУС</div>
+                  <h3 class="case-name">Кейс «Новичок»</h3>
+                  <div class="case-desc">10 предметов: счастливые талисманы, полезные гаджеты и сувениры с доходом до 100 ₽/с.</div>
+                </div>
+              </div>
+
+              <!-- Превью предметов -->
+              <div class="case-preview-row">
+                <span class="case-preview-tag">🪙 Счастливая монетка</span>
+                <span class="case-preview-tag">👛 Кошелек</span>
+                <span class="case-preview-tag">🎧 Плеер</span>
+                <span class="case-preview-tag tag-legendary">⌚ Часы кварц</span>
+                <span class="case-preview-tag tag-mythic">🏆 Золотой жетон (+100/с)</span>
+              </div>
+
+              <div class="case-bottom-row">
+                <button class="btn-open-case btn-novice" id="btnOpenNoviceCase">
+                  <span class="btn-case-action">Открыть кейс</span>
+                  <span class="btn-case-cost">
+                    <span>10 000</span>
+                    <span class="currency-text">₽</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 1. Бронзовый кейс (100 000 ₽) -->
             <div class="case-card case-bronze" id="cardCaseBronze">
               <div class="case-glow-aura"></div>
               <div class="case-card-header">
@@ -279,7 +346,7 @@
               </div>
             </div>
 
-            <!-- 1. Серебряный кейс (1 000 000 ₽) -->
+            <!-- 2. Серебряный кейс (1 000 000 ₽) -->
             <div class="case-card case-silver" id="cardCaseSilver">
               <div class="case-glow-aura"></div>
               <div class="case-card-header">
@@ -311,7 +378,39 @@
               </div>
             </div>
 
-            <!-- 2. Алмазный кейс (10 000 000 ₽) -->
+            <!-- 3. Золотой кейс (5 000 000 ₽) -->
+            <div class="case-card case-gold" id="cardCaseGold">
+              <div class="case-glow-aura"></div>
+              <div class="case-card-header">
+                <div class="case-icon-box">👑</div>
+                <div class="case-title-group">
+                  <div class="case-rarity-pill">ЮВЕЛИРНЫЙ БЛЕСК</div>
+                  <h3 class="case-name">Золотой кейс</h3>
+                  <div class="case-desc">10 предметов: чистый слиток золота 999, Rolex Submariner, колье с бриллиантами и золотые кубки.</div>
+                </div>
+              </div>
+
+              <!-- Превью предметов -->
+              <div class="case-preview-row">
+                <span class="case-preview-tag">🪙 Слиток 999</span>
+                <span class="case-preview-tag">⌚ Rolex Sub</span>
+                <span class="case-preview-tag">💎 Колье</span>
+                <span class="case-preview-tag tag-legendary">👑 Диадема</span>
+                <span class="case-preview-tag tag-mythic">🏆 Золотой Кубок</span>
+              </div>
+
+              <div class="case-bottom-row">
+                <button class="btn-open-case btn-gold" id="btnOpenGoldCase">
+                  <span class="btn-case-action">Открыть кейс</span>
+                  <span class="btn-case-cost">
+                    <span>5 000 000</span>
+                    <span class="currency-text">₽</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. Алмазный кейс (10 000 000 ₽) -->
             <div class="case-card case-diamond" id="cardCaseDiamond">
               <div class="case-glow-aura"></div>
               <div class="case-card-header">
@@ -343,7 +442,39 @@
               </div>
             </div>
 
-            <!-- 3. Кейс с имуществом (100 000 000 ₽) -->
+            <!-- 5. Крипто-кейс (50 000 000 ₽) -->
+            <div class="case-card case-crypto" id="cardCaseCrypto">
+              <div class="case-glow-aura"></div>
+              <div class="case-card-header">
+                <div class="case-icon-box">🪙</div>
+                <div class="case-title-group">
+                  <div class="case-rarity-pill">WEB3 & БЛОКЧЕЙН</div>
+                  <h3 class="case-name">Крипто-кейс</h3>
+                  <div class="case-desc">10 предметов: аппаратные Ledger кошельки, ASIC-фермы, ноды Ethereum и флешка Сатоши.</div>
+                </div>
+              </div>
+
+              <!-- Превью предметов -->
+              <div class="case-preview-row">
+                <span class="case-preview-tag">💳 Ledger Gold</span>
+                <span class="case-preview-tag">💻 ASIC Antminer</span>
+                <span class="case-preview-tag">🌐 Эфир-нода</span>
+                <span class="case-preview-tag tag-legendary">💾 Флешка Сатоши</span>
+                <span class="case-preview-tag tag-mythic">🗝️ Genesis-ключ</span>
+              </div>
+
+              <div class="case-bottom-row">
+                <button class="btn-open-case btn-crypto" id="btnOpenCryptoCase">
+                  <span class="btn-case-action">Открыть кейс</span>
+                  <span class="btn-case-cost">
+                    <span>50 000 000</span>
+                    <span class="currency-text">₽</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 6. Кейс с имуществом (100 000 000 ₽) -->
             <div class="case-card case-property" id="cardCaseProperty">
               <div class="case-glow-aura"></div>
               <div class="case-card-header">
@@ -374,6 +505,103 @@
                 </button>
               </div>
             </div>
+
+            <!-- 7. Киберпанк-кейс (500 000 000 ₽) -->
+            <div class="case-card case-cyberpunk" id="cardCaseCyberpunk">
+              <div class="case-glow-aura"></div>
+              <div class="case-card-header">
+                <div class="case-icon-box">⚡</div>
+                <div class="case-title-group">
+                  <div class="case-rarity-pill">КИБЕР-ТЕХНОЛОГИИ</div>
+                  <h3 class="case-name">Киберпанк-кейс</h3>
+                  <div class="case-desc">10 предметов: нейроимпланты Sandevistan, кибер-катаны, боевые дроны и автономное ядро ИИ.</div>
+                </div>
+              </div>
+
+              <!-- Превью предметов -->
+              <div class="case-preview-row">
+                <span class="case-preview-tag">🧠 Сандевистан</span>
+                <span class="case-preview-tag">🗡️ Моно-катана</span>
+                <span class="case-preview-tag">🦾 Экзоскелет</span>
+                <span class="case-preview-tag tag-legendary">🛸 Дрон-страж</span>
+                <span class="case-preview-tag tag-mythic">🤖 Ядро Сингулярности</span>
+              </div>
+
+              <div class="case-bottom-row">
+                <button class="btn-open-case btn-cyberpunk" id="btnOpenCyberpunkCase">
+                  <span class="btn-case-action">Открыть кейс</span>
+                  <span class="btn-case-cost">
+                    <span>500 000 000</span>
+                    <span class="currency-text">₽</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 8. Космический кейс (5 000 000 000 ₽) -->
+            <div class="case-card case-space" id="cardCaseSpace">
+              <div class="case-glow-aura"></div>
+              <div class="case-card-header">
+                <div class="case-icon-box">🚀</div>
+                <div class="case-title-group">
+                  <div class="case-rarity-pill">КОСМИЧЕСКИЙ ЛЮКС</div>
+                  <h3 class="case-name">Космический кейс</h3>
+                  <div class="case-desc">10 предметов: марсианские метеориты, луноходы, капсулы чистой антиматерии и темная энергия.</div>
+                </div>
+              </div>
+
+              <!-- Превью предметов -->
+              <div class="case-preview-row">
+                <span class="case-preview-tag">🪨 Метеорит Марса</span>
+                <span class="case-preview-tag">🚜 Луноход</span>
+                <span class="case-preview-tag">⚡ Антиматерия</span>
+                <span class="case-preview-tag tag-legendary">🚀 Ионный крейсер</span>
+                <span class="case-preview-tag tag-mythic">🌌 Темная Сфера</span>
+              </div>
+
+              <div class="case-bottom-row">
+                <button class="btn-open-case btn-space" id="btnOpenSpaceCase">
+                  <span class="btn-case-action">Открыть кейс</span>
+                  <span class="btn-case-cost">
+                    <span>5 000 000 000</span>
+                    <span class="currency-text">₽</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 9. Кейс «Властелин Времени» (50 000 000 000 ₽) -->
+            <div class="case-card case-mythic" id="cardCaseMythic">
+              <div class="case-glow-aura"></div>
+              <div class="case-card-header">
+                <div class="case-icon-box">✨</div>
+                <div class="case-title-group">
+                  <div class="case-rarity-pill">МИФИЧЕСКИЙ & МУЛЬТИВСЕЛЕННАЯ</div>
+                  <h3 class="case-name">Кейс «Властелин Времени»</h3>
+                  <div class="case-desc">10 предметов: песочные часы вечности, ключ измерений, квантовые сингулярности и венец мультивселенной.</div>
+                </div>
+              </div>
+
+              <!-- Превью предметов -->
+              <div class="case-preview-row">
+                <span class="case-preview-tag">⏳ Часы Вечности</span>
+                <span class="case-preview-tag">🗝️ Ключ Измерений</span>
+                <span class="case-preview-tag">🔮 Сингулярность</span>
+                <span class="case-preview-tag tag-legendary">🌀 Сфера Времени</span>
+                <span class="case-preview-tag tag-mythic">👑 Венец Вселенной</span>
+              </div>
+
+              <div class="case-bottom-row">
+                <button class="btn-open-case btn-mythic" id="btnOpenMythicCase">
+                  <span class="btn-case-action">Открыть кейс</span>
+                  <span class="btn-case-cost">
+                    <span>50 000 000 000</span>
+                    <span class="currency-text">₽</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
             <div class="scroll-bottom-spacer"></div>
           </div>
 
@@ -391,11 +619,17 @@
             </div>
 
             <div class="inv-filter-chips">
-              <button class="inv-chip active" data-filter="all">Все (40)</button>
+              <button class="inv-chip active" data-filter="all">Все (100)</button>
+              <button class="inv-chip" data-filter="novice">🌱 Новичок</button>
               <button class="inv-chip" data-filter="bronze">🥉 Бронзовый</button>
               <button class="inv-chip" data-filter="silver">🥈 Серебряный</button>
+              <button class="inv-chip" data-filter="gold">👑 Золотой</button>
               <button class="inv-chip" data-filter="diamond">💎 Алмазный</button>
+              <button class="inv-chip" data-filter="crypto">🪙 Крипто</button>
               <button class="inv-chip" data-filter="property">🏰 Имущество</button>
+              <button class="inv-chip" data-filter="cyberpunk">⚡ Киберпанк</button>
+              <button class="inv-chip" data-filter="space">🚀 Космос</button>
+              <button class="inv-chip" data-filter="mythic">✨ Время</button>
             </div>
 
             <div class="inventory-hint-bar">
@@ -547,6 +781,19 @@
               <div class="banner-desc">Настройте валюту, звук и управление игровым процессом.</div>
             </div>
             <button class="btn-back-settings" id="btnBackFromSettings">← Назад в игру</button>
+          </div>
+
+          <!-- Выбор оформления клика и интерфейса -->
+          <div class="settings-themes-section" id="settingsThemesSection">
+            <div class="settings-themes-header">
+              <div>
+                <span class="settings-themes-title">🎨 Выбор оформления</span>
+                <span class="settings-themes-subtitle">Выбирайте любой разблокированный визуальный стиль клика</span>
+              </div>
+            </div>
+            <div class="settings-themes-grid" id="themesSelectorGrid">
+              <!-- Карточки тем генерируются динамически через game.js -->
+            </div>
           </div>
 
           <!-- Настройка валюты (цены те же, символ разный) -->
@@ -859,6 +1106,8 @@
         </div>
 
       </div>
+    </div>
+  </div>
 
   <!-- МОДАЛЬНОЕ ОКНО ДЕТАЛЕЙ НЕДВИЖИМОСТИ, УЛУЧШЕНИЙ И ФЛИППИНГА -->
   <div class="modal-backdrop" id="estateDetailModal">
@@ -930,6 +1179,26 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- Модальное окно информации о кристаллах -->
+  <div class="modal-backdrop" id="crystalsInfoModal">
+    <div class="modal-card crystals-modal-card">
+      <div class="modal-badge-icon crystals-modal-icon">💎</div>
+      <h3 class="modal-title">Кристаллы</h3>
+      <div class="crystals-balance-showcase">
+        <span class="crystals-big-val" id="modalCrystalsVal">0</span>
+        <span class="crystals-big-unit">💎</span>
+      </div>
+      <p class="modal-text crystals-modal-text">
+        Редчайшая премиальная валюта вселенной Money Tapper.<br><br>
+        <span class="crystals-lock-tag">🔒 Способ получения пока недоступен</span><br>
+        На данный момент кристаллы нельзя получить игровым путем. Возможность их заработка появится в следующем обновлении!
+      </p>
+      <div class="modal-buttons-row">
+        <button class="btn-modal-action" id="btnOkCrystalsModal">Понятно</button>
+      </div>
     </div>
   </div>
 

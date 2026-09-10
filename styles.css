@@ -331,7 +331,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-bottom: calc(var(--nav-height) + 12px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(var(--nav-height) + 64px + env(safe-area-inset-bottom, 0px));
 }
 
 .tap-stage {
@@ -1894,7 +1894,7 @@ body {
    МОДАЛЬНЫЕ ОКНА
    ========================================================================== */
 .modal-backdrop {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background: rgba(3, 5, 8, 0.88);
   backdrop-filter: blur(8px);
@@ -4005,6 +4005,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  text-align: left;
 }
 
 .estate-modal-header {
@@ -4309,3 +4310,753 @@ body {
   gap: 8px;
   margin-top: 8px;
 }
+
+/* ==========================================================================
+   ВЫБОР ОФОРМЛЕНИЯ В НАСТРОЙКАХ
+   ========================================================================== */
+.settings-themes-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 18px 14px;
+  margin-bottom: 16px;
+}
+
+.settings-themes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.settings-themes-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.settings-themes-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.settings-themes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.theme-select-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-select-card:hover:not(.locked) {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.theme-select-card.active {
+  border-color: var(--theme-primary, var(--color-gold));
+  background: rgba(var(--color-gold-rgb, 245, 158, 11), 0.12);
+  box-shadow: 0 0 16px var(--theme-glow, rgba(245, 158, 11, 0.3));
+}
+
+.theme-select-card.locked {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(0.6);
+}
+
+.theme-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.theme-card-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.theme-card-badge {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+}
+
+.theme-select-card.active .theme-card-badge {
+  background: var(--theme-primary, var(--color-gold));
+  color: #000;
+}
+
+.theme-card-name {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.theme-card-desc {
+  font-size: 9.5px;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+.theme-card-status {
+  font-size: 10px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.theme-select-card.active .theme-card-status {
+  color: #10b981;
+}
+
+.theme-select-card.locked .theme-card-status {
+  color: #ef4444;
+}
+
+/* ==========================================================================
+   РАДУЖНЫЙ ДОЛЛАР И РАДУЖНЫЙ БУСТ (FRENZY EVENT)
+   ========================================================================== */
+.rainbow-dollar-float {
+  position: absolute;
+  z-index: 150;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  animation: floatRainbow 12s linear forwards, pulseScale 1s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 30px #f43f5e);
+  transition: transform 0.15s ease;
+}
+
+.rainbow-dollar-float:active {
+  transform: scale(1.35) rotate(15deg);
+}
+
+.rainbow-dollar-icon {
+  font-size: 46px;
+  line-height: 1;
+  background: linear-gradient(135deg, #ff007f, #ff7b00, #ffee00, #00ff66, #00d9ff, #7b00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.8));
+}
+
+.rainbow-dollar-tag {
+  font-size: 10px;
+  font-weight: 900;
+  color: #fff;
+  background: linear-gradient(90deg, #f43f5e, #8b5cf6, #3b82f6);
+  padding: 3px 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  animation: rainbowBorder 2s linear infinite;
+}
+
+@keyframes floatRainbow {
+  0% {
+    top: 85%;
+    left: 8%;
+    transform: translateY(0) rotate(-6deg);
+  }
+  25% {
+    top: 55%;
+    left: 75%;
+    transform: translateY(-20px) rotate(8deg);
+  }
+  50% {
+    top: 30%;
+    left: 15%;
+    transform: translateY(10px) rotate(-8deg);
+  }
+  75% {
+    top: 45%;
+    left: 70%;
+    transform: translateY(-15px) rotate(6deg);
+  }
+  100% {
+    top: 10%;
+    left: 45%;
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pulseScale {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.12); }
+}
+
+/* Баннер активного радужного буста (размещен снизу, над навигационной панелью) */
+.rainbow-boost-banner {
+  position: absolute;
+  bottom: calc(var(--nav-height) + 10px + env(safe-area-inset-bottom, 0px));
+  left: 12px;
+  right: 12px;
+  z-index: 95;
+  background: linear-gradient(90deg, rgba(244, 63, 94, 0.95), rgba(139, 92, 246, 0.95), rgba(59, 130, 246, 0.95), rgba(16, 185, 129, 0.95));
+  background-size: 300% 300%;
+  animation: rainbowShift 3s ease infinite;
+  border-radius: 14px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 8px 24px rgba(244, 63, 94, 0.4), 0 0 20px rgba(139, 92, 246, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transform: translateY(100px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.rainbow-boost-banner.active {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: none;
+}
+
+@keyframes rainbowShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.rainbow-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rainbow-banner-icon {
+  font-size: 24px;
+  line-height: 1;
+  animation: pulseScale 0.8s infinite alternate;
+}
+
+.rainbow-banner-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.rainbow-banner-title {
+  font-size: 11.5px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.rainbow-banner-subtitle {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.rainbow-banner-timer-badge {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-family: var(--font-num);
+  font-size: 13px;
+  font-weight: 900;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   СТИЛИ ДЛЯ ЗАБЛОКИРОВАННЫХ БИЗНЕСОВ (РЕКВИЗИТ ПЕРЕРОЖДЕНИЯ)
+   ========================================================================== */
+.business-card.locked-rebirth {
+  opacity: 0.58;
+  filter: grayscale(0.5);
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.rebirth-lock-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+/* ==========================================================================
+   КНОПКИ И БЕЙДЖИ ДЛЯ 6 НОВЫХ КЕЙСОВ
+   ========================================================================== */
+.case-card.case-novice {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.03) 100%);
+}
+.btn-open-case.btn-novice {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+}
+
+.case-card.case-gold {
+  border-color: rgba(245, 158, 11, 0.5);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12) 0%, rgba(217, 119, 6, 0.04) 100%);
+}
+.btn-open-case.btn-gold {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #000;
+  font-weight: 900;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.45);
+}
+
+.case-card.case-crypto {
+  border-color: rgba(6, 182, 212, 0.45);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
+}
+.btn-open-case.btn-crypto {
+  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.4);
+}
+
+.case-card.case-cyberpunk {
+  border-color: rgba(236, 72, 153, 0.5);
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%);
+}
+.btn-open-case.btn-cyberpunk {
+  background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(236, 72, 153, 0.45);
+}
+
+.case-card.case-space {
+  border-color: rgba(139, 92, 246, 0.5);
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(30, 27, 75, 0.2) 100%);
+}
+.btn-open-case.btn-space {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.45);
+}
+
+.case-card.case-mythic {
+  border-color: rgba(244, 63, 94, 0.6);
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%);
+}
+.btn-open-case.btn-mythic {
+  background: linear-gradient(135deg, #f43f5e 0%, #fbbf24 100%);
+  color: #000;
+  font-weight: 900;
+  box-shadow: 0 4px 18px rgba(244, 63, 94, 0.5);
+}
+
+/* ==========================================================================
+   V5: ПРЕМИУМ-СЧЕТЧИК КРИСТАЛЛОВ & МОДАЛЬНОЕ ОКНО
+   ========================================================================== */
+
+.rate-pill.rate-crystals {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%);
+  border: 1px solid rgba(6, 182, 212, 0.38);
+  color: #67e8f9;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  position: relative;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.12);
+  outline: none;
+}
+
+.rate-pill.rate-crystals:hover {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.28) 0%, rgba(168, 85, 247, 0.28) 100%);
+  border-color: rgba(6, 182, 212, 0.7);
+  transform: translateY(-1px);
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.35);
+}
+
+.crystal-lock-icon {
+  font-size: 9px;
+  opacity: 0.8;
+  margin-left: 2px;
+}
+
+.crystals-modal-card {
+  border-color: rgba(6, 182, 212, 0.4);
+  background: radial-gradient(circle at top, rgba(6, 182, 212, 0.12) 0%, var(--bg-card) 70%);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 30px rgba(6, 182, 212, 0.2);
+}
+
+.crystals-modal-icon {
+  filter: drop-shadow(0 0 16px rgba(6, 182, 212, 0.8));
+  animation: crystalBob 2.5s ease-in-out infinite;
+}
+
+@keyframes crystalBob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(4deg); }
+}
+
+.crystals-balance-showcase {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  margin: 12px 0 16px;
+  padding: 12px;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  border-radius: 14px;
+}
+
+.crystals-big-val {
+  font-family: var(--font-num);
+  font-size: 44px;
+  font-weight: 900;
+  color: #67e8f9;
+  text-shadow: 0 0 18px rgba(6, 182, 212, 0.6);
+  line-height: 1;
+}
+
+.crystals-big-unit {
+  font-size: 20px;
+}
+
+.crystals-modal-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+.crystals-lock-tag {
+  display: inline-block;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #fca5a5;
+  font-weight: 700;
+  font-size: 11.5px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+/* ==========================================================================
+   V5: ЗАЩИТА ОТ АВТОКЛИКЕРА
+   ========================================================================== */
+
+.autoclicker-backdrop {
+  background: rgba(10, 5, 15, 0.94);
+}
+
+.autoclicker-modal-card {
+  position: relative;
+  border-color: rgba(239, 68, 68, 0.6);
+  background: radial-gradient(circle at top, rgba(239, 68, 68, 0.18) 0%, var(--bg-card) 75%);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(239, 68, 68, 0.35);
+}
+
+.autoclicker-glow-halo {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 60px;
+  background: radial-gradient(ellipse, rgba(239, 68, 68, 0.4) 0%, transparent 70%);
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+.autoclicker-modal-icon {
+  font-size: 46px;
+  animation: robotShake 0.6s infinite ease-in-out;
+}
+
+@keyframes robotShake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+}
+
+.autoclicker-title {
+  color: #f87171;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 14px rgba(239, 68, 68, 0.6);
+}
+
+.autoclicker-modal-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #cbd5e1;
+  margin: 12px 0 20px;
+}
+
+.autoclicker-modal-text b {
+  color: #fca5a5;
+  font-family: var(--font-num);
+  font-size: 15px;
+}
+
+.btn-verify-human {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--text-muted);
+  border-radius: 14px;
+  padding: 13px 18px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: not-allowed;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-verify-human.ready {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #34d399;
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+  animation: pulseVerifyGreen 1.4s infinite;
+}
+
+@keyframes pulseVerifyGreen {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 16px rgba(16, 185, 129, 0.5); }
+  50% { transform: scale(1.02); box-shadow: 0 0 28px rgba(16, 185, 129, 0.8); }
+}
+
+/* ==========================================================================
+   V5: НОВЫЕ МОДИФИКАТОРЫ ТАПА («ЗАРАБОТОК»)
+   ========================================================================== */
+
+.earnings-extra-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.section-subheading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+}
+
+.subheading-icon {
+  font-size: 16px;
+}
+
+.subheading-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.click-upgrades-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.click-upgrade-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.click-upgrade-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.click-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.click-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.click-card-icon {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.click-card-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.click-card-level-pill {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #94a3b8;
+}
+
+.click-card-level-pill.maxed {
+  background: rgba(234, 179, 8, 0.18);
+  border-color: rgba(234, 179, 8, 0.4);
+  color: #facc15;
+}
+
+.click-card-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.click-card-bonus-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.click-bonus-label {
+  color: var(--text-muted);
+}
+
+.click-bonus-val {
+  font-weight: 800;
+  color: #38bdf8;
+  font-family: var(--font-num);
+}
+
+.btn-buy-click-mod {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-buy-click-mod:hover:not(:disabled) {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+}
+
+.btn-buy-click-mod:disabled {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-buy-click-mod.is-maxed {
+  background: rgba(234, 179, 8, 0.15);
+  border-color: rgba(234, 179, 8, 0.3);
+  color: #facc15;
+  justify-content: center;
+  cursor: default;
+}
+
+/* ==========================================================================
+   V5: ВСПЛЫВАЮЩИЕ ЦИФРЫ КРИТА И ДЖЕКПОТА
+   ========================================================================== */
+
+.floating-number.crit {
+  font-size: 26px;
+  font-weight: 900;
+  color: #fbbf24;
+  text-shadow: 0 0 14px rgba(245, 158, 11, 0.9), 0 2px 8px rgba(0, 0, 0, 0.9);
+  animation: floatCritUp 1.05s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 50;
+}
+
+@keyframes floatCritUp {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.6) translateY(0); }
+  25% { transform: translate(-50%, -50%) scale(1.4) translateY(-30px); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.1) translateY(-110px); }
+}
+
+.floating-number.jackpot {
+  font-size: 30px;
+  font-weight: 950;
+  background: linear-gradient(135deg, #f43f5e 0%, #fbbf24 50%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 16px rgba(244, 63, 94, 0.9)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.9));
+  animation: floatJackpotUp 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 60;
+}
+
+@keyframes floatJackpotUp {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5) translateY(0); }
+  30% { transform: translate(-50%, -50%) scale(1.6) translateY(-40px); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2) translateY(-130px); }
+}
+
+
