@@ -784,6 +784,158 @@ const DEFAULT_AIRLINE = {
 // ==========================================
 // КОНФИГУРАЦИЯ: АЛМАЗНЫЙ ПРЕСТИЖ & МАГАЗИН КРИСТАЛЛОВ
 // ==========================================
+
+// ==========================================
+// КОНФИГУРАЦИЯ: ИИ-СЕРВЕРА (ФОТО И ВИДЕО)
+// ==========================================
+const AI_SERVERS = [
+  // --- ФОТО-ГЕНЕРАЦИЯ (Цикл: 100 секунд) ---
+  {
+    id: 'flux1',
+    name: 'flux.1',
+    category: 'photo',
+    categoryName: 'Фото',
+    icon: '🖼️',
+    cost: 100000,          // 100 000 ₽ по ТЗ
+    cycleSeconds: 100,      // 100 секунд
+    payout: 120000,         // 120 000 ₽ за генерацию
+    requiresKey: null,      // Без ключа по ТЗ
+    desc: 'Базовая открытая модель фото-генерации. Не требует API-ключа!'
+  },
+  {
+    id: 'seedream',
+    name: 'seedream 4.5',
+    category: 'photo',
+    categoryName: 'Фото',
+    icon: '🎨',
+    cost: 500000,          // 500 000 ₽
+    cycleSeconds: 100,      // 100 секунд
+    payout: 600000,         // 600 000 ₽
+    requiresKey: 'key_seedream',
+    keyName: 'API-Ключ Seedream 4.5',
+    desc: 'Высокохудожественный генератор артов и концептов.'
+  },
+  {
+    id: 'chatgpt',
+    name: 'chatgpt image',
+    category: 'photo',
+    categoryName: 'Фото',
+    icon: '🤖',
+    cost: 650000,          // 650 000 ₽
+    cycleSeconds: 100,      // 100 секунд
+    payout: 800000,         // 800 000 ₽
+    requiresKey: 'key_chatgpt',
+    keyName: 'API-Ключ ChatGPT Image',
+    desc: 'Интеллектуальная визуализация с глубоким пониманием промптов.'
+  },
+  {
+    id: 'nanobanana',
+    name: 'nano banana pro',
+    category: 'photo',
+    categoryName: 'Фото',
+    icon: '🍌',
+    cost: 1000000,         // 1 000 000 ₽ (1 лям)
+    cycleSeconds: 100,      // 100 секунд
+    payout: 1300000,        // 1 300 000 ₽
+    requiresKey: 'key_nanobanana',
+    keyName: 'API-Ключ Nano Banana Pro',
+    desc: 'Флагманский ультрабыстрый микрокластер фото-рендеринга.'
+  },
+
+  // --- ВИДЕО-ГЕНЕРАЦИЯ ---
+  {
+    id: 'collart',
+    name: 'collart',
+    category: 'video',
+    categoryName: 'Видео',
+    icon: '🎬',
+    cost: 500000,          // 500 000 ₽
+    cycleSeconds: 120,      // 2 минуты (120 секунд)
+    payout: 650000,         // 650 000 ₽
+    requiresKey: 'key_collart',
+    keyName: 'API-Ключ CollArt Video',
+    desc: 'Коллажный синтез коротких видеоклипов и анимаций.'
+  },
+  {
+    id: 'omni',
+    name: 'omni flash (google)',
+    category: 'video',
+    categoryName: 'Видео',
+    icon: '⚡',
+    cost: 2000000,         // 2 000 000 ₽ (2 ляма)
+    cycleSeconds: 180,      // 3 минуты (180 секунд)
+    payout: 2800000,        // 2 800 000 ₽
+    requiresKey: 'key_omni',
+    keyName: 'API-Ключ Google Omni Flash',
+    desc: 'Мультимодальный скоростной видеогенератор от Google.'
+  },
+  {
+    id: 'sora2',
+    name: 'sora 2',
+    category: 'video',
+    categoryName: 'Видео',
+    icon: '🎥',
+    cost: 3000000,         // 3 000 000 ₽ (3 ляма)
+    cycleSeconds: 180,      // 3 минуты (180 секунд)
+    payout: 4500000,        // 4 500 000 ₽
+    requiresKey: 'key_sora2',
+    keyName: 'API-Ключ Sora 2',
+    desc: 'Кинематографический физический движок генерации видео.'
+  },
+  {
+    id: 'sora2pro',
+    name: 'sora 2 Pro',
+    category: 'video',
+    categoryName: 'Видео',
+    icon: '📹',
+    cost: 5000000,         // 5 000 000 ₽ (5 лямов)
+    cycleSeconds: 180,      // 3 минуты (180 секунд)
+    payout: 8000000,        // 8 000 000 ₽
+    requiresKey: 'key_sora2pro',
+    keyName: 'API-Ключ Sora 2 Pro',
+    desc: 'Профессиональный студийный рендер в 4K с симуляцией света.'
+  },
+  {
+    id: 'seedance_fast',
+    name: 'seedance 2.0 fast',
+    category: 'video',
+    categoryName: 'Видео',
+    icon: '⚡💃',
+    cost: 10000000,        // 10 000 000 ₽ (10 лямов)
+    cycleSeconds: 180,      // 3 минуты (180 секунд)
+    payout: 17000000,       // 17 000 000 ₽
+    requiresKey: 'key_seedance_fast',
+    keyName: 'API-Ключ SeeDance 2.0 Fast',
+    desc: 'Турбо-генератор хореографии и динамичных сцен движений.'
+  },
+  {
+    id: 'seedance2',
+    name: 'seedance 2.0',
+    category: 'video',
+    categoryName: 'Видео',
+    icon: '💃',
+    cost: 14000000,        // 14 000 000 ₽ (14 лямов)
+    cycleSeconds: 180,      // 3 минуты (180 секунд)
+    payout: 25000000,       // 25 000 000 ₽
+    requiresKey: 'key_seedance2',
+    keyName: 'API-Ключ SeeDance 2.0',
+    desc: 'Высокоточная кинематическая генерация танцев и экшн-кадров.'
+  },
+  {
+    id: 'seedance25',
+    name: 'seedance 2.5',
+    category: 'video',
+    categoryName: 'Видео',
+    icon: '🚀💃',
+    cost: 35000000,        // 35 000 000 ₽ (35 лямов)
+    cycleSeconds: 300,      // 5 минут (300 секунд)
+    payout: 70000000,       // 70 000 000 ₽
+    requiresKey: 'key_seedance25',
+    keyName: 'API-Ключ SeeDance 2.5',
+    desc: 'Флагманский суперкомпьютер абсолютного видеосинтеза нового поколения.'
+  }
+];
+
 const PRESTIGE_REQ_EARNINGS = 1000000000000000; // 1 Квадриллион рублей (1e15)
 const MAX_PRESTIGE_COUNT = 10;
 // Пассивная добыча кристаллов в секунду для каждого уровня престижа (0..10)
@@ -954,6 +1106,13 @@ const CASE_TYPES = {
     icon: '🌱',
     badge: 'СТАРТОВЫЙ БОНУС'
   },
+  api_keys: {
+    id: 'api_keys',
+    name: 'Кейс API-ключей',
+    cost: 350000,
+    icon: '🔑',
+    badge: 'СЕРВЕРА НЕЙРОСЕТЕЙ'
+  },
   bronze: {
     id: 'bronze',
     name: 'Бронзовый кейс',
@@ -1041,6 +1200,17 @@ const CASE_ITEMS = [
   { id: 'nov_bracelet', caseId: 'novice', name: 'Серебряный браслет удачи', icon: '📿', rarity: 'epic', cost: 9000, income: 75, desc: 'Плетение из чистого серебра с гравировкой знака бесконечности.' },
   { id: 'nov_cufflinks', caseId: 'novice', name: 'Запонки с ониксом', icon: '👔', rarity: 'legendary', cost: 9800, income: 85, desc: 'Изысканное дополнение к деловому костюму начинающего магната.' },
   { id: 'nov_token', caseId: 'novice', name: 'Золотой жетон триумфа', icon: '🏆', rarity: 'mythic', cost: 10000, income: 100, desc: 'Сверкающий золотой медальон, открывающий путь к миллиардам.' },
+  // --- КЕЙС API-КЛЮЧЕЙ (10 ключей для серверов ИИ) ---
+  { id: 'key_seedream', caseId: 'api_keys', name: 'API-Ключ Seedream 4.5', icon: '🔑', rarity: 'common', cost: 200000, income: 0, isApiKey: true, serverId: 'seedream', desc: 'Уникальный ключ доступа к серверу фото-генерации Seedream 4.5.' },
+  { id: 'key_collart', caseId: 'api_keys', name: 'API-Ключ CollArt Video', icon: '🔑', rarity: 'common', cost: 200000, income: 0, isApiKey: true, serverId: 'collart', desc: 'Ключ авторизации в сети видеогенерации CollArt.' },
+  { id: 'key_chatgpt', caseId: 'api_keys', name: 'API-Ключ ChatGPT Image', icon: '🔑', rarity: 'rare', cost: 250000, income: 0, isApiKey: true, serverId: 'chatgpt', desc: 'Секретный токен для подключения сервера ChatGPT Image.' },
+  { id: 'key_nanobanana', caseId: 'api_keys', name: 'API-Ключ Nano Banana Pro', icon: '🔑', rarity: 'rare', cost: 300000, income: 0, isApiKey: true, serverId: 'nanobanana', desc: 'Ключ доступа к премиум-кластеру Nano Banana Pro.' },
+  { id: 'key_omni', caseId: 'api_keys', name: 'API-Ключ Google Omni Flash', icon: '🔑', rarity: 'epic', cost: 400000, income: 0, isApiKey: true, serverId: 'omni', desc: 'Сертификат авторизации в облачной инфраструктуре Google Omni.' },
+  { id: 'key_sora2', caseId: 'api_keys', name: 'API-Ключ Sora 2', icon: '🔑', rarity: 'epic', cost: 450000, income: 0, isApiKey: true, serverId: 'sora2', desc: 'Лицензионный ключ доступа к кинематографической модели Sora 2.' },
+  { id: 'key_sora2pro', caseId: 'api_keys', name: 'API-Ключ Sora 2 Pro', icon: '🔑', rarity: 'legendary', cost: 600000, income: 0, isApiKey: true, serverId: 'sora2pro', desc: 'Профессиональный доступ студийного уровня к Sora 2 Pro.' },
+  { id: 'key_seedance_fast', caseId: 'api_keys', name: 'API-Ключ SeeDance 2.0 Fast', icon: '🔑', rarity: 'legendary', cost: 700000, income: 0, isApiKey: true, serverId: 'seedance_fast', desc: 'Скоростной API-токен для видеогенератора SeeDance Fast.' },
+  { id: 'key_seedance2', caseId: 'api_keys', name: 'API-Ключ SeeDance 2.0', icon: '🔑', rarity: 'mythic', cost: 900000, income: 0, isApiKey: true, serverId: 'seedance2', desc: 'Мастер-ключ к нейросети хореографии и движений SeeDance 2.0.' },
+  { id: 'key_seedance25', caseId: 'api_keys', name: 'API-Ключ SeeDance 2.5', icon: '🔑', rarity: 'mythic', cost: 1500000, income: 0, isApiKey: true, serverId: 'seedance25', desc: 'Эксклюзивный квантовый ключ доступа к флагману SeeDance 2.5.' },
   // --- 0. БРОНЗОВЫЙ КЕЙС (10 предметов) ---
   {
     id: 'brz_sprat',
@@ -1532,6 +1702,8 @@ let state = {
   businesses: JSON.parse(JSON.stringify(DEFAULT_BUSINESSES)),
   realEstate: JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE)),
   airline: JSON.parse(JSON.stringify(DEFAULT_AIRLINE)),
+  servers: {},
+  apiKeys: {},
   inventory: {}, // itemId: { count: 1, date: timestamp }
   market: {
     lastUpdate: Date.now(),
@@ -2269,6 +2441,17 @@ function calculateNetWorth() {
     });
   }
 
+  // ИИ-Сервера
+  if (state.servers) {
+    Object.keys(state.servers).forEach(sid => {
+      const sState = state.servers[sid];
+      if (sState && sState.owned) {
+        const sDef = AI_SERVERS.find(s => s.id === sid);
+        if (sDef) total += sDef.cost;
+      }
+    });
+  }
+
   // Инвентарь (предметы из кейсов)
   if (state.inventory) {
     Object.keys(state.inventory).forEach(itemId => {
@@ -2633,6 +2816,7 @@ function updateCurrencySymbols() {
 function updateCaseButtonsAffordability() {
   if (btnOpenNoviceCase) btnOpenNoviceCase.disabled = state.balance < (CASE_TYPES.novice?.cost || 10000);
   if (btnOpenBronzeCase) btnOpenBronzeCase.disabled = state.balance < (CASE_TYPES.bronze?.cost || 100000);
+  if (btnOpenApiKeysCase) btnOpenApiKeysCase.disabled = state.balance < (CASE_TYPES.api_keys?.cost || 350000);
   if (btnOpenSilverCase) btnOpenSilverCase.disabled = state.balance < (CASE_TYPES.silver?.cost || 1000000);
   if (btnOpenGoldCase) btnOpenGoldCase.disabled = state.balance < (CASE_TYPES.gold?.cost || 5000000);
   if (btnOpenDiamondCase) btnOpenDiamondCase.disabled = state.balance < (CASE_TYPES.diamond?.cost || 10000000);
@@ -2781,7 +2965,9 @@ function buyClickModifier(modId) {
   if (!mod) return;
 
   if (!state.clickModifiers) {
-    state.clickModifiers = { power_mult: 0, crit_tap: 0, resonance: 0, golden_touch: 0 };
+    state.servers = {};
+  state.apiKeys = {};
+  state.clickModifiers = { power_mult: 0, crit_tap: 0, resonance: 0, golden_touch: 0 };
   }
 
   const currentLvl = state.clickModifiers[modId] || 0;
@@ -4065,6 +4251,51 @@ function openCase(caseId) {
  */
 function finishCaseOpening(wonItem) {
   isRouletteSpinning = false;
+  if (wonItem.isApiKey) {
+    const isDuplicate = Boolean(state.apiKeys && state.apiKeys[wonItem.id]);
+    const rarity = RARITY_INFO[wonItem.rarity] || RARITY_INFO.common;
+
+    if (isDuplicate) {
+      const comp = wonItem.cost || 200000;
+      state.balance += comp;
+      state.stats.totalEarned += comp;
+      if (duplicateBanner) duplicateBanner.style.display = 'flex';
+      if (newItemBanner) newItemBanner.style.display = 'none';
+      if (compensationAmount) compensationAmount.textContent = `+${formatNumber(comp)} ${getCurrencySymbol()}`;
+      if (btnCaseCollect) btnCaseCollect.textContent = 'Забрать компенсацию';
+    } else {
+      if (!state.apiKeys) state.apiKeys = {};
+      state.apiKeys[wonItem.id] = true;
+      if (duplicateBanner) duplicateBanner.style.display = 'none';
+      if (newItemBanner) newItemBanner.style.display = 'block';
+      if (btnCaseCollect) btnCaseCollect.textContent = 'Активировать API-ключ';
+    }
+
+    if (rewardRarityBadge) {
+      rewardRarityBadge.textContent = rarity.name.toUpperCase();
+      rewardRarityBadge.className = `reward-rarity-badge ${rarity.class}`;
+    }
+    if (rewardIconBox) rewardIconBox.textContent = wonItem.icon;
+    if (rewardItemName) rewardItemName.textContent = wonItem.name;
+    if (rewardItemDesc) rewardItemDesc.textContent = wonItem.desc;
+    if (rewardValueAmount) rewardValueAmount.textContent = isDuplicate ? `${formatNumber(wonItem.cost)} ${getCurrencySymbol()}` : 'Ключ Доступа';
+    if (rewardIncomeAmount) rewardIncomeAmount.textContent = 'Разблокировка сервера';
+    if (rewardItemCard) rewardItemCard.className = `reward-item-card ${rarity.class}`;
+    if (rewardGlowBurst) rewardGlowBurst.style.background = rarity.color || '#818cf8';
+
+    soundManager.playCaseWin(wonItem.rarity);
+    triggerHaptic('success');
+
+    if (rouletteContainer) rouletteContainer.style.display = 'none';
+    if (caseRewardStage) caseRewardStage.style.display = 'flex';
+
+    updateHeader();
+    renderCasesScreen();
+    updateStatsUI();
+    saveGameState();
+    return;
+  }
+
   const isDuplicate = Boolean(state.inventory && state.inventory[wonItem.id]);
   const rarity = RARITY_INFO[wonItem.rarity] || RARITY_INFO.common;
 
@@ -4282,6 +4513,369 @@ function renderThemesSelector() {
 
 
 // ==========================================
+
+// ==========================================
+// ИИ-СЕРВЕРА: ФОТО И ВИДЕО ГЕНЕРАЦИЯ
+// ==========================================
+
+const serversActiveCount = document.getElementById('serversActiveCount');
+const serversReadyProfitVal = document.getElementById('serversReadyProfitVal');
+const btnCollectAllServers = document.getElementById('btnCollectAllServers');
+const serversList = document.getElementById('serversList');
+const serversReadyBadge = document.getElementById('serversReadyBadge');
+const btnOpenApiKeysCase = document.getElementById('btnOpenApiKeysCase');
+
+let currentServerFilter = 'all';
+
+function renderServersScreen() {
+  if (!state.servers) state.servers = {};
+  if (!state.apiKeys) state.apiKeys = {};
+
+  const ownedCount = Object.keys(state.servers).filter(id => state.servers[id]?.owned).length;
+  if (serversActiveCount) {
+    serversActiveCount.textContent = `Активно: ${ownedCount} / ${AI_SERVERS.length}`;
+  }
+
+  let totalUncollected = 0;
+  AI_SERVERS.forEach(sDef => {
+    const sState = state.servers[sDef.id];
+    if (sState && sState.owned) {
+      totalUncollected += (sState.uncollected || 0);
+    }
+  });
+
+  if (serversReadyProfitVal) {
+    serversReadyProfitVal.textContent = formatNumber(totalUncollected);
+  }
+
+  if (btnCollectAllServers) {
+    btnCollectAllServers.disabled = totalUncollected <= 0;
+  }
+
+  if (serversReadyBadge) {
+    serversReadyBadge.style.display = totalUncollected > 0 ? 'block' : 'none';
+  }
+
+  if (!serversList) return;
+  serversList.innerHTML = '';
+
+  const filteredServers = AI_SERVERS.filter(s => {
+    if (currentServerFilter === 'photo') return s.category === 'photo';
+    if (currentServerFilter === 'video') return s.category === 'video';
+    return true;
+  });
+
+  filteredServers.forEach(sDef => {
+    const sState = state.servers[sDef.id];
+    const isOwned = Boolean(sState && sState.owned);
+    const hasKey = !sDef.requiresKey || Boolean(state.apiKeys && state.apiKeys[sDef.requiresKey]);
+    const canAfford = state.balance >= sDef.cost;
+
+    const card = document.createElement('div');
+    card.className = `server-card ${isOwned ? 'active-server' : (hasKey ? 'available-server' : 'locked-server')}`;
+    card.setAttribute('data-server-id', sDef.id);
+
+    if (isOwned) {
+      const elapsed = sState.elapsedSeconds || 0;
+      const progress = Math.min(100, Math.max(0, (elapsed / sDef.cycleSeconds) * 100));
+      const remSec = Math.max(0, Math.ceil(sDef.cycleSeconds - elapsed));
+      const uncollected = sState.uncollected || 0;
+
+      card.innerHTML = `
+        <div class="server-card-header">
+          <div class="server-icon-wrap">
+            <span class="server-icon">${sDef.icon}</span>
+          </div>
+          <div class="server-info">
+            <div class="server-type-row">
+              <span class="server-type-pill pill-${sDef.category}">${sDef.categoryName.toUpperCase()}</span>
+              <span class="server-status-pill status-running">● ГЕНЕРАЦИЯ</span>
+            </div>
+            <div class="server-name">${sDef.name}</div>
+          </div>
+        </div>
+
+        <div class="server-stats-grid">
+          <div class="server-stat-box">
+            <span class="s-box-lbl">Цикл</span>
+            <span class="s-box-val">${sDef.cycleSeconds} сек</span>
+          </div>
+          <div class="server-stat-box">
+            <span class="s-box-lbl">Доход/цикл</span>
+            <span class="s-box-val highlight">+${formatNumber(sDef.payout)} ₽</span>
+          </div>
+          <div class="server-stat-box">
+            <span class="s-box-lbl">Всего циклов</span>
+            <span class="s-box-val">${sState.totalCycles || 0}</span>
+          </div>
+        </div>
+
+        <div class="server-progress-section">
+          <div class="server-progress-labels">
+            <span class="s-cycle-step">Генерация контента...</span>
+            <span class="s-cycle-countdown server-countdown-${sDef.id}">${formatSeconds(remSec)}</span>
+          </div>
+          <div class="progress-bar-track server-progress-track">
+            <div class="progress-bar-fill server-progress-fill server-fill-${sDef.id}" style="width: ${progress}%;">
+              <div class="progress-shine"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="server-action-row">
+          <div class="server-uncollected-box">
+            <span class="s-uncollected-lbl">Готово к сбору:</span>
+            <span class="s-uncollected-val server-uncollected-${sDef.id}">+${formatNumber(uncollected)} ₽</span>
+          </div>
+          <button class="btn-collect-server" data-server-id="${sDef.id}" ${uncollected > 0 ? '' : 'disabled'}>
+            <span>Собрать</span>
+          </button>
+        </div>
+      `;
+
+      const collectBtn = card.querySelector('.btn-collect-server');
+      if (collectBtn) {
+        bindTouchClick(collectBtn, (e) => {
+          e.stopPropagation();
+          collectServerRevenue(sDef.id);
+        });
+      }
+
+    } else if (hasKey) {
+      // Ключ есть (или не нужен), готов к покупке
+      card.innerHTML = `
+        <div class="server-card-header">
+          <div class="server-icon-wrap">
+            <span class="server-icon">${sDef.icon}</span>
+          </div>
+          <div class="server-info">
+            <div class="server-type-row">
+              <span class="server-type-pill pill-${sDef.category}">${sDef.categoryName.toUpperCase()}</span>
+              <span class="server-status-pill status-ready">✓ КЛЮЧ АКТИВЕН</span>
+            </div>
+            <div class="server-name">${sDef.name}</div>
+          </div>
+        </div>
+
+        <div class="server-desc-text">${sDef.desc}</div>
+
+        <div class="server-stats-grid">
+          <div class="server-stat-box">
+            <span class="s-box-lbl">Цикл генерации</span>
+            <span class="s-box-val">${sDef.cycleSeconds} сек</span>
+          </div>
+          <div class="server-stat-box">
+            <span class="s-box-lbl">Доход за цикл</span>
+            <span class="s-box-val highlight">+${formatNumber(sDef.payout)} ₽</span>
+          </div>
+          <div class="server-stat-box">
+            <span class="s-box-lbl">Стоимость</span>
+            <span class="s-box-val">${formatNumber(sDef.cost)} ₽</span>
+          </div>
+        </div>
+
+        <button class="btn-buy-server" data-server-id="${sDef.id}" ${canAfford ? '' : 'disabled'}>
+          <span class="btn-buy-server-action">Купить сервер</span>
+          <span class="btn-buy-server-cost">${formatNumber(sDef.cost)} ₽</span>
+        </button>
+      `;
+
+      const buyBtn = card.querySelector('.btn-buy-server');
+      if (buyBtn) {
+        bindTouchClick(buyBtn, (e) => {
+          e.stopPropagation();
+          buyServer(sDef.id);
+        });
+      }
+
+    } else {
+      // Заблокирован, нужен API ключ
+      card.innerHTML = `
+        <div class="server-card-header">
+          <div class="server-icon-wrap locked-icon-wrap">
+            <span class="server-icon">🔒</span>
+          </div>
+          <div class="server-info">
+            <div class="server-type-row">
+              <span class="server-type-pill pill-${sDef.category}">${sDef.categoryName.toUpperCase()}</span>
+              <span class="server-status-pill status-locked">ТРЕБУЕТСЯ КЛЮЧ</span>
+            </div>
+            <div class="server-name">${sDef.name}</div>
+          </div>
+        </div>
+
+        <div class="server-desc-text">${sDef.desc}</div>
+
+        <div class="server-key-needed-card">
+          <div class="server-key-icon">🔑</div>
+          <div class="server-key-info">
+            <span class="server-key-title">Необходим: ${sDef.keyName || 'API-Ключ'}</span>
+            <span class="server-key-hint">Выпадает в Кейсе API-ключей (вкладка Кейсы)</span>
+          </div>
+        </div>
+
+        <div class="server-stats-grid">
+          <div class="server-stat-box">
+            <span class="s-box-lbl">Цикл генерации</span>
+            <span class="s-box-val">${sDef.cycleSeconds} сек</span>
+          </div>
+          <div class="server-stat-box">
+            <span class="s-box-lbl">Доход за цикл</span>
+            <span class="s-box-val highlight">+${formatNumber(sDef.payout)} ₽</span>
+          </div>
+          <div class="server-stat-box">
+            <span class="s-box-lbl">Стоимость</span>
+            <span class="s-box-val">${formatNumber(sDef.cost)} ₽</span>
+          </div>
+        </div>
+
+        <button class="btn-key-needed" data-server-id="${sDef.id}">
+          <span>🔑 Найти ключ в Кейсах</span>
+        </button>
+      `;
+
+      const keyBtn = card.querySelector('.btn-key-needed');
+      if (keyBtn) {
+        bindTouchClick(keyBtn, (e) => {
+          e.stopPropagation();
+          switchScreen('screenCases');
+          showCasesShopView();
+          const targetCard = document.getElementById('cardCaseApiKeys');
+          if (targetCard) {
+            targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            targetCard.classList.add('highlight-pulse');
+            setTimeout(() => targetCard.classList.remove('highlight-pulse'), 1800);
+          }
+        });
+      }
+    }
+
+    serversList.appendChild(card);
+  });
+}
+
+function updateServersProgressUI() {
+  if (!state.servers) return;
+
+  let totalUncollected = 0;
+  AI_SERVERS.forEach(sDef => {
+    const sState = state.servers[sDef.id];
+    if (sState && sState.owned) {
+      const elapsed = sState.elapsedSeconds || 0;
+      const progress = Math.min(100, Math.max(0, (elapsed / sDef.cycleSeconds) * 100));
+      const remSec = Math.max(0, Math.ceil(sDef.cycleSeconds - elapsed));
+      const uncollected = sState.uncollected || 0;
+      totalUncollected += uncollected;
+
+      const fillEl = document.querySelector(`.server-fill-${sDef.id}`);
+      if (fillEl) fillEl.style.width = `${progress}%`;
+
+      const countdownEl = document.querySelector(`.server-countdown-${sDef.id}`);
+      if (countdownEl) countdownEl.textContent = formatSeconds(remSec);
+
+      const uncollectedEl = document.querySelector(`.server-uncollected-${sDef.id}`);
+      if (uncollectedEl) uncollectedEl.textContent = `+${formatNumber(uncollected)} ₽`;
+
+      const collectBtn = document.querySelector(`.btn-collect-server[data-server-id="${sDef.id}"]`);
+      if (collectBtn) {
+        collectBtn.disabled = uncollected <= 0;
+      }
+    }
+  });
+
+  if (serversReadyProfitVal) {
+    serversReadyProfitVal.textContent = formatNumber(totalUncollected);
+  }
+  if (btnCollectAllServers) {
+    btnCollectAllServers.disabled = totalUncollected <= 0;
+  }
+  if (serversReadyBadge) {
+    serversReadyBadge.style.display = totalUncollected > 0 ? 'block' : 'none';
+  }
+}
+
+function buyServer(serverId) {
+  const sDef = AI_SERVERS.find(s => s.id === serverId);
+  if (!sDef) return;
+
+  if (sDef.requiresKey && (!state.apiKeys || !state.apiKeys[sDef.requiresKey])) {
+    soundManager.playError();
+    triggerHaptic('error');
+    alert(`Для покупки требуется ${sDef.keyName}!\nОткройте Кейс API-ключей во вкладке Кейсы.`);
+    return;
+  }
+
+  if (state.balance < sDef.cost) {
+    soundManager.playError();
+    triggerHaptic('error');
+    return;
+  }
+
+  state.balance -= sDef.cost;
+  if (!state.servers) state.servers = {};
+  state.servers[serverId] = {
+    owned: true,
+    elapsedSeconds: 0,
+    uncollected: 0,
+    totalCycles: 0,
+    totalEarned: 0
+  };
+
+  soundManager.playBusinessBuy();
+  triggerHaptic('success');
+
+  updateHeader();
+  renderServersScreen();
+  saveGameState();
+}
+
+function collectServerRevenue(serverId) {
+  const sState = state.servers ? state.servers[serverId] : null;
+  if (!sState || !sState.owned || (sState.uncollected || 0) <= 0) return;
+
+  const rev = sState.uncollected;
+  sState.uncollected = 0;
+  sState.totalEarned = (sState.totalEarned || 0) + rev;
+
+  state.balance += rev;
+  state.stats.totalEarned += rev;
+
+  soundManager.playCoin();
+  triggerHaptic('success');
+  createFloatingNumber(null, null, `+${formatNumber(rev)} ₽`);
+
+  updateHeader();
+  renderServersScreen();
+  saveGameState();
+}
+
+function collectAllServersRevenue() {
+  if (!state.servers) return;
+
+  let totalRev = 0;
+  AI_SERVERS.forEach(sDef => {
+    const sState = state.servers[sDef.id];
+    if (sState && sState.owned && (sState.uncollected || 0) > 0) {
+      totalRev += sState.uncollected;
+      sState.totalEarned = (sState.totalEarned || 0) + sState.uncollected;
+      sState.uncollected = 0;
+    }
+  });
+
+  if (totalRev <= 0) return;
+
+  state.balance += totalRev;
+  state.stats.totalEarned += totalRev;
+
+  soundManager.playBusinessBuy();
+  triggerHaptic('success');
+  createFloatingNumber(null, null, `+${formatNumber(totalRev)} ₽`);
+
+  updateHeader();
+  renderServersScreen();
+  saveGameState();
+}
+
 // ЛИМИТ КЛИКОВ: СТРОГО 30 CPS (CLICKS PER SECOND)
 // ==========================================
 
@@ -4403,7 +4997,9 @@ function createRippleWave(clientX, clientY) {
 
 function createFloatingNumber(x, y, text, extraClass = '') {
   if (!particlesContainer) return;
-  const rect = particlesContainer.getBoundingClientRect();
+  const rect = typeof particlesContainer.getBoundingClientRect === 'function'
+    ? particlesContainer.getBoundingClientRect()
+    : { left: 0, top: 0, width: 360, height: 600 };
   const posX = (x || (rect.left + rect.width / 2)) - rect.left;
   const posY = (y || (rect.top + rect.height / 2)) - rect.top;
 
@@ -4560,6 +5156,7 @@ function performRebirth() {
   });
   if (state.sideJobs) state.sideJobs.forEach(j => j.owned = false);
   state.airline = JSON.parse(JSON.stringify(DEFAULT_AIRLINE));
+  state.servers = {};
 
   applyTheme(state.tapLevel);
 
@@ -4775,6 +5372,8 @@ function doDiamondPrestige() {
   state.businesses = JSON.parse(JSON.stringify(DEFAULT_BUSINESSES));
   state.realEstate = JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE));
   state.airline = JSON.parse(JSON.stringify(DEFAULT_AIRLINE));
+  state.servers = {};
+  state.apiKeys = {};
   state.rainbowBoost = { active: false, timeLeft: 0, multiplier: 5 };
   state.market = { lastUpdate: Date.now(), multipliers: {} };
   
@@ -4809,6 +5408,7 @@ prestigeConfirmModal?.addEventListener('click', (e) => {
 
 const screens = {
   screenWallet: document.getElementById('screenWallet'),
+  screenServers: document.getElementById('screenServers'),
   screenEarnings: document.getElementById('screenEarnings'),
   screenBusiness: document.getElementById('screenBusiness'),
   screenCases: document.getElementById('screenCases'),
@@ -4819,6 +5419,7 @@ const screens = {
 
 const navTabs = {
   screenWallet: document.getElementById('navTabWallet'),
+  screenServers: document.getElementById('navTabServers'),
   screenEarnings: document.getElementById('navTabEarnings'),
   screenBusiness: document.getElementById('navTabBusiness'),
   screenCases: document.getElementById('navTabCases'),
@@ -4847,6 +5448,7 @@ function switchScreen(targetScreenId) {
     }
   });
 
+  if (targetScreenId === 'screenServers') renderServersScreen();
   if (targetScreenId === 'screenEarnings') renderEarningsScreen();
   if (targetScreenId === 'screenWallet') applyTheme(state.tapLevel);
   if (targetScreenId === 'screenSettings') {
@@ -4965,6 +5567,26 @@ if (btnConfirmRebirth) {
 // СЛУШАТЕЛИ КЕЙСОВ И ИНВЕНТАРЯ
 // ==========================================
 
+
+// Слушатели вкладки Сервера
+if (btnOpenApiKeysCase) {
+  bindTouchClick(btnOpenApiKeysCase, () => openCase('api_keys'));
+}
+
+if (btnCollectAllServers) {
+  bindTouchClick(btnCollectAllServers, collectAllServersRevenue);
+}
+
+document.querySelectorAll('.server-filter-btn').forEach(btn => {
+  bindTouchClick(btn, () => {
+    document.querySelectorAll('.server-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentServerFilter = btn.getAttribute('data-filter') || 'all';
+    renderServersScreen();
+    soundManager.playTap();
+  });
+});
+
 if (btnOpenNoviceCase) bindTouchClick(btnOpenNoviceCase, () => openCase('novice'));
 if (btnOpenBronzeCase) bindTouchClick(btnOpenBronzeCase, () => openCase('bronze'));
 if (btnOpenSilverCase) bindTouchClick(btnOpenSilverCase, () => openCase('silver'));
@@ -5025,6 +5647,36 @@ function gameLoop(currentTime) {
     updateHeader();
     updateTapUpgradeCard();
     updateBusinessAffordability();
+  }
+
+
+  // Генерация и прогресс ИИ-серверов
+  if (state.servers) {
+    let anyUncollected = false;
+
+    AI_SERVERS.forEach(sDef => {
+      const sState = state.servers[sDef.id];
+      if (sState && sState.owned) {
+        sState.elapsedSeconds = (sState.elapsedSeconds || 0) + delta;
+        if (sState.elapsedSeconds >= sDef.cycleSeconds) {
+          const completedCycles = Math.floor(sState.elapsedSeconds / sDef.cycleSeconds);
+          sState.elapsedSeconds %= sDef.cycleSeconds;
+          sState.uncollected = (sState.uncollected || 0) + (completedCycles * sDef.payout);
+          sState.totalCycles = (sState.totalCycles || 0) + completedCycles;
+        }
+        if (sState.uncollected > 0) {
+          anyUncollected = true;
+        }
+      }
+    });
+
+    if (screens.screenServers && screens.screenServers.classList.contains('active')) {
+      updateServersProgressUI();
+    }
+
+    if (serversReadyBadge) {
+      serversReadyBadge.style.display = anyUncollected ? 'block' : 'none';
+    }
   }
 
   // Добыча кристаллов от Алмазного Престижа
@@ -5269,6 +5921,32 @@ function loadGameState() {
         state.inventory = {};
       }
 
+
+      // Мерджим API-ключи и сервера
+      if (saved.apiKeys && typeof saved.apiKeys === 'object') {
+        state.apiKeys = saved.apiKeys;
+      } else {
+        state.apiKeys = {};
+      }
+
+      if (saved.servers && typeof saved.servers === 'object') {
+        state.servers = {};
+        AI_SERVERS.forEach(sDef => {
+          const sSaved = saved.servers[sDef.id];
+          if (sSaved && sSaved.owned) {
+            state.servers[sDef.id] = {
+              owned: true,
+              elapsedSeconds: typeof sSaved.elapsedSeconds === 'number' ? sSaved.elapsedSeconds : 0,
+              uncollected: typeof sSaved.uncollected === 'number' ? sSaved.uncollected : 0,
+              totalCycles: typeof sSaved.totalCycles === 'number' ? sSaved.totalCycles : 0,
+              totalEarned: typeof sSaved.totalEarned === 'number' ? sSaved.totalEarned : 0
+            };
+          }
+        });
+      } else {
+        state.servers = {};
+      }
+
       // Расчет офлайн-дохода
       if (saved.lastSaved) {
         const offlineSeconds = (Date.now() - saved.lastSaved) / 1000;
@@ -5284,6 +5962,24 @@ function loadGameState() {
               }
             }
           });
+
+
+          // Офлайн-прогресс ИИ-серверов
+          if (state.servers) {
+            AI_SERVERS.forEach(sDef => {
+              const sState = state.servers[sDef.id];
+              if (sState && sState.owned) {
+                const totalOffline = (sState.elapsedSeconds || 0) + validSeconds;
+                const cycles = Math.floor(totalOffline / sDef.cycleSeconds);
+                sState.elapsedSeconds = totalOffline % sDef.cycleSeconds;
+                if (cycles > 0) {
+                  const sRev = cycles * sDef.payout;
+                  sState.uncollected = (sState.uncollected || 0) + sRev;
+                  sState.totalCycles = (sState.totalCycles || 0) + cycles;
+                }
+              }
+            });
+          }
 
           const passivePerSec = getTotalPassiveIncome();
           let offlineEarned = Math.floor(passivePerSec * validSeconds);

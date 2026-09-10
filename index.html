@@ -131,6 +131,55 @@
         </div>
       </section>
 
+      <!-- ================= ВКЛАДКА: СЕРВЕРА (AI-ГЕНЕРАЦИЯ ФОТО И ВИДЕО) ================= -->
+      <section class="screen" id="screenServers">
+        <div class="screen-content servers-content">
+
+          <!-- Главная статусная карточка Дата-Центра -->
+          <div class="servers-hero-card">
+            <div class="servers-hero-glow"></div>
+            <div class="servers-hero-top">
+              <div class="servers-hero-tag">
+                <span class="servers-live-dot"></span>
+                <span>AI DATA CENTER 2026</span>
+              </div>
+              <span class="servers-count-badge" id="serversActiveCount">Активно: 0 / 11</span>
+            </div>
+
+            <div class="servers-hero-stats">
+              <div class="servers-stat-block">
+                <span class="s-stat-lbl">ГОТОВАЯ ПРИБЫЛЬ</span>
+                <div class="s-stat-val">
+                  <span id="serversReadyProfitVal">0</span>
+                  <span class="currency-text">₽</span>
+                </div>
+              </div>
+              <button class="btn-collect-all-servers" id="btnCollectAllServers" disabled>
+                <span>⚡ Собрать всё</span>
+              </button>
+            </div>
+
+            <p class="servers-hero-desc">
+              Приобретайте мощные сервера для генерации фото и видео. Чтобы разблокировать продвинутые модели, получите их API-ключи в Кейсе API-ключей!
+            </p>
+          </div>
+
+          <!-- Фильтры категорий серверов -->
+          <div class="servers-filter-bar" id="serversFilterBar">
+            <button class="server-filter-btn active" data-filter="all">Все (11)</button>
+            <button class="server-filter-btn" data-filter="photo">📸 Фото (100с)</button>
+            <button class="server-filter-btn" data-filter="video">🎬 Видео (2-5м)</button>
+          </div>
+
+          <!-- Список серверов -->
+          <div class="servers-grid-list" id="serversList">
+            <!-- Генерируется динамически через game.js -->
+          </div>
+
+          <div class="scroll-bottom-spacer"></div>
+        </div>
+      </section>
+
       <!-- ================= 2. ВКЛАДКА: ЗАРАБОТОК (ПРОКАЧКА КЛИКА +1 .. +100) ================= -->
       <section class="screen" id="screenEarnings">
         <div class="screen-content earnings-content">
@@ -340,6 +389,38 @@
                   <span class="btn-case-action">Открыть кейс</span>
                   <span class="btn-case-cost">
                     <span>100 000</span>
+                    <span class="currency-text">₽</span>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Кейс API-ключей (350 000 ₽) -->
+            <div class="case-card case-api-keys" id="cardCaseApiKeys">
+              <div class="case-glow-aura"></div>
+              <div class="case-card-header">
+                <div class="case-icon-box">🔑</div>
+                <div class="case-title-group">
+                  <div class="case-rarity-pill pill-api-keys">СЕРВЕРА НЕЙРОСЕТЕЙ</div>
+                  <h3 class="case-name">Кейс API-ключей</h3>
+                  <div class="case-desc">10 уникальных ключей для разблокировки серверов фото и видео генерации (Sora, SeeDance, ChatGPT и др.).</div>
+                </div>
+              </div>
+
+              <!-- Превью предметов -->
+              <div class="case-preview-row">
+                <span class="case-preview-tag">🔑 SeeDream 4.5</span>
+                <span class="case-preview-tag">🔑 ChatGPT Image</span>
+                <span class="case-preview-tag">🔑 Sora 2</span>
+                <span class="case-preview-tag tag-legendary">🔑 SeeDance 2.0</span>
+                <span class="case-preview-tag tag-mythic">🔑 SeeDance 2.5</span>
+              </div>
+
+              <div class="case-bottom-row">
+                <button class="btn-open-case btn-api-keys" id="btnOpenApiKeysCase">
+                  <span class="btn-case-action">Открыть кейс</span>
+                  <span class="btn-case-cost">
+                    <span>350 000</span>
                     <span class="currency-text">₽</span>
                   </span>
                 </button>
@@ -1001,6 +1082,15 @@
     <!-- ================= НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ ================= -->
     <nav class="bottom-nav">
       
+      <!-- 0. Вкладка Сервера (слева от заработка) -->
+      <button class="nav-tab" id="navTabServers" data-screen="screenServers">
+        <div class="nav-tab-icon-wrap">
+          <span class="nav-tab-icon">🖥️</span>
+          <span class="nav-tab-badge" id="serversReadyBadge" style="display: none;">!</span>
+        </div>
+        <span class="nav-tab-label">Сервера</span>
+      </button>
+
       <!-- 1. Вкладка Заработок -->
       <button class="nav-tab" id="navTabEarnings" data-screen="screenEarnings">
         <div class="nav-tab-icon-wrap">
