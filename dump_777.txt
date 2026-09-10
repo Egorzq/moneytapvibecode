@@ -1,0 +1,131 @@
+Created At: 2026-09-09T22:04:03+10:00
+Completed At: 2026-09-09T22:04:03+10:00
+The following changes were made by the replace_file_content tool to: C:\Users\Егор\.gemini\antigravity\scratch\money_tapper\game.js. If relevant, proactively run terminal commands to execute this code for the USER. Don't ask for permission.
+[diff_block_start]
+@@ -295,10 +295,17 @@
+ ];
+ 
+ // ==========================================
+-// КОНФИГУРАЦИЯ КЕЙСОВ И 30 ПРЕДМЕТОВ
++// КОНФИГУРАЦИЯ 4 КЕЙСОВ И 40 ПРЕДМЕТОВ
+ // ==========================================
+ 
+ const CASE_TYPES = {
++  bronze: {
++    id: 'bronze',
++    name: 'Бронзовый кейс',
++    cost: 100000,
++    icon: '🥉',
++    badge: 'СТАРТОВЫЙ & СЕКРЕТНЫЙ'
++  },
+   silver: {
+     id: 'silver',
+     name: 'Серебряный кейс',
+@@ -327,10 +327,103 @@
+   rare: { name: 'Редкий', class: 'rarity-rare', color: '#60a5fa', weight: 18 },
+   epic: { name: 'Эпический', class: 'rarity-epic', color: '#c084fc', weight: 7 },
+   legendary: { name: 'Легендарный', class: 'rarity-legendary', color: '#fbbf24', weight: 2.6 },
+-  mythic: { name: 'Мифический', class: 'rarity-mythic', color: '#f43f5e', weight: 0.4 }
++  mythic: { name: 'Мифический', class: 'rarity-mythic', color: '#f43f5e', weight: 0.4 },
++  ultra: { name: 'Ультра Мега Редкий', class: 'rarity-ultra', color: '#ec4899', weight: 0.000000000001 }
+ };
+ 
+ const CASE_ITEMS = [
++  // --- 0. БРОНЗОВЫЙ КЕЙС (10 предметов) ---
++  {
++    id: 'brz_sprat',
++    caseId: 'bronze',
++    name: 'Килька в томате',
++    icon: '🥫',
++    rarity: 'common',
++    cost: 15000,
++    desc: 'Классическая балтийская килька в пряном томатном соусе. Вкус студенческих побед.'
++  },
++  {
++    id: 'brz_sandwich',
++    caseId: 'bronze',
++    name: 'Бутерброд с докторской',
++    icon: '🥪',
++    rarity: 'common',
++    cost: 25000,
++    desc: 'Батон, сливочное масло и щедрый ломоть вареной колбасы — идеальный перекус.'
++  },
++  {
++    id: 'brz_socks',
++    caseId: 'bronze',
++    name: 'Счастливые носки',
++    icon: '🧦',
++    rarity: 'common',
++    cost: 40000,
++    desc: 'Теплые махровые носки с принтом монет, приносящие удачу при каждом шаге.'
++  },
++  {
++    id: 'brz_cap',
++    caseId: 'bronze',
++    name: 'Кепка уличного стиля',
++    icon: '🧢',
++    rarity: 'uncommon',
++    cost: 70000,
++    desc: 'Стильная хлопковая бейсболка с вышитым золотым логотипом доллара.'
++  },
++  {
++    id: 'brz_backpack',
++    caseId: 'bronze',
++    name: 'Городской рюкзак',
++    icon: '🎒',
++    rarity: 'uncommon',
++    cost: 100000,
++    desc: 'Вместительный водонепроницаемый рюкзак для пачек наличных и ноутбука.'
++  },
++  {
++    id: 'brz_glasses',
++    caseId: 'bronze',
++    name: 'Солнцезащитные очки Авиаторы',
++    icon: '🕶️',
++    rarity: 'rare',
++    cost: 160000,
++    desc: 'Каплевидные поляризационные очки в тонкой золотистой оправе.'
++  },
++  {
++    id: 'brz_skateboard',
++    caseId: 'bronze',
++    name: 'Карбоновый скейтборд',
++    icon: '🛹',
++    rarity: 'rare',
++    cost: 280000,
++    desc: 'Легкий и маневренный круизер из многослойного клена и карбона.'
++  },
++  {
++    id: 'brz_vespa',
++    caseId: 'bronze',
++    name: 'Винтажный скутер Retro',
++    icon: '🛵',
++    rarity: 'epic',
++    cost: 550000,
++    desc: 'Культовый итальянский двухколесный транспорт цвета морской волны.'
++  },
++  {
++    id: 'brz_trophy',
++    caseId: 'bronze',
++    name: 'Бронзовый кубок Чемпиона',
++    icon: '🏆',
++    rarity: 'legendary',
++    cost: 1800000,
++    desc: 'Тяжелый литой кубок за первые крупные достижения в бизнесе.'
++  },
++  {
++    id: 'brz_killka',
++    caseId: 'bronze',
++    name: 'KILLKA',
++    icon: '🐟',
++    rarity: 'ultra',
++    cost: 1000000000000,
++    desc: 'УЛЬТРА-МЕГА-АРТЕФАКТ ВСЕЛЕННОЙ! Божественная сияющая золотом рыба. Стоимость — 1 ТРИЛЛИОН ₽! Шанс выпадения — 1 к 1 000 000 000 000.'
++  },
++
+   // --- 1. СЕРЕБРЯНЫЙ КЕЙС (10 предметов) ---
+   {
+     id: 'sil_headphones',
+[diff_block_end]
+
+Please note that the above snippet only shows the MODIFIED lines from the last change. It shows up to 3 lines of unchanged lines before and after the modified lines. The actual file contents may have many more lines not shown.

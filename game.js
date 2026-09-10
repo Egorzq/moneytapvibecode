@@ -48,15 +48,16 @@ const DEFAULT_SIDE_JOBS = [
   }
 ];
 
-// 8 бизнесов (от 7 500 до 600 млн руб)
+// 9 бизнесов (от 1 млн до 1 трлн руб)
+// Первая прокачка автофарма стоит строго 1 000 000 рублей по ТЗ!
 const DEFAULT_BUSINESSES = [
   {
     id: 'coffee',
-    name: 'Кофейня to-go',
+    name: 'Франшиза кофеен',
     icon: '☕',
-    desc: 'Ароматный кофе и свежая выпечка для спешащих горожан.',
-    baseCost: 7500, // Младший бизнес 5 000 - 10 000
-    baseIncome: 25,
+    desc: 'Сеть стильных кофеен с крафтовым зерном и стабильным потоком гостей.',
+    baseCost: 1000000, // Первый бизнес строго 1 000 000 руб по ТЗ!
+    baseIncome: 2500,
     count: 0
   },
   {
@@ -64,8 +65,8 @@ const DEFAULT_BUSINESSES = [
     name: 'Автомойка 24/7',
     icon: '🚗',
     desc: 'Бесконтактная мойка самообслуживания на оживленном шоссе.',
-    baseCost: 35000,
-    baseIncome: 140,
+    baseCost: 5000000,
+    baseIncome: 15000,
     count: 0
   },
   {
@@ -73,8 +74,8 @@ const DEFAULT_BUSINESSES = [
     name: 'Барбершоп & SPA',
     icon: '✂️',
     desc: 'Премиальный салон мужского стиля с зоной отдыха.',
-    baseCost: 160000,
-    baseIncome: 750,
+    baseCost: 25000000,
+    baseIncome: 80000,
     count: 0
   },
   {
@@ -82,8 +83,8 @@ const DEFAULT_BUSINESSES = [
     name: 'IT-компания SaaS',
     icon: '💻',
     desc: 'Разработка мобильных приложений и AI-сервисов по подписке.',
-    baseCost: 850000,
-    baseIncome: 4200,
+    baseCost: 120000000,
+    baseIncome: 450000,
     count: 0
   },
   {
@@ -91,8 +92,8 @@ const DEFAULT_BUSINESSES = [
     name: 'Частный Банк',
     icon: '🏛️',
     desc: 'Управление инвестициями, выдача займов и венчурный фонд.',
-    baseCost: 5000000,
-    baseIncome: 28000,
+    baseCost: 600000000,
+    baseIncome: 2500000,
     count: 0
   },
   {
@@ -100,8 +101,8 @@ const DEFAULT_BUSINESSES = [
     name: 'Сеть отелей 5★',
     icon: '🏨',
     desc: 'Роскошные курортные отели с казино и вертолетными площадками.',
-    baseCost: 25000000,
-    baseIncome: 160000,
+    baseCost: 3000000000,
+    baseIncome: 14000000,
     count: 0
   },
   {
@@ -109,8 +110,8 @@ const DEFAULT_BUSINESSES = [
     name: 'Нефтяная корпорация',
     icon: '🛢️',
     desc: 'Добыча, переработка черного золота и международный экспорт.',
-    baseCost: 150000000,
-    baseIncome: 1100000,
+    baseCost: 20000000000,
+    baseIncome: 100000000,
     count: 0
   },
   {
@@ -118,13 +119,23 @@ const DEFAULT_BUSINESSES = [
     name: 'Аэрокосмическая фирма',
     icon: '🚀',
     desc: 'Орбитальные полеты, добыча ресурсов на астероидах и спутники.',
-    baseCost: 600000000,
-    baseIncome: 5000000,
+    baseCost: 150000000000,
+    baseIncome: 800000000,
+    count: 0
+  },
+  {
+    id: 'quantum_ai',
+    name: 'Квантовая ИИ-корпорация',
+    icon: '🧠',
+    desc: 'Суперкомпьютеры на квантовых чипах и глобальные нейросети.',
+    baseCost: 1000000000000,
+    baseIncome: 6000000000,
     count: 0
   }
 ];
 
-// Каталог элитного имущества (автомобили и недвижимость)
+// Каталог элитного имущества (16 объектов: автомобили, виллы, особняки, яхты, острова)
+// Каждый объект оснащен детальным меню, фотографиями, улучшениями и системой флиппинга (+35% за 1 час)
 const DEFAULT_REAL_ESTATE = [
   {
     id: 'sedan',
@@ -133,7 +144,17 @@ const DEFAULT_REAL_ESTATE = [
     icon: '🚗',
     desc: 'Комфортный немецкий седан для деловых поездок по городу.',
     cost: 500000,
-    owned: false
+    owned: false,
+    location: 'Москва, Кутузовский пр-т',
+    photo: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'tuning', name: 'Чип-тюнинг Stage 2', icon: '⚙️', cost: 150000, bonusValue: 250000, bought: false },
+      { id: 'interior', name: 'Кожаный салон Nappa', icon: '🛋️', cost: 200000, bonusValue: 350000, bought: false }
+    ]
   },
   {
     id: 'sportscar',
@@ -142,16 +163,55 @@ const DEFAULT_REAL_ESTATE = [
     icon: '🏎️',
     desc: 'Итальянский суперкар с рычащим двигателем и разгоном до сотни за 2.9 сек.',
     cost: 3500000,
-    owned: false
+    owned: false,
+    location: 'Сочи Автодром',
+    photo: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'exhaust', name: 'Титановый выхлоп Akrapovič', icon: '🔥', cost: 900000, bonusValue: 1500000, bought: false },
+      { id: 'carbon', name: 'Карбоновый аэро-обвес', icon: '🏎️', cost: 1200000, bonusValue: 2000000, bought: false }
+    ]
   },
   {
     id: 'hypercar',
     category: 'Автомобиль',
     name: 'Cyber-гиперкар 1500 л.с.',
     icon: '⚡',
-    desc: 'Эксклюзивный электрический болид из титана и карбона.',
+    desc: 'Эксклюзивный электрический болид из титана и углеродного волокна.',
     cost: 25000000,
-    owned: false
+    owned: false,
+    location: 'Нюрбургринг, Германия',
+    photo: 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'telemetry', name: 'Спутниковая гоночная телеметрия', icon: '📡', cost: 6000000, bonusValue: 10000000, bought: false },
+      { id: 'ceramic', name: 'Карбон-керамическая тормозная система', icon: '🛑', cost: 8000000, bonusValue: 13000000, bought: false }
+    ]
+  },
+  {
+    id: 'modern_villa',
+    category: 'Недвижимость',
+    name: 'Современная эко-вилла',
+    icon: '🏡',
+    desc: 'Стильная двухэтажная вилла из панорамного стекла и натурального дерева с садом.',
+    cost: 50000000,
+    owned: false,
+    location: 'Серебряный Бор, Москва',
+    photo: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'pool', name: 'Инфинити-бассейн с подогревом', icon: '🏊‍♂️', cost: 12000000, bonusValue: 20000000, bought: false },
+      { id: 'solar', name: 'Солнечная электростанция и Умный дом', icon: '☀️', cost: 10000000, bonusValue: 16000000, bought: false }
+    ]
   },
   {
     id: 'penthouse',
@@ -159,17 +219,37 @@ const DEFAULT_REAL_ESTATE = [
     name: 'Пентхаус в небоскребе',
     icon: '🏢',
     desc: 'Двухуровневые апартаменты на 85-м этаже с панорамным видом на всю столицу.',
-    cost: 75000000,
-    owned: false
+    cost: 120000000,
+    owned: false,
+    location: 'Москва-Сити, Башня Федерация',
+    photo: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'terrace', name: 'Панорамная терраса с джакузи', icon: '🌆', cost: 30000000, bonusValue: 50000000, bought: false },
+      { id: 'wine_cellar', name: 'Коллекционный винный погреб', icon: '🍷', cost: 20000000, bonusValue: 35000000, bought: false }
+    ]
   },
   {
     id: 'mansion',
     category: 'Недвижимость',
     name: 'Загородная резиденция',
-    icon: '🏡',
-    desc: 'Особняк в закрытом поселке с парком, озером и охраной.',
-    cost: 200000000,
-    owned: false
+    icon: '🏰',
+    desc: 'Особняк в закрытом поселке с парком, собственным озером и круглосуточной охраной.',
+    cost: 300000000,
+    owned: false,
+    location: 'Рублёво-Успенское шоссе',
+    photo: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'helipad', name: 'Личная вертолетная площадка', icon: '🚁', cost: 70000000, bonusValue: 120000000, bought: false },
+      { id: 'spa', name: 'SPA-комплекс, сауна и хаммам', icon: '🧖', cost: 50000000, bonusValue: 90000000, bought: false }
+    ]
   },
   {
     id: 'superyacht',
@@ -177,17 +257,189 @@ const DEFAULT_REAL_ESTATE = [
     name: '80м Суперяхта с вертолетом',
     icon: '🛥️',
     desc: 'Личный круизный лайнер с бассейнами, кинотеатром и вертолетной площадкой.',
-    cost: 450000000,
-    owned: false
+    cost: 650000000,
+    owned: false,
+    location: 'Монте-Карло, Монако',
+    photo: 'https://images.unsplash.com/photo-1569263979104-865ab7cd8d17?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'stabilizer', name: 'Гироскопические стабилизаторы качки', icon: '🌊', cost: 150000000, bonusValue: 260000000, bought: false },
+      { id: 'sub', name: 'Мини-субмарина для рифов', icon: '🤿', cost: 180000000, bonusValue: 300000000, bought: false }
+    ]
   },
   {
     id: 'island',
     category: 'Недвижимость',
     name: 'Личный тропический остров',
     icon: '🏝️',
-    desc: 'Собственный райский уголок в Тихом океане с автономным энергоснабжением.',
-    cost: 800000000,
-    owned: false
+    desc: 'Собственный райский уголок в океане с автономным энергоснабжением и белым песком.',
+    cost: 1500000000,
+    owned: false,
+    location: 'Мальдивы, Атолл Баа',
+    photo: 'https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'runway', name: 'Взлетно-посадочная полоса для джетов', icon: '🛫', cost: 350000000, bonusValue: 600000000, bought: false },
+      { id: 'bungalow', name: 'Комплекс бунгало над водой лагуны', icon: '🛖', cost: 300000000, bonusValue: 520000000, bought: false }
+    ]
+  },
+  {
+    id: 'dubai_palace',
+    category: 'Недвижимость',
+    name: 'Дворец на Palm Jumeirah',
+    icon: '🕌',
+    desc: 'Архитектурный шедевр восточной роскоши с мраморными залами и частной бухтой.',
+    cost: 3500000000,
+    owned: false,
+    location: 'Дубай, ОАЭ',
+    photo: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'private_beach', name: 'Частный пляж с золотым песком', icon: '🏖️', cost: 800000000, bonusValue: 1400000000, bought: false },
+      { id: 'garage', name: 'Подземный автомузей на 25 суперкаров', icon: '🏎️', cost: 700000000, bonusValue: 1200000000, bought: false }
+    ]
+  },
+  {
+    id: 'alpine_chalet',
+    category: 'Недвижимость',
+    name: 'Альпийское шале Grand Luxe',
+    icon: '🏔️',
+    desc: 'Эксклюзивное шале у заснеженных склонов с панорамными каминами и винным залом.',
+    cost: 8000000000,
+    owned: false,
+    location: 'Куршевель 1850, Франция',
+    photo: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'ski_lift', name: 'Личный скоростной подъемник Ski-In', icon: '⛷️', cost: 1800000000, bonusValue: 3100000000, bought: false },
+      { id: 'thermal_pool', name: 'Горячий термальный источник под звездами', icon: '♨️', cost: 1500000000, bonusValue: 2600000000, bought: false }
+    ]
+  },
+  {
+    id: 'como_villa',
+    category: 'Недвижимость',
+    name: 'Вилла на Озере Комо',
+    icon: '🏛️',
+    desc: 'Неоклассическая историческая вилла с парком скульптур и частной набережной.',
+    cost: 18000000000,
+    owned: false,
+    location: 'Озеро Комо, Италия',
+    photo: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'botanical_park', name: 'Ботанический парк с вековыми кипарисами', icon: '🌳', cost: 4000000000, bonusValue: 7000000000, bought: false },
+      { id: 'riva_dock', name: 'Мраморная гавань для катеров Riva', icon: '⛵', cost: 3500000000, bonusValue: 6000000000, bought: false }
+    ]
+  },
+  {
+    id: 'beverly_hills',
+    category: 'Недвижимость',
+    name: 'Мега-особняк в Беверли-Хиллз',
+    icon: '🌴',
+    desc: 'Огромное ультрасовременное поместье голливудских звезд с панорамой Лос-Анджелеса.',
+    cost: 45000000000,
+    owned: false,
+    location: 'Лос-Анджелес, США',
+    photo: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'imax_cinema', name: 'Частный кинотеатр IMAX Dolby Atmos', icon: '🎬', cost: 9000000000, bonusValue: 16000000000, bought: false },
+      { id: 'tennis_complex', name: 'Теннисный стадион с трибунами и светом', icon: '🎾', cost: 8000000000, bonusValue: 14000000000, bought: false }
+    ]
+  },
+  {
+    id: 'scottish_castle',
+    category: 'Недвижимость',
+    name: 'Шотландский Замок Хайленд',
+    icon: '🏰',
+    desc: 'Древний каменный замок с башнями, гербовым залом и 500 гектарами частных угодий.',
+    cost: 120000000000,
+    owned: false,
+    location: 'Хайлендс, Шотландия',
+    photo: 'https://images.unsplash.com/photo-1585543805890-6051f7829f98?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'knight_museum', name: 'Оружейная палата и музей рыцарей', icon: '🛡️', cost: 25000000000, bonusValue: 44000000000, bought: false },
+      { id: 'forest_reserve', name: 'Заповедный лес и охотничий клуб', icon: '🌲', cost: 30000000000, bonusValue: 52000000000, bought: false }
+    ]
+  },
+  {
+    id: 'tokyo_tower',
+    category: 'Недвижимость',
+    name: 'Небоскреб Ginza Grand Tower',
+    icon: '🗼',
+    desc: 'Высокотехнологичная башня в центре Токио с кибернетическим управлением.',
+    cost: 350000000000,
+    owned: false,
+    location: 'Токио, Япония',
+    photo: 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'observatory', name: 'Стеклянная смотровая галерея над городом', icon: '🔭', cost: 70000000000, bonusValue: 125000000000, bought: false },
+      { id: 'quantum_shield', name: 'Квантовая система комплексной безопасности', icon: '🔒', cost: 80000000000, bonusValue: 140000000000, bought: false }
+    ]
+  },
+  {
+    id: 'mega_yacht_ice',
+    category: 'Роскошь',
+    name: 'Ледокольная мегаяхта Explorer 140м',
+    icon: '🚢',
+    desc: 'Автономная экспедиционная суперяхта высшего ледового класса для кругосветных плаваний.',
+    cost: 900000000000,
+    owned: false,
+    location: 'Антарктика & Арктика',
+    photo: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'heli_hangar_twin', name: 'Двойной ангар для двух вертолетов', icon: '🚁', cost: 180000000000, bonusValue: 320000000000, bought: false },
+      { id: 'deep_lab', name: 'Глубоководная батискаф-лаборатория', icon: '🔬', cost: 200000000000, bonusValue: 360000000000, bought: false }
+    ]
+  },
+  {
+    id: 'orbital_station',
+    category: 'Недвижимость',
+    name: 'Орбитальный отель «Alpha Star»',
+    icon: '🛰️',
+    desc: 'Частная орбитальная космическая станция с панорамными куполами с видом на Землю.',
+    cost: 2500000000000,
+    owned: false,
+    location: 'Орбита Земли (400 км)',
+    photo: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
+    onSale: false,
+    saleTimeRemaining: 0,
+    salePrice: 0,
+    saleCompleted: false,
+    upgrades: [
+      { id: 'gravity_module', name: 'Модуль искусственной гравитации', icon: '🪐', cost: 500000000000, bonusValue: 900000000000, bought: false },
+      { id: 'space_taxi', name: 'Многоразовый космический шаттл', icon: '🚀', cost: 600000000000, bonusValue: 1100000000000, bought: false }
+    ]
   }
 ];
 
@@ -269,18 +521,38 @@ const LEADERBOARD_BOTS = [
   { id: 'b10', name: 'Кристиан Вульф', company: 'Wolf Express Delivery', worth: 10000000, avatar: '📦' }
 ];
 
-// Требования капитала для каждого из 10 перерождений
+// Требования капитала для каждого из 30 перерождений (максимум 30x)
 const REBIRTH_REQUIREMENTS = [
-  15000000,   // 1: 15 млн
-  40000000,   // 2: 40 млн
-  100000000,  // 3: 100 млн
-  200000000,  // 4: 200 млн
-  350000000,  // 5: 350 млн
-  550000000,  // 6: 550 млн
-  800000000,  // 7: 800 млн
-  1100000000, // 8: 1.1 млрд
-  1500000000, // 9: 1.5 млрд
-  2000000000  // 10: 2.0 млрд
+  15000000,              // 1: 15 млн
+  40000000,              // 2: 40 млн
+  100000000,             // 3: 100 млн
+  250000000,             // 4: 250 млн
+  600000000,             // 5: 600 млн
+  1500000000,            // 6: 1.5 млрд
+  3500000000,            // 7: 3.5 млрд
+  8000000000,            // 8: 8 млрд
+  20000000000,           // 9: 20 млрд
+  50000000000,           // 10: 50 млрд
+  120000000000,          // 11: 120 млрд
+  300000000000,          // 12: 300 млрд
+  750000000000,          // 13: 750 млрд
+  2000000000000,         // 14: 2 трлн
+  5000000000000,         // 15: 5 трлн
+  12000000000000,        // 16: 12 трлн
+  30000000000000,        // 17: 30 трлн
+  75000000000000,        // 18: 75 трлн
+  200000000000000,       // 19: 200 трлн
+  500000000000000,       // 20: 500 трлн
+  1200000000000000,      // 21: 1.2 квадрлн
+  3000000000000000,      // 22: 3 квадрлн
+  7500000000000000,      // 23: 7.5 квадрлн
+  20000000000000000,     // 24: 20 квадрлн
+  50000000000000000,     // 25: 50 квадрлн
+  120000000000000000,    // 26: 120 квадрлн
+  300000000000000000,    // 27: 300 квадрлн
+  750000000000000000,    // 28: 750 квадрлн
+  2000000000000000000,   // 29: 2 квинтлн
+  5000000000000000000    // 30: 5 квинтлн
 ];
 
 const RANKS = [
@@ -434,12 +706,12 @@ const CASE_ITEMS = [
   {
     id: 'brz_killka',
     caseId: 'bronze',
-    name: 'KILLKA',
-    icon: '🐟',
+    name: 'Красный алмаз',
+    icon: '💎',
     rarity: 'ultra',
     cost: 1000000000000,
     income: 100000000,
-    desc: 'УЛЬТРА-МЕГА-АРТЕФАКТ ВСЕЛЕННОЙ! Божественная сияющая золотом рыба. Стоимость — 1 ТРИЛЛИОН ₽! Шанс выпадения — 1 к 1 000 000 000 000.'
+    desc: 'УЛЬТРА-МЕГА-АРТЕФАКТ ВСЕЛЕННОЙ! Легендарный чистейший Красный алмаз. Стоимость — 1 ТРИЛЛИОН ₽! Шанс выпадения — 1 к 1 000 000 000 000.'
   },
 
   // --- 1. СЕРЕБРЯНЫЙ КЕЙС (10 предметов) ---
@@ -767,6 +1039,10 @@ let state = {
   realEstate: JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE)),
   airline: JSON.parse(JSON.stringify(DEFAULT_AIRLINE)),
   inventory: {}, // itemId: { count: 1, date: timestamp }
+  market: {
+    lastUpdate: Date.now(),
+    multipliers: {}
+  },
   stats: {
     totalEarned: 0,
     totalTaps: 0,
@@ -812,143 +1088,259 @@ class SoundManager {
     }
   }
 
+  /**
+   * Нежный тактильный щелчок / капля ASMR при тапе
+   * Пентатоника, мягкая атака 3мс, затухание 50мс, Low-Pass фильтр 1200Гц
+   */
   playTap() {
     if (state.volume <= 0) return;
     this.init();
     if (!this.ctx) return;
     try {
+      const t = this.ctx.currentTime;
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
-      const freq = 550 + Math.random() * 80;
+      const filter = this.ctx.createBiquadFilter();
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(1200, t);
+
+      const notes = [349.23, 392.00, 440.00, 523.25, 587.33]; // F4, G4, A4, C5, D5
+      const freq = notes[Math.floor(Math.random() * notes.length)];
+      
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(freq * 1.8, this.ctx.currentTime + 0.08);
+      osc.frequency.setValueAtTime(freq, t);
+      osc.frequency.exponentialRampToValueAtTime(freq * 0.92, t + 0.05);
 
-      gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.09);
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.linearRampToValueAtTime(0.22, t + 0.004);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.055);
 
-      osc.connect(gain);
+      osc.connect(filter);
+      filter.connect(gain);
       gain.connect(this.masterGain);
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.1);
+
+      osc.start(t);
+      osc.stop(t + 0.06);
     } catch (e) {}
   }
 
+  /**
+   * Золотые монеты / приятный каскад хрустальных колокольчиков
+   */
+  playCoin() {
+    if (state.volume <= 0) return;
+    this.init();
+    if (!this.ctx) return;
+    try {
+      const t = this.ctx.currentTime;
+      const notes = [1318.51, 1567.98, 2093.00]; // E6, G6, C7
+      notes.forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+        const st = t + idx * 0.045;
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(2600, st);
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, st);
+
+        gain.gain.setValueAtTime(0.0001, st);
+        gain.gain.linearRampToValueAtTime(0.18, st + 0.005);
+        gain.gain.exponentialRampToValueAtTime(0.0001, st + 0.16);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.masterGain);
+
+        osc.start(st);
+        osc.stop(st + 0.18);
+      });
+    } catch (e) {}
+  }
+
+  /**
+   * Улучшение / Покупка: небесный восходящий аккорд
+   */
   playUpgrade() {
     if (state.volume <= 0) return;
     this.init();
     if (!this.ctx) return;
     try {
-      const notes = [440, 554.37, 659.25, 880];
-      notes.forEach((freq, index) => {
+      const t = this.ctx.currentTime;
+      const chord = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+      chord.forEach((freq, idx) => {
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        const startTime = this.ctx.currentTime + index * 0.05;
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, startTime);
-        gain.gain.setValueAtTime(0.25, startTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.15);
-        osc.connect(gain);
+        const filter = this.ctx.createBiquadFilter();
+        const st = t + idx * 0.05;
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(2200, st);
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, st);
+
+        gain.gain.setValueAtTime(0.0001, st);
+        gain.gain.linearRampToValueAtTime(0.2, st + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, st + 0.28);
+
+        osc.connect(filter);
+        filter.connect(gain);
         gain.connect(this.masterGain);
-        osc.start(startTime);
-        osc.stop(startTime + 0.16);
+
+        osc.start(st);
+        osc.stop(st + 0.3);
       });
     } catch (e) {}
   }
 
+  /**
+   * Покупка бизнеса / сделка: роскошный глубокий аккорд с колокольным отзвуком
+   */
   playBusinessBuy() {
     if (state.volume <= 0) return;
     this.init();
     if (!this.ctx) return;
     try {
-      const osc1 = this.ctx.createOscillator();
-      const osc2 = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(987.77, this.ctx.currentTime);
-      osc1.frequency.setValueAtTime(1318.51, this.ctx.currentTime + 0.08);
+      const t = this.ctx.currentTime;
+      const notes = [440, 554.37, 659.25, 880, 1108.73]; // A major
+      notes.forEach((freq, idx) => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        const filter = this.ctx.createBiquadFilter();
+        const st = t + idx * 0.04;
 
-      osc2.type = 'triangle';
-      osc2.frequency.setValueAtTime(1975.53, this.ctx.currentTime);
-      osc2.frequency.setValueAtTime(2637.02, this.ctx.currentTime + 0.08);
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(2500, st);
 
-      gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, st);
 
-      osc1.connect(gain);
-      osc2.connect(gain);
-      gain.connect(this.masterGain);
-      osc1.start();
-      osc2.start();
-      osc1.stop(this.ctx.currentTime + 0.35);
-      osc2.stop(this.ctx.currentTime + 0.35);
+        gain.gain.setValueAtTime(0.0001, st);
+        gain.gain.linearRampToValueAtTime(0.22, st + 0.006);
+        gain.gain.exponentialRampToValueAtTime(0.0001, st + 0.35);
+
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.masterGain);
+
+        osc.start(st);
+        osc.stop(st + 0.38);
+      });
     } catch (e) {}
   }
 
+  /**
+   * Портал перерождения: глубокий космический эмбиент-аккорд
+   */
   playRebirthPortal() {
     if (state.volume <= 0) return;
     this.init();
     if (!this.ctx) return;
     try {
-      // Эпичный космический восходящий арпеджио-аккорд
-      const chord = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
+      const t = this.ctx.currentTime;
+      const chord = [130.81, 196.00, 261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
       chord.forEach((freq, idx) => {
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        const start = this.ctx.currentTime + idx * 0.08;
+        const filter = this.ctx.createBiquadFilter();
+        const st = t + idx * 0.07;
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(2800, st);
+
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, start);
-        gain.gain.setValueAtTime(0.3, start);
-        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.6);
-        osc.connect(gain);
+        osc.frequency.setValueAtTime(freq, st);
+
+        gain.gain.setValueAtTime(0.0001, st);
+        gain.gain.linearRampToValueAtTime(0.25, st + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.0001, st + 0.85);
+
+        osc.connect(filter);
+        filter.connect(gain);
         gain.connect(this.masterGain);
-        osc.start(start);
-        osc.stop(start + 0.65);
+
+        osc.start(st);
+        osc.stop(st + 0.9);
       });
     } catch (e) {}
   }
 
+  /**
+   * Ошибка / нехватка средств: мягкий глухой деревянный стук (без резкого жужжания)
+   */
   playError() {
     if (state.volume <= 0) return;
     this.init();
     if (!this.ctx) return;
     try {
+      const t = this.ctx.currentTime;
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(160, this.ctx.currentTime);
-      osc.frequency.linearRampToValueAtTime(110, this.ctx.currentTime + 0.12);
-      gain.gain.setValueAtTime(0.18, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.14);
-      osc.connect(gain);
+      const filter = this.ctx.createBiquadFilter();
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(260, t);
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(140, t);
+      osc.frequency.exponentialRampToValueAtTime(70, t + 0.07);
+
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.linearRampToValueAtTime(0.25, t + 0.004);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.08);
+
+      osc.connect(filter);
+      filter.connect(gain);
       gain.connect(this.masterGain);
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.15);
+
+      osc.start(t);
+      osc.stop(t + 0.09);
     } catch (e) {}
   }
 
+  /**
+   * Прокрутка рулетки кейса: мягкий деревянный щелчок
+   */
   playCaseSpin() {
     if (state.volume <= 0) return;
     this.init();
     if (!this.ctx) return;
     try {
+      const t = this.ctx.currentTime;
       const count = 14;
       for (let i = 0; i < count; i++) {
-        const time = this.ctx.currentTime + (Math.pow(i / count, 1.7) * 2.8);
+        const time = t + (Math.pow(i / count, 1.8) * 2.7);
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(450 + (i * 30), time);
-        gain.gain.setValueAtTime(0.12, time);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.045);
-        osc.connect(gain);
+        const filter = this.ctx.createBiquadFilter();
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(1400, time);
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(480 + (i * 20), time);
+
+        gain.gain.setValueAtTime(0.0001, time);
+        gain.gain.linearRampToValueAtTime(0.12, time + 0.002);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.035);
+
+        osc.connect(filter);
+        filter.connect(gain);
         gain.connect(this.masterGain);
+
         osc.start(time);
-        osc.stop(time + 0.05);
+        osc.stop(time + 0.04);
       }
     } catch (e) {}
   }
 
+  /**
+   * Выигрыш в кейсе: мягкие кристальные арпеджио (без резких sawtooth)
+   */
   playCaseWin(rarity = 'common') {
     if (state.volume <= 0) return;
     this.init();
@@ -961,22 +1353,33 @@ class SoundManager {
         epic: [659.25, 830.61, 987.77, 1318.51],
         legendary: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98],
         mythic: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00],
-        ultra: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00, 2637.02, 3135.96]
+        ultra: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00, 2637.02]
       };
       const notes = chordMap[rarity] || chordMap.common;
+      const t = this.ctx.currentTime;
       notes.forEach((freq, idx) => {
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
-        const startTime = this.ctx.currentTime + idx * 0.07;
-        osc.type = (rarity === 'ultra' || rarity === 'mythic' || rarity === 'legendary') ? 'sawtooth' : 'triangle';
+        const filter = this.ctx.createBiquadFilter();
+        const startTime = t + idx * 0.06;
+
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(2600, startTime);
+
+        osc.type = (rarity === 'ultra' || rarity === 'mythic') ? 'triangle' : 'sine';
         osc.frequency.setValueAtTime(freq, startTime);
-        const peakGain = (rarity === 'ultra') ? 0.32 : (rarity === 'mythic' || rarity === 'legendary') ? 0.22 : 0.28;
-        gain.gain.setValueAtTime(peakGain, startTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.65);
-        osc.connect(gain);
+
+        const peakGain = (rarity === 'ultra') ? 0.28 : (rarity === 'mythic' || rarity === 'legendary') ? 0.22 : 0.2;
+        gain.gain.setValueAtTime(0.0001, startTime);
+        gain.gain.linearRampToValueAtTime(peakGain, startTime + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.55);
+
+        osc.connect(filter);
+        filter.connect(gain);
         gain.connect(this.masterGain);
+
         osc.start(startTime);
-        osc.stop(startTime + 0.7);
+        osc.stop(startTime + 0.6);
       });
     } catch (e) {}
   }
@@ -990,16 +1393,12 @@ const soundManager = new SoundManager();
 
 /**
  * Расчет глобального множителя перерождения
- * Максимум 10 перерождений и максимум 10x!
- * Rebirth 0 -> 1.0x
- * Rebirth 1 -> 1.9x
- * ...
- * Rebirth 10 -> 10.0x
+ * Максимум 30 перерождений и максимум 30x (+1.0x за каждое перерождение)
  */
 function getRebirthMultiplier(count = state.rebirthCount) {
   if (count <= 0) return 1.0;
-  if (count >= 10) return 10.0;
-  return Number((1.0 + count * 0.9).toFixed(1));
+  if (count >= 30) return 30.0;
+  return Number((1.0 + count * 1.0).toFixed(1));
 }
 
 // ==========================================
@@ -1081,6 +1480,39 @@ function getBusinessCost(business) {
 /**
  * Подсчет суммарного пассивного дохода от предметов в коллекции (в секунду)
  */
+/**
+ * Подсчет суммы всех инвестиций в объект недвижимости (базовая цена + улучшения)
+ */
+function getEstateInvested(estate) {
+  let sum = estate.cost || 0;
+  if (estate.upgrades && Array.isArray(estate.upgrades)) {
+    estate.upgrades.forEach(u => {
+      if (u.bought) sum += u.cost;
+    });
+  }
+  return sum;
+}
+
+/**
+ * Расчет текущей оценочной стоимости объекта недвижимости с учетом улучшений
+ */
+function getEstateValue(estate) {
+  let val = estate.cost || 0;
+  if (estate.upgrades && Array.isArray(estate.upgrades)) {
+    estate.upgrades.forEach(u => {
+      if (u.bought) val += (u.bonusValue || Math.round(u.cost * 1.6));
+    });
+  }
+  return val;
+}
+
+/**
+ * Расчет цены перепродажи объекта на аукционе (Флиппинг с наценкой +35%)
+ */
+function getEstateFlipPrice(estate) {
+  return Math.floor(getEstateValue(estate) * 1.35);
+}
+
 function calculateInventoryTotalIncome() {
   if (!state.inventory) return 0;
   return Object.keys(state.inventory).reduce((sum, itemId) => {
@@ -1119,7 +1551,7 @@ function calculateNetWorth() {
   // Недвижимость
   state.realEstate.forEach(item => {
     if (item.owned) {
-      total += item.cost;
+      total += getEstateInvested(item);
     }
   });
 
@@ -1188,8 +1620,15 @@ function getTotalPlanesCount() {
  * Требование капитала для следующего перерождения
  */
 function getNextRebirthRequirement() {
-  if (state.rebirthCount >= 10) return Infinity;
+  if (state.rebirthCount >= 30) return Infinity;
   return REBIRTH_REQUIREMENTS[state.rebirthCount];
+}
+
+function formatSeconds(sec) {
+  const total = Math.max(0, Math.floor(sec));
+  const m = Math.floor(total / 60);
+  const s = total % 60;
+  return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
 }
 
 function formatNumber(num) {
@@ -1237,6 +1676,7 @@ const walletThemeBadge = document.getElementById('walletThemeBadge');
 const walletPowerVal = document.getElementById('walletPowerVal');
 const btnGoEarnings = document.getElementById('btnGoEarnings');
 const btnHeaderSettings = document.getElementById('btnHeaderSettings');
+const btnBackFromSettings = document.getElementById('btnBackFromSettings');
 
 // Элементы экрана Заработок (прокачка клика +1..+100 и темы)
 const earningsPowerBig = document.getElementById('earningsPowerBig');
@@ -1368,6 +1808,32 @@ const btnCancelReset = document.getElementById('btnCancelReset');
 const btnConfirmReset = document.getElementById('btnConfirmReset');
 const offlineModal = document.getElementById('offlineModal');
 const offlineRewardValue = document.getElementById('offlineRewardValue');
+// Модальное окно деталей недвижимости и флиппинга
+const estateDetailModal = document.getElementById('estateDetailModal');
+const modalEstateCategory = document.getElementById('modalEstateCategory');
+const modalEstateName = document.getElementById('modalEstateName');
+const modalEstateAddress = document.getElementById('modalEstateAddress');
+const btnCloseEstateModal = document.getElementById('btnCloseEstateModal');
+const modalEstateIcon = document.getElementById('modalEstateIcon');
+const modalEstateStatus = document.getElementById('modalEstateStatus');
+const modalEstateTotalValue = document.getElementById('modalEstateTotalValue');
+const modalEstateDesc = document.getElementById('modalEstateDesc');
+const modalEstateUpgradesSection = document.getElementById('modalEstateUpgradesSection');
+const modalUpgradesCount = document.getElementById('modalUpgradesCount');
+const modalEstateUpgradesList = document.getElementById('modalEstateUpgradesList');
+const modalEstateFlipSection = document.getElementById('modalEstateFlipSection');
+const modalFlipStatusBox = document.getElementById('modalFlipStatusBox');
+const modalFlipTimer = document.getElementById('modalFlipTimer');
+const modalFlipProgress = document.getElementById('modalFlipProgress');
+const btnStartEstateFlip = document.getElementById('btnStartEstateFlip');
+const modalFlipPriceTag = document.getElementById('modalFlipPriceTag');
+const btnCollectEstateFlip = document.getElementById('btnCollectEstateFlip');
+const modalCollectFlipAmount = document.getElementById('modalCollectFlipAmount');
+
+// Таймер рынка инвентаря
+const marketTimerDisplay = document.getElementById('marketTimerDisplay');
+let currentInspectedEstateId = null;
+
 const btnCollectOffline = document.getElementById('btnCollectOffline');
 const saveIndicator = document.getElementById('saveIndicator');
 
@@ -1973,6 +2439,266 @@ function saveAirlineName() {
 /**
  * Рендеринг каталога недвижимости и авто
  */
+
+/**
+ * Обновление коэффициентов цен на рынке предметов инвентаря (каждый час +/- 35-65%)
+ */
+function updateMarketMultipliers(force = false) {
+  if (!state.market) {
+    state.market = { lastUpdate: Date.now(), multipliers: {} };
+  }
+  const now = Date.now();
+  const HOUR_MS = 3600 * 1000;
+  if (force || !state.market.lastUpdate || (now - state.market.lastUpdate >= HOUR_MS) || Object.keys(state.market.multipliers || {}).length === 0) {
+    state.market.lastUpdate = now;
+    state.market.multipliers = {};
+    CASE_ITEMS.forEach(item => {
+      // Флуктуация от 0.65x (-35%) до 1.65x (+65%)
+      const mult = Number((0.65 + Math.random() * 1.0).toFixed(2));
+      state.market.multipliers[item.id] = mult;
+    });
+    saveGameState();
+    if (casesInventoryView && casesInventoryView.style.display === 'flex') {
+      renderInventory();
+    }
+  }
+}
+
+/**
+ * Продажа предмета из инвентаря по текущей рыночной цене
+ * Предмет удаляется из коллекции и перестает давать пассивный доход
+ */
+function sellInventoryItem(itemId) {
+  if (!state.inventory || !state.inventory[itemId]) return;
+  const item = CASE_ITEMS.find(it => it.id === itemId);
+  if (!item) return;
+
+  const mult = (state.market && state.market.multipliers && state.market.multipliers[itemId]) || 1.0;
+  const sellPrice = Math.round(item.cost * mult);
+
+  delete state.inventory[itemId];
+  state.balance += sellPrice;
+  state.stats.totalEarned += sellPrice;
+
+  soundManager.playCoin();
+  triggerHaptic('medium');
+
+  createFloatingNumber(window.innerWidth / 2, window.innerHeight / 2, `+${formatNumber(sellPrice)} ${getCurrencySymbol()} (Продано!)`);
+
+  updateHeader();
+  renderInventory();
+  renderCasesScreen();
+  updateTapUpgradeCard();
+  updateBusinessAffordability();
+  saveGameState();
+}
+
+/**
+ * Открытие модального окна объекта недвижимости с фото, улучшениями и аукционом флиппинга
+ */
+function openEstateModal(estateId) {
+  const estate = state.realEstate.find(e => e.id === estateId);
+  if (!estate) return;
+  currentInspectedEstateId = estateId;
+
+  modalEstateCategory.textContent = estate.category;
+  modalEstateName.textContent = estate.name;
+  modalEstateAddress.textContent = '📍 ' + (estate.location || 'Престижная локация');
+  if (modalEstateIcon) modalEstateIcon.textContent = estate.icon || '🏡';
+  modalEstateDesc.textContent = estate.desc;
+
+  updateEstateModalUI();
+  estateDetailModal.classList.add('active');
+}
+
+function closeEstateModal() {
+  currentInspectedEstateId = null;
+  estateDetailModal.classList.remove('active');
+}
+
+/**
+ * Обновление внутреннего состояния модального окна недвижимости
+ */
+function updateEstateModalUI() {
+  if (!currentInspectedEstateId) return;
+  const estate = state.realEstate.find(e => e.id === currentInspectedEstateId);
+  if (!estate) return;
+
+  const totalValue = getEstateValue(estate);
+  modalEstateTotalValue.textContent = formatNumber(totalValue) + ' ' + getCurrencySymbol();
+
+  if (!estate.owned) {
+    modalEstateStatus.textContent = 'В продаже';
+    modalEstateStatus.style.background = 'rgba(100, 116, 139, 0.85)';
+    modalEstateUpgradesSection.style.display = 'none';
+    modalEstateFlipSection.style.display = 'none';
+    return;
+  }
+
+  modalEstateUpgradesSection.style.display = 'block';
+  modalEstateFlipSection.style.display = 'block';
+
+  // Статус
+  if (estate.onSale) {
+    if (estate.saleCompleted) {
+      modalEstateStatus.textContent = 'Покупатель найден! 💰';
+      modalEstateStatus.style.background = 'rgba(34, 197, 94, 0.9)';
+    } else {
+      modalEstateStatus.textContent = 'На аукционе ⏳ (' + formatSeconds(estate.saleTimeRemaining) + ')';
+      modalEstateStatus.style.background = 'rgba(234, 179, 8, 0.9)';
+    }
+  } else {
+    modalEstateStatus.textContent = 'В собственности ✓';
+    modalEstateStatus.style.background = 'rgba(59, 130, 246, 0.9)';
+  }
+
+  // Улучшения
+  const upgrades = estate.upgrades || [];
+  const boughtCount = upgrades.filter(u => u.bought).length;
+  modalUpgradesCount.textContent = `${boughtCount} / ${upgrades.length}`;
+  modalEstateUpgradesList.innerHTML = '';
+
+  upgrades.forEach(u => {
+    const item = document.createElement('div');
+    item.className = `estate-upgrade-item ${u.bought ? 'bought' : ''}`;
+    item.innerHTML = `
+      <div class="upgrade-icon">${u.icon}</div>
+      <div class="upgrade-info">
+        <div class="upgrade-name">${u.name}</div>
+        <div class="upgrade-stats">
+          <span class="upgrade-cost">${u.bought ? 'Установлено ✓' : formatNumber(u.cost) + ' ' + getCurrencySymbol()}</span>
+          <span class="upgrade-bonus">+${formatNumber(u.bonusValue)} к стоимости</span>
+        </div>
+      </div>
+      <div>
+        ${u.bought 
+          ? '<span class="upgrade-bought-check">✓</span>' 
+          : `<button class="btn-buy-upgrade" data-upgrade-id="${u.id}" ${state.balance >= u.cost && !estate.onSale ? '' : 'disabled'}>Улучшить</button>`
+        }
+      </div>
+    `;
+
+    if (!u.bought) {
+      const btn = item.querySelector('.btn-buy-upgrade');
+      if (btn) {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          buyEstateUpgrade(estate.id, u.id);
+        });
+      }
+    }
+
+    modalEstateUpgradesList.appendChild(item);
+  });
+
+  // Флиппинг
+  const flipPrice = getEstateFlipPrice(estate);
+  modalFlipPriceTag.textContent = formatNumber(flipPrice) + ' ' + getCurrencySymbol();
+
+  if (!estate.onSale) {
+    modalFlipStatusBox.style.display = 'none';
+    btnStartEstateFlip.style.display = 'block';
+    btnStartEstateFlip.disabled = false;
+    btnCollectEstateFlip.style.display = 'none';
+  } else if (!estate.saleCompleted) {
+    modalFlipStatusBox.style.display = 'block';
+    btnStartEstateFlip.style.display = 'none';
+    btnCollectEstateFlip.style.display = 'none';
+    modalFlipTimer.textContent = formatSeconds(estate.saleTimeRemaining);
+    const pct = Math.min(100, Math.max(0, ((3600 - estate.saleTimeRemaining) / 3600) * 100));
+    modalFlipProgress.style.width = pct + '%';
+  } else {
+    modalFlipStatusBox.style.display = 'none';
+    btnStartEstateFlip.style.display = 'none';
+    btnCollectEstateFlip.style.display = 'block';
+    modalCollectFlipAmount.textContent = '+' + formatNumber(estate.salePrice) + ' ' + getCurrencySymbol();
+  }
+}
+
+/**
+ * Покупка улучшения для объекта недвижимости
+ */
+function buyEstateUpgrade(estateId, upgradeId) {
+  const estate = state.realEstate.find(e => e.id === estateId);
+  if (!estate || !estate.owned || estate.onSale) return;
+
+  const upgrade = (estate.upgrades || []).find(u => u.id === upgradeId);
+  if (!upgrade || upgrade.bought || state.balance < upgrade.cost) {
+    soundManager.playError();
+    triggerHaptic('error');
+    return;
+  }
+
+  state.balance -= upgrade.cost;
+  upgrade.bought = true;
+
+  soundManager.playUpgrade();
+  triggerHaptic('medium');
+
+  updateHeader();
+  updateEstateModalUI();
+  renderRealEstate();
+  updateMarketMultipliers();
+  updateTapUpgradeCard();
+  updateBusinessAffordability();
+  saveGameState();
+}
+
+/**
+ * Выставление объекта недвижимости на продажу с наценкой +35% (1 час)
+ */
+function startEstateFlip(estateId) {
+  const estate = state.realEstate.find(e => e.id === estateId);
+  if (!estate || !estate.owned || estate.onSale) return;
+
+  estate.onSale = true;
+  estate.saleTimeRemaining = 3600; // 1 час (3600 секунд)
+  estate.salePrice = getEstateFlipPrice(estate);
+  estate.saleCompleted = false;
+
+  soundManager.playUpgrade();
+  triggerHaptic('medium');
+
+  updateEstateModalUI();
+  renderRealEstate();
+  saveGameState();
+}
+
+/**
+ * Получение прибыли от закрытой сделки продажи недвижимости (+35% прибыли)
+ */
+function collectEstateFlip(estateId) {
+  const estate = state.realEstate.find(e => e.id === estateId);
+  if (!estate || !estate.owned || !estate.onSale || !estate.saleCompleted) return;
+
+  const payout = estate.salePrice;
+  state.balance += payout;
+  state.stats.totalEarned += payout;
+
+  // Сброс владения для возможности покупки заново
+  estate.owned = false;
+  estate.onSale = false;
+  estate.saleCompleted = false;
+  estate.saleTimeRemaining = 0;
+  estate.salePrice = 0;
+  if (estate.upgrades) {
+    estate.upgrades.forEach(u => u.bought = false);
+  }
+
+  soundManager.playBusinessBuy();
+  triggerHaptic('success');
+
+  createFloatingNumber(window.innerWidth / 2, window.innerHeight / 2, `+${formatNumber(payout)} ${getCurrencySymbol()} (Сделка закрыта!)`);
+
+  closeEstateModal();
+  updateHeader();
+  renderRealEstate();
+  renderLeaderboard();
+  updateTapUpgradeCard();
+  updateBusinessAffordability();
+  saveGameState();
+}
+
 function renderRealEstate() {
   realEstateList.innerHTML = '';
   let canAffordAny = 0;
@@ -1981,6 +2707,7 @@ function renderRealEstate() {
     const canAfford = !item.owned && state.balance >= item.cost;
     if (canAfford) canAffordAny++;
 
+    const totalVal = getEstateValue(item);
     const card = document.createElement('div');
     card.className = `realestate-card ${item.owned ? 'owned' : ''}`;
     card.innerHTML = `
@@ -1988,23 +2715,61 @@ function renderRealEstate() {
       <div class="realestate-info">
         <span class="realestate-tag">${item.category}</span>
         <div class="realestate-name">${item.name}</div>
-        <div class="realestate-cost">${formatNumber(item.cost)} <span class="currency-text">${getCurrencySymbol()}</span></div>
+        <div class="realestate-cost">${item.owned ? formatNumber(totalVal) : formatNumber(item.cost)} <span class="currency-text">${getCurrencySymbol()}</span></div>
+        <div class="realestate-location">📍 ${item.location || 'Премиум'}</div>
       </div>
-      <div>
+      <div class="estate-card-actions">
         ${item.owned 
-          ? `<div class="badge-estate-owned">Куплено ✓</div>`
+          ? (item.onSale 
+              ? (item.saleCompleted 
+                  ? `<button class="btn-estate-collect-flip" data-estate-id="${item.id}">Забрать +${formatNumber(item.salePrice)} ${getCurrencySymbol()}!</button>`
+                  : `<div class="badge-estate-selling">Аукцион (${formatSeconds(item.saleTimeRemaining)})</div>
+                     <button class="btn-estate-manage" data-estate-id="${item.id}">Осмотреть</button>`
+                )
+              : `<button class="btn-estate-manage" data-estate-id="${item.id}">Управление 🛠️</button>`
+            )
           : `<button class="btn-buy-estate" data-estate-id="${item.id}" ${canAfford ? '' : 'disabled'}>Купить</button>`
         }
       </div>
     `;
 
-    if (!item.owned) {
-      const buyBtn = card.querySelector('.btn-buy-estate');
+    // Слушатели кнопок
+    const buyBtn = card.querySelector('.btn-buy-estate');
+    if (buyBtn) {
       buyBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         buyRealEstate(item.id);
       });
     }
+
+    const manageBtn = card.querySelector('.btn-estate-manage');
+    if (manageBtn) {
+      manageBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openEstateModal(item.id);
+      });
+    }
+
+    const inspectBtn = card.querySelector('.btn-estate-inspect');
+    if (inspectBtn) {
+      inspectBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openEstateModal(item.id);
+      });
+    }
+
+    const collectBtn = card.querySelector('.btn-estate-collect-flip');
+    if (collectBtn) {
+      collectBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        collectEstateFlip(item.id);
+      });
+    }
+
+    // Клик по всей карточке открывает детали
+    card.addEventListener('click', () => {
+      openEstateModal(item.id);
+    });
 
     realEstateList.appendChild(card);
   });
@@ -2017,9 +2782,6 @@ function renderRealEstate() {
   }
 }
 
-/**
- * Рендеринг таблицы Forbes Лидерборда
- */
 function renderLeaderboard() {
   const netWorth = calculateNetWorth();
   netWorthDisplay.textContent = formatNumber(netWorth);
@@ -2087,16 +2849,16 @@ function updateRebirthUI() {
   const netWorth = calculateNetWorth();
   const req = getNextRebirthRequirement();
 
-  rebirthStageBadge.textContent = `Перерождение ${state.rebirthCount} / 10`;
+  rebirthStageBadge.textContent = `Перерождение ${state.rebirthCount} / 30`;
   currentMultText.textContent = `${currentMult.toFixed(1)}x`;
 
-  if (state.rebirthCount >= 10) {
+  if (state.rebirthCount >= 30) {
     nextMultText.textContent = 'МАКС';
     rebirthReqAmount.textContent = 'Достигнут предел';
     rebirthProgressBar.style.width = '100%';
     rebirthProgressPercent.textContent = '100%';
     btnDoRebirth.disabled = true;
-    btnDoRebirth.querySelector('.btn-rebirth-text').textContent = 'Максимальное перерождение (10x)';
+    btnDoRebirth.querySelector('.btn-rebirth-text').textContent = 'Максимальное перерождение (30x)';
     rebirthReadyBadge.style.display = 'none';
     return;
   }
@@ -2120,9 +2882,6 @@ function updateRebirthUI() {
   }
 }
 
-/**
- * Обновление настроек звука
- */
 function updateVolumeUI() {
   volumeSlider.value = state.volume;
   volumePercentDisplay.textContent = `${state.volume}%`;
@@ -2234,12 +2993,19 @@ function renderInventory(filter = currentActiveInventoryFilter) {
   currentActiveInventoryFilter = filter;
   if (!inventoryGrid) return;
 
+  updateMarketMultipliers();
+
   inventoryGrid.innerHTML = '';
   const items = filter === 'all' ? CASE_ITEMS : CASE_ITEMS.filter(it => it.caseId === filter);
 
   items.forEach(item => {
     const isOwned = Boolean(state.inventory && state.inventory[item.id]);
     const rarity = RARITY_INFO[item.rarity] || RARITY_INFO.common;
+    const mult = (state.market && state.market.multipliers && state.market.multipliers[item.id]) || 1.0;
+    const currentMarketPrice = Math.round(item.cost * mult);
+    const percentDiff = Math.round((mult - 1.0) * 100);
+    const diffSign = percentDiff >= 0 ? '+' : '';
+    const diffClass = percentDiff >= 0 ? 'trend-up' : 'trend-down';
 
     const card = document.createElement('div');
     card.className = `inventory-item-card ${isOwned ? '' : 'locked'} ${rarity.class}`;
@@ -2254,7 +3020,27 @@ function renderInventory(filter = currentActiveInventoryFilter) {
         <div class="inv-item-worth">${formatNumber(item.cost)} <span class="currency-text">${getCurrencySymbol()}</span></div>
         <div class="inv-item-income ${isOwned ? 'active' : ''}">⚡ +${formatNumber(item.income)} <span class="currency-text">${getCurrencySymbol()}</span>/с</div>
       </div>
+      ${isOwned ? `
+        <div class="inv-item-market-row">
+          <span class="market-price-tag">Рынок: <b>${formatNumber(currentMarketPrice)} ${getCurrencySymbol()}</b></span>
+          <span class="market-trend ${diffClass}">${diffSign}${percentDiff}%</span>
+        </div>
+        <button class="btn-sell-item" data-item-id="${item.id}">
+          Продать за ${formatNumber(currentMarketPrice)} ${getCurrencySymbol()}
+        </button>
+      ` : ''}
     `;
+
+    if (isOwned) {
+      const sellBtn = card.querySelector('.btn-sell-item');
+      if (sellBtn) {
+        sellBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          sellInventoryItem(item.id);
+        });
+      }
+    }
+
     inventoryGrid.appendChild(card);
   });
 }
@@ -2283,7 +3069,7 @@ function toggleCasesViews() {
 
 /**
  * Выбор случайного предмета с учетом весов редкостей
- * Ультра-мега-редкий предмет «KILLKA» проверяется отдельно с шансом 1 к триллиону (1e-12)
+ * Ультра-мега-редкий предмет «Красный алмаз» проверяется отдельно с шансом 1 к триллиону (1e-12)
  */
 function pickRandomItemForCase(caseId) {
   const items = CASE_ITEMS.filter(it => it.caseId === caseId);
@@ -2354,10 +3140,10 @@ function openCase(caseId) {
       if (i === WINNING_INDEX) {
         item = wonItem;
       } else {
-        // Тизер в рулетке: при открытии бронзового кейса показываем KILLKA на 33-м слоте как тизер
+        // Тизер в рулетке: при открытии бронзового кейса показываем Красный алмаз на 33-м слоте как тизер
         if (caseId === 'bronze' && i === 33 && wonItem.rarity !== 'ultra') {
-          const killkaItem = casePool.find(it => it.rarity === 'ultra');
-          item = killkaItem || casePool[Math.floor(Math.random() * casePool.length)];
+          const redDiamondItem = casePool.find(it => it.rarity === 'ultra');
+          item = redDiamondItem || casePool[Math.floor(Math.random() * casePool.length)];
         } else {
           // Исключаем ультра из случайного наполнения рулетки, чтобы она оставалась супер-секретной
           const regularPool = casePool.filter(it => it.rarity !== 'ultra');
@@ -2631,7 +3417,7 @@ function selectCurrency(code) {
  * Выполнение перерождения
  */
 function performRebirth() {
-  if (state.rebirthCount >= 10) return;
+  if (state.rebirthCount >= 30) return;
   const req = getNextRebirthRequirement();
   if (calculateNetWorth() < req) return;
 
@@ -2641,7 +3427,16 @@ function performRebirth() {
   state.balance = 0;
   state.tapLevel = 1;
   state.businesses.forEach(b => b.count = 0);
-  state.realEstate.forEach(r => r.owned = false);
+  state.realEstate.forEach(r => {
+    r.owned = false;
+    r.onSale = false;
+    r.saleCompleted = false;
+    r.saleTimeRemaining = 0;
+    r.salePrice = 0;
+    if (r.upgrades) {
+      r.upgrades.forEach(u => u.bought = false);
+    }
+  });
   if (state.sideJobs) state.sideJobs.forEach(j => j.owned = false);
   state.airline = JSON.parse(JSON.stringify(DEFAULT_AIRLINE));
 
@@ -2662,10 +3457,6 @@ function performRebirth() {
   switchScreen('screenWallet');
 }
 
-// ==========================================
-// НАВИГАЦИЯ МЕЖДУ 5 ЭКРАНАМИ
-// ==========================================
-
 const screens = {
   screenWallet: document.getElementById('screenWallet'),
   screenEarnings: document.getElementById('screenEarnings'),
@@ -2683,7 +3474,13 @@ const navTabs = {
   screenRealEstate: document.getElementById('navTabRealEstate')
 };
 
+let previousActiveScreenId = 'screenWallet';
+
 function switchScreen(targetScreenId) {
+  if (targetScreenId !== 'screenSettings') {
+    previousActiveScreenId = targetScreenId;
+  }
+
   Object.keys(screens).forEach(id => {
     if (screens[id]) {
       if (id === targetScreenId) screens[id].classList.add('active');
@@ -2700,7 +3497,11 @@ function switchScreen(targetScreenId) {
 
   if (targetScreenId === 'screenEarnings') renderEarningsScreen();
   if (targetScreenId === 'screenWallet') applyTheme(state.tapLevel);
-  if (targetScreenId === 'screenSettings') updateStatsUI();
+  if (targetScreenId === 'screenSettings') {
+    updateStatsUI();
+    renderCurrencyGrid();
+    updateVolumeUI();
+  }
   if (targetScreenId === 'screenBusiness') renderBusinesses();
   if (targetScreenId === 'screenCases') {
     showCasesShopView();
@@ -2713,6 +3514,31 @@ function switchScreen(targetScreenId) {
 
   soundManager.playTap();
   triggerHaptic('light');
+}
+
+// Кнопка открытия/закрытия настроек в шапке
+if (btnHeaderSettings) {
+  btnHeaderSettings.addEventListener('click', () => {
+    if (screens.screenSettings && screens.screenSettings.classList.contains('active')) {
+      switchScreen(previousActiveScreenId || 'screenWallet');
+    } else {
+      switchScreen('screenSettings');
+    }
+  });
+}
+
+// Кнопка назад из экрана настроек
+if (btnBackFromSettings) {
+  btnBackFromSettings.addEventListener('click', () => {
+    switchScreen(previousActiveScreenId || 'screenWallet');
+  });
+}
+
+// Кнопка быстрого перехода в заработок с кошелька
+if (btnGoEarnings) {
+  btnGoEarnings.addEventListener('click', () => {
+    switchScreen('screenEarnings');
+  });
 }
 
 document.querySelectorAll('.nav-tab, .nav-tab-center').forEach(btn => {
@@ -2831,6 +3657,39 @@ function gameLoop(currentTime) {
     updateBusinessAffordability();
   }
 
+  // Обновление таймеров флиппинга недвижимости
+  let estateUpdated = false;
+  if (state.realEstate) {
+    state.realEstate.forEach(estate => {
+      if (estate.owned && estate.onSale && !estate.saleCompleted) {
+        estate.saleTimeRemaining = Math.max(0, (estate.saleTimeRemaining || 0) - delta);
+        if (estate.saleTimeRemaining <= 0) {
+          estate.saleCompleted = true;
+          soundManager.playUpgrade();
+          triggerHaptic('success');
+        }
+        estateUpdated = true;
+      }
+    });
+  }
+
+  if (estateUpdated) {
+    if (currentInspectedEstateId) {
+      updateEstateModalUI();
+    }
+  }
+
+  // Обновление таймера рынка инвентаря
+  if (state.market && state.market.lastUpdate) {
+    const elapsed = Date.now() - state.market.lastUpdate;
+    if (elapsed >= 3600 * 1000) {
+      updateMarketMultipliers(true);
+    } else if (marketTimerDisplay) {
+      const remSec = Math.max(0, 3600 - Math.floor(elapsed / 1000));
+      marketTimerDisplay.textContent = 'Обновление цен через: ' + formatSeconds(remSec);
+    }
+  }
+
   // Обновление рейсов авиакомпании (почасовой доход)
   if (state.airline && state.airline.founded) {
     state.airline.flightElapsed = (state.airline.flightElapsed || 0) + delta;
@@ -2886,7 +3745,7 @@ function loadGameState() {
     if (saved) {
       state.balance = typeof saved.balance === 'number' ? saved.balance : 0;
       state.tapLevel = typeof saved.tapLevel === 'number' ? saved.tapLevel : 1;
-      state.rebirthCount = typeof saved.rebirthCount === 'number' ? Math.min(10, saved.rebirthCount) : 0;
+      state.rebirthCount = typeof saved.rebirthCount === 'number' ? Math.min(30, saved.rebirthCount) : 0;
       state.currency = saved.currency && CURRENCIES[saved.currency] ? saved.currency : 'RUB';
       state.volume = typeof saved.volume === 'number' ? saved.volume : 80;
       state.vibration = typeof saved.vibration === 'boolean' ? saved.vibration : true;
@@ -2917,14 +3776,29 @@ function loadGameState() {
         });
       }
 
-      // Мерджим недвижимость
+      // Мерджим недвижимость, улучшения и статус продажи
       if (Array.isArray(saved.realEstate)) {
         state.realEstate.forEach(defaultEstate => {
           const found = saved.realEstate.find(r => r.id === defaultEstate.id);
-          if (found && typeof found.owned === 'boolean') {
-            defaultEstate.owned = found.owned;
+          if (found) {
+            if (typeof found.owned === 'boolean') defaultEstate.owned = found.owned;
+            if (typeof found.onSale === 'boolean') defaultEstate.onSale = found.onSale;
+            if (typeof found.saleTimeRemaining === 'number') defaultEstate.saleTimeRemaining = found.saleTimeRemaining;
+            if (typeof found.saleCompleted === 'boolean') defaultEstate.saleCompleted = found.saleCompleted;
+            if (typeof found.salePrice === 'number') defaultEstate.salePrice = found.salePrice;
+            if (Array.isArray(found.upgrades) && Array.isArray(defaultEstate.upgrades)) {
+              defaultEstate.upgrades.forEach(u => {
+                const savedU = found.upgrades.find(x => x.id === u.id);
+                if (savedU && typeof savedU.bought === 'boolean') u.bought = savedU.bought;
+              });
+            }
           }
         });
+      }
+
+      // Мерджим рынок инвентаря
+      if (saved.market && typeof saved.market === 'object') {
+        state.market = saved.market;
       }
 
       // Мерджим авиакомпанию и флот
@@ -2956,6 +3830,17 @@ function loadGameState() {
         const offlineSeconds = (Date.now() - saved.lastSaved) / 1000;
         if (offlineSeconds > 15) {
           const validSeconds = Math.min(offlineSeconds, 28800);
+
+          // Офлайн-прогресс аукционов недвижимости
+          state.realEstate.forEach(estate => {
+            if (estate.owned && estate.onSale && !estate.saleCompleted) {
+              estate.saleTimeRemaining = Math.max(0, (estate.saleTimeRemaining || 0) - validSeconds);
+              if (estate.saleTimeRemaining <= 0) {
+                estate.saleCompleted = true;
+              }
+            }
+          });
+
           const passivePerSec = getTotalPassiveIncome();
           let offlineEarned = Math.floor(passivePerSec * validSeconds);
 
@@ -3057,28 +3942,22 @@ btnConfirmReset.addEventListener('click', () => {
   state.currency = 'RUB';
   state.volume = 80;
   state.vibration = true;
-  state.sideJobs = JSON.parse(JSON.stringify(DEFAULT_SIDE_JOBS));
   state.businesses = JSON.parse(JSON.stringify(DEFAULT_BUSINESSES));
   state.realEstate = JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE));
   state.airline = JSON.parse(JSON.stringify(DEFAULT_AIRLINE));
-  state.inventory = {};
   state.stats = { totalEarned: 0, totalTaps: 0, playTimeSeconds: 0 };
 
   soundManager.setVolume(state.volume);
   vibrationToggle.checked = true;
 
-  applyTheme(state.tapLevel);
   updateVolumeUI();
   renderCurrencyGrid();
   updateCurrencySymbols();
   updateHeader();
-  renderEarningsScreen();
-  renderSideJobs();
+  updateTapUpgradeCard();
   renderBusinesses();
   renderRealEstate();
   renderLeaderboard();
-  renderCasesScreen();
-  renderInventory();
   updateRebirthUI();
   updateStatsUI();
   switchScreen('screenWallet');
@@ -3091,51 +3970,21 @@ btnCloseHangar?.addEventListener('click', closeHangarModal);
 btnCancelRenameAirline?.addEventListener('click', closeRenameModal);
 btnSaveAirlineName?.addEventListener('click', saveAirlineName);
 
-// ==========================================
-// СЛУШАТЕЛИ ТАПА ПО ФОНУ И КНОПОК
-// ==========================================
+// Слушатель кликов по купюре и по фону кошелька
+tapTarget?.addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+  handleTap(e.clientX, e.clientY);
+});
 
-// 1. Тап по любому месту фона на экране Кошелька
-if (walletTapArea) {
-  walletTapArea.addEventListener('pointerdown', (e) => {
-    // Не запускаем тап, если игрок нажал на интерактивную кнопку
-    if (e.target.closest('button') || e.target.closest('input') || e.target.closest('.modal-backdrop')) {
-      return;
-    }
-    e.preventDefault();
-    handleTap(e.clientX, e.clientY);
-  });
-}
+screens.screenWallet?.addEventListener('pointerdown', (e) => {
+  if (e.target.closest('button, input, select, a, .btn-upgrade-click')) return;
+  e.preventDefault();
+  handleTap(e.clientX, e.clientY);
+});
 
-// Запасной слушатель для tapTarget
-if (tapTarget) {
-  tapTarget.addEventListener('pointerdown', (e) => {
-    e.preventDefault();
-    handleTap(e.clientX, e.clientY);
-  });
-}
-
-// 2. Кнопка прокачки клика во вкладке «Заработок»
-if (btnUpgradeClick) {
-  btnUpgradeClick.addEventListener('click', () => {
-    upgradeClickPower();
-  });
-}
-
-// 3. Кнопка «Прокачать клик ➔» в Кошельке (быстрый переход во вкладку Заработок)
-if (btnGoEarnings) {
-  btnGoEarnings.addEventListener('click', (e) => {
-    e.stopPropagation();
-    switchScreen('screenEarnings');
-  });
-}
-
-// 4. Кнопка шестеренки (Настройки) в верхней шапке
-if (btnHeaderSettings) {
-  btnHeaderSettings.addEventListener('click', () => {
-    switchScreen('screenSettings');
-  });
-}
+btnUpgradeClick?.addEventListener('click', () => {
+  upgradeTap();
+});
 
 setInterval(saveGameState, 3000);
 window.addEventListener('beforeunload', saveGameState);
@@ -3147,21 +3996,35 @@ window.addEventListener('beforeunload', saveGameState);
 function initGame() {
   loadGameState();
   
-  // Применяем тему оформления кликера на старте
-  applyTheme(state.tapLevel);
-
   vibrationToggle.checked = state.vibration;
   updateVolumeUI();
   renderCurrencyGrid();
   updateCurrencySymbols();
   updateHeader();
-  renderEarningsScreen();
+  updateTapUpgradeCard();
   renderBusinesses();
   renderRealEstate();
   renderLeaderboard();
-  renderCasesScreen();
-  renderInventory();
   updateRebirthUI();
+
+  
+  // Слушатели модального окна деталей недвижимости
+  btnCloseEstateModal?.addEventListener('click', closeEstateModal);
+  estateDetailModal?.addEventListener('click', (e) => {
+    if (e.target === estateDetailModal) closeEstateModal();
+  });
+
+  btnStartEstateFlip?.addEventListener('click', () => {
+    if (currentInspectedEstateId) {
+      startEstateFlip(currentInspectedEstateId);
+    }
+  });
+
+  btnCollectEstateFlip?.addEventListener('click', () => {
+    if (currentInspectedEstateId) {
+      collectEstateFlip(currentInspectedEstateId);
+    }
+  });
 
   const unlockAudio = () => {
     soundManager.init();

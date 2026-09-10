@@ -213,6 +213,7 @@
           <div class="businesses-list" id="businessesList">
             <!-- Генерируется динамически через game.js -->
           </div>
+          <div class="scroll-bottom-spacer"></div>
 
         </div>
       </section>
@@ -254,7 +255,7 @@
                 <div class="case-title-group">
                   <div class="case-rarity-pill pill-bronze">СТАРТОВЫЙ & СЕКРЕТНЫЙ</div>
                   <h3 class="case-name">Бронзовый кейс</h3>
-                  <div class="case-desc">10 предметов: уличные вещи, перекусы и ультра-мега-редкий «KILLKA» на 1 триллион ₽!</div>
+                  <div class="case-desc">10 предметов: уличные вещи, перекусы и ультра-мега-редкий «Красный алмаз» на 1 триллион ₽!</div>
                 </div>
               </div>
 
@@ -264,7 +265,7 @@
                 <span class="case-preview-tag">🧦 Носки</span>
                 <span class="case-preview-tag">🎒 Рюкзак</span>
                 <span class="case-preview-tag tag-epic">🛵 Скутер</span>
-                <span class="case-preview-tag tag-ultra">🐟 KILLKA (1 Трлн)</span>
+                <span class="case-preview-tag tag-ultra">💎 Красный алмаз (1 Трлн)</span>
               </div>
 
               <div class="case-bottom-row">
@@ -373,7 +374,7 @@
                 </button>
               </div>
             </div>
-
+            <div class="scroll-bottom-spacer"></div>
           </div>
 
           <!-- ВИД 2: ИНВЕНТАРЬ ПРЕДМЕТОВ (#casesInventoryView) -->
@@ -383,6 +384,10 @@
               <button class="btn-back-to-cases" id="btnBackToCases">
                 ← К витрине кейсов
               </button>
+              <div class="market-timer-badge">
+                <span class="market-timer-icon">🔄</span>
+                <span class="market-timer-text">Котировки цен через: <b id="marketTimerDisplay">59:59</b></span>
+              </div>
             </div>
 
             <div class="inv-filter-chips">
@@ -394,14 +399,14 @@
             </div>
 
             <div class="inventory-hint-bar">
-              <span>💡 Все открытые предметы приносят постоянный пассивный доход в секунду! Повторные предметы компенсируются деньгами.</span>
+              <span>💡 Предметы приносят доход в секунду. Каждый час цены на рынке меняются (📈 дороже или 📉 дешевле) — вы можете продавать предметы с выгодой!</span>
             </div>
 
             <!-- Сетка предметов инвентаря -->
             <div class="inventory-grid" id="inventoryGrid">
               <!-- Генерируется динамически через game.js -->
             </div>
-
+            <div class="scroll-bottom-spacer"></div>
           </div>
 
         </div>
@@ -444,6 +449,7 @@
             <div class="realestate-list" id="realEstateList">
               <!-- Генерируется динамически -->
             </div>
+            <div class="scroll-bottom-spacer"></div>
           </div>
 
           <!-- Секция 2: Рейтинг Forbes (Лидерборд с топ-1 на 1 млрд) -->
@@ -455,6 +461,7 @@
             <div class="leaderboard-table" id="leaderboardTable">
               <!-- Генерируется динамически -->
             </div>
+            <div class="scroll-bottom-spacer"></div>
           </div>
 
           <!-- Секция 3: Престиж и перерождение -->
@@ -470,12 +477,12 @@
               </div>
 
               <div class="rebirth-counter-badge" id="rebirthStageBadge">
-                Перерождение 0 / 10
+                Перерождение 0 / 30
               </div>
 
               <h2 class="rebirth-title">Врата Перерождения</h2>
               <p class="rebirth-desc">
-                Обнулите текущий капитал, бизнесы и имущество, чтобы получить постоянный глобальный множитель прибыли.
+                Обнулите текущий капитал, бизнесы и имущество, чтобы получить +1.0x к постоянному глобальному множителю прибыли (до 30x!).
               </p>
 
               <!-- Карточки множителя -->
@@ -487,7 +494,7 @@
                 <div class="mult-arrow">➔</div>
                 <div class="mult-card next-mult">
                   <span class="mult-label">Следующий бонус</span>
-                  <span class="mult-big" id="nextMultText">1.9x</span>
+                  <span class="mult-big" id="nextMultText">+1.0x</span>
                 </div>
               </div>
 
@@ -521,9 +528,10 @@
                 <li>❌ Сбрасываются все наличные деньги и улучшения тапа.</li>
                 <li>❌ Продаются все купленные предприятия и имущество.</li>
                 <li>✅ Множитель сохраняется навсегда и умножает <b>весь</b> доход.</li>
-                <li>⭐ Максимальный предел: <b>10 перерождений</b> (множитель <b>10x</b>).</li>
+                <li>⭐ Максимальный предел: <b>30 перерождений</b> (множитель <b>30x</b>, +1x за каждое перерождение).</li>
               </ul>
             </div>
+            <div class="scroll-bottom-spacer"></div>
           </div>
 
         </div>
@@ -533,9 +541,12 @@
       <section class="screen" id="screenSettings">
         <div class="screen-content settings-content">
           
-          <div class="section-banner">
-            <div class="banner-title">Настройки игры</div>
-            <div class="banner-desc">Настройте валюту, звук и управление игровым процессом.</div>
+          <div class="section-banner settings-banner-row">
+            <div>
+              <div class="banner-title">Настройки игры</div>
+              <div class="banner-desc">Настройте валюту, звук и управление игровым процессом.</div>
+            </div>
+            <button class="btn-back-settings" id="btnBackFromSettings">← Назад в игру</button>
           </div>
 
           <!-- Настройка валюты (цены те же, символ разный) -->
@@ -847,6 +858,76 @@
           <button class="btn-case-reopen" id="btnCaseReopen">Открыть еще раз</button>
         </div>
 
+      </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО ДЕТАЛЕЙ НЕДВИЖИМОСТИ, УЛУЧШЕНИЙ И ФЛИППИНГА -->
+  <div class="modal-backdrop" id="estateDetailModal">
+    <div class="modal-card modal-estate-card">
+      <div class="estate-modal-header">
+        <div class="estate-modal-title-group">
+          <span class="estate-modal-tag" id="modalEstateCategory">Недвижимость</span>
+          <h3 class="estate-modal-title" id="modalEstateName">Объект недвижимости</h3>
+          <span class="estate-modal-address" id="modalEstateAddress">📍 Локация</span>
+        </div>
+        <button class="btn-modal-close" id="btnCloseEstateModal" aria-label="Закрыть">✕</button>
+      </div>
+
+      <!-- Информационный блок статуса и стоимости -->
+      <div class="estate-overview-badge-box">
+        <div class="estate-modal-icon-badge" id="modalEstateIcon">🏡</div>
+        <div class="estate-status-value-group">
+          <span class="estate-status-badge" id="modalEstateStatus">В собственности</span>
+          <span class="estate-total-value-badge" id="modalEstateTotalValue">0 ₽</span>
+        </div>
+      </div>
+
+      <p class="estate-modal-desc" id="modalEstateDesc">
+        Описание объекта недвижимости.
+      </p>
+
+      <!-- Блок улучшений объекта -->
+      <div class="estate-upgrades-section" id="modalEstateUpgradesSection">
+        <div class="estate-section-header">
+          <span class="estate-section-title">🛠️ Улучшения объекта</span>
+          <span class="estate-upgrades-count" id="modalUpgradesCount">0 / 0</span>
+        </div>
+        <div class="estate-upgrades-list" id="modalEstateUpgradesList">
+          <!-- Генерируется динамически через game.js -->
+        </div>
+      </div>
+
+      <!-- Блок перепродажи (Флиппинг с наценкой +35%) -->
+      <div class="estate-flip-section" id="modalEstateFlipSection">
+        <div class="flip-card-header">
+          <span class="flip-icon">🏷️</span>
+          <div class="flip-title-wrap">
+            <span class="flip-title">Перепродажа (Флиппинг)</span>
+            <span class="flip-desc">Выставьте объект на аукцион с наценкой <b>+35%</b> к сумме всех вложений. Покупатель найдется через 1 час!</span>
+          </div>
+        </div>
+
+        <!-- Статус аукциона / Таймер продажи -->
+        <div class="flip-status-box" id="modalFlipStatusBox" style="display: none;">
+          <div class="flip-timer-row">
+            <span class="flip-timer-lbl">⏳ Поиск покупателя:</span>
+            <span class="flip-timer-val" id="modalFlipTimer">59:59</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill flip-progress-fill" id="modalFlipProgress" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- Кнопки действия флиппинга -->
+        <div class="flip-actions-row">
+          <button class="btn-estate-flip" id="btnStartEstateFlip">
+            <span>Выставить на продажу за</span>
+            <b id="modalFlipPriceTag">0 ₽</b>
+          </button>
+          <button class="btn-estate-collect-flip" id="btnCollectEstateFlip" style="display: none;">
+            <span>🎉 Сделка закрыта! Забрать</span>
+            <b id="modalCollectFlipAmount">+0 ₽</b>
+          </button>
+        </div>
       </div>
 
     </div>
