@@ -2342,6 +2342,29 @@ function triggerHaptic(type = 'light') {
   } catch (e) {}
 }
 
+/**
+ * Универсальный обработчик кликов и тачей для мобильных устройств и ПК.
+ * Мгновенно реагирует на touchend (0 мс задержки), предотвращает фантомные дублирующиеся клики (ghost clicks),
+ * и надежно работает при обычном клике мышью на ПК.
+ */
+function bindTouchClick(el, handler) {
+  if (!el) return;
+  let lastTouchTime = 0;
+  el.addEventListener('touchend', (e) => {
+    lastTouchTime = performance.now();
+    e.preventDefault();
+    handler(e);
+  }, { passive: false });
+  el.addEventListener('click', (e) => {
+    if (performance.now() - lastTouchTime < 500) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+    handler(e);
+  });
+}
+
 // ==========================================
 // ИНТЕРФЕЙС И DOM
 // ==========================================
@@ -2687,7 +2710,8 @@ function renderClickModifiers() {
 
     const buyBtn = card.querySelector('.btn-buy-click-mod');
     if (buyBtn && !isMaxed) {
-      buyBtn.addEventListener('click', () => {
+      bindTouchClick(buyBtn, (e) => {
+        e.stopPropagation();
         buyClickModifier(mod.id);
       });
     }
@@ -2767,10 +2791,12 @@ function renderSideJobs() {
 
     if (!job.owned) {
       const buyBtn = card.querySelector('.btn-buy-sidejob');
-      buyBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        buySideJob(job.id);
-      });
+      if (buyBtn) {
+        bindTouchClick(buyBtn, (e) => {
+          e.stopPropagation();
+          buySideJob(job.id);
+        });
+      }
     }
 
     sideJobsList.appendChild(card);
@@ -2882,10 +2908,12 @@ function renderBusinesses() {
     `;
 
     const buyBtn = card.querySelector('.btn-buy-business');
-    buyBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      buyBusiness(b.id);
-    });
+    if (buyBtn) {
+      bindTouchClick(buyBtn, (e) => {
+        e.stopPropagation();
+        buyBusiness(b.id);
+      });
+    }
 
     businessesList.appendChild(card);
   });
@@ -2974,7 +3002,7 @@ function renderAirlineCard() {
 
     const btnFound = airlineMegacard.querySelector('#btnFoundAirline');
     if (btnFound) {
-      btnFound.addEventListener('click', () => {
+      bindTouchClick(btnFound, () => {
         foundAirline();
       });
     }
@@ -3042,9 +3070,12 @@ function renderAirlineCard() {
       </div>
     `;
 
-    airlineMegacard.querySelector('#btnOpenRenameModal')?.addEventListener('click', openRenameModal);
-    airlineMegacard.querySelector('#btnOpenHangarModal')?.addEventListener('click', openHangarModal);
-    airlineMegacard.querySelector('#btnCollectFlight')?.addEventListener('click', collectFlightRevenue);
+    const btnRename = airlineMegacard.querySelector('#btnOpenRenameModal');
+    const btnHangar = airlineMegacard.querySelector('#btnOpenHangarModal');
+    const btnFlight = airlineMegacard.querySelector('#btnCollectFlight');
+    if (btnRename) bindTouchClick(btnRename, openRenameModal);
+    if (btnHangar) bindTouchClick(btnHangar, openHangarModal);
+    if (btnFlight) bindTouchClick(btnFlight, collectFlightRevenue);
   }
 }
 
@@ -3116,10 +3147,12 @@ function renderHangar() {
     `;
 
     const buyBtn = card.querySelector('.btn-buy-plane');
-    buyBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      buyPlane(plane.id);
-    });
+    if (buyBtn) {
+      bindTouchClick(buyBtn, (e) => {
+        e.stopPropagation();
+        buyPlane(plane.id);
+      });
+    }
 
     planesList.appendChild(card);
   });
@@ -3368,7 +3401,7 @@ function updateEstateModalUI() {
     if (!u.bought) {
       const btn = item.querySelector('.btn-buy-upgrade');
       if (btn) {
-        btn.addEventListener('click', (e) => {
+        bindTouchClick(btn, (e) => {
           e.stopPropagation();
           buyEstateUpgrade(estate.id, u.id);
         });
@@ -3520,10 +3553,10 @@ function renderRealEstate() {
       </div>
     `;
 
-    // Слушатели кнопок
+    // Слушатели кнопок недвижимости
     const buyBtn = card.querySelector('.btn-buy-estate');
     if (buyBtn) {
-      buyBtn.addEventListener('click', (e) => {
+      bindTouchClick(buyBtn, (e) => {
         e.stopPropagation();
         buyRealEstate(item.id);
       });
@@ -3531,7 +3564,7 @@ function renderRealEstate() {
 
     const manageBtn = card.querySelector('.btn-estate-manage');
     if (manageBtn) {
-      manageBtn.addEventListener('click', (e) => {
+      bindTouchClick(manageBtn, (e) => {
         e.stopPropagation();
         openEstateModal(item.id);
       });
@@ -3539,7 +3572,7 @@ function renderRealEstate() {
 
     const inspectBtn = card.querySelector('.btn-estate-inspect');
     if (inspectBtn) {
-      inspectBtn.addEventListener('click', (e) => {
+      bindTouchClick(inspectBtn, (e) => {
         e.stopPropagation();
         openEstateModal(item.id);
       });
@@ -3547,14 +3580,14 @@ function renderRealEstate() {
 
     const collectBtn = card.querySelector('.btn-estate-collect-flip');
     if (collectBtn) {
-      collectBtn.addEventListener('click', (e) => {
+      bindTouchClick(collectBtn, (e) => {
         e.stopPropagation();
         collectEstateFlip(item.id);
       });
     }
 
     // Клик по всей карточке открывает детали
-    card.addEventListener('click', () => {
+    bindTouchClick(card, () => {
       openEstateModal(item.id);
     });
 
@@ -3722,7 +3755,7 @@ function renderCurrencyGrid() {
       <span class="c-symbol">${curr.symbol}</span>
       <span class="c-name">${curr.code}</span>
     `;
-    btn.addEventListener('click', () => {
+    bindTouchClick(btn, () => {
       selectCurrency(code);
     });
     currencyGrid.appendChild(btn);
@@ -3821,7 +3854,7 @@ function renderInventory(filter = currentActiveInventoryFilter) {
     if (isOwned) {
       const sellBtn = card.querySelector('.btn-sell-item');
       if (sellBtn) {
-        sellBtn.addEventListener('click', (e) => {
+        bindTouchClick(sellBtn, (e) => {
           e.stopPropagation();
           sellInventoryItem(item.id);
         });
@@ -4128,6 +4161,8 @@ function renderThemesSelector() {
   // Опция авто-выбора
   const autoCard = document.createElement('div');
   autoCard.className = `theme-select-card ${isAuto ? 'active' : ''}`;
+  autoCard.setAttribute('role', 'button');
+  autoCard.setAttribute('tabindex', '0');
   autoCard.innerHTML = `
     <div class="theme-card-top">
       <span class="theme-card-icon">⚡</span>
@@ -4137,7 +4172,7 @@ function renderThemesSelector() {
     <div class="theme-card-desc">Динамически меняется с уровнем клика (сейчас: ${currentLevelTheme.name})</div>
     <div class="theme-card-status">${isAuto ? 'Текущий режим ✓' : 'Нажмите, чтобы включить'}</div>
   `;
-  autoCard.addEventListener('click', () => {
+  bindTouchClick(autoCard, () => {
     state.selectedThemeId = null;
     applyTheme();
     renderThemesSelector();
@@ -4152,6 +4187,8 @@ function renderThemesSelector() {
     const isSelected = state.selectedThemeId === t.id;
     const card = document.createElement('div');
     card.className = `theme-select-card ${isSelected ? 'active' : ''} ${isUnlocked ? '' : 'locked'}`;
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
     card.innerHTML = `
       <div class="theme-card-top">
         <span class="theme-card-icon">${t.icon}</span>
@@ -4168,7 +4205,7 @@ function renderThemesSelector() {
     `;
 
     if (isUnlocked) {
-      card.addEventListener('click', () => {
+      bindTouchClick(card, () => {
         state.selectedThemeId = t.id;
         applyTheme();
         renderThemesSelector();
@@ -4177,7 +4214,7 @@ function renderThemesSelector() {
         triggerHaptic('light');
       });
     } else {
-      card.addEventListener('click', () => {
+      bindTouchClick(card, () => {
         soundManager.playError();
         triggerHaptic('error');
       });
@@ -4599,7 +4636,8 @@ function renderCrystalShop() {
 
     const buyBtn = card.querySelector('.btn-buy-crystal-item');
     if (buyBtn && !isMax) {
-      buyBtn.addEventListener('click', () => {
+      bindTouchClick(buyBtn, (e) => {
+        e.stopPropagation();
         buyCrystalShopItem(item.id);
       });
     }
@@ -4706,12 +4744,9 @@ function doDiamondPrestige() {
   alert(`💎 АЛМАЗНЫЙ ПРЕСТИЖ ВЫПОЛНЕН!\n\nУровень престижа: ${state.prestigeCount}/10\nДобыча кристаллов: +${PRESTIGE_CRYSTAL_RATES[state.prestigeCount]} 💎 / сек навсегда!`);
 }
 
-btnDoPrestige?.addEventListener('click', openPrestigeConfirmModal);
-btnDoPrestige?.addEventListener('touchend', (e) => { e.preventDefault(); openPrestigeConfirmModal(); });
-btnCancelPrestigeModal?.addEventListener('click', closePrestigeConfirmModal);
-btnCancelPrestigeModal?.addEventListener('touchend', (e) => { e.preventDefault(); closePrestigeConfirmModal(); });
-btnConfirmPrestigeModal?.addEventListener('click', doDiamondPrestige);
-btnConfirmPrestigeModal?.addEventListener('touchend', (e) => { e.preventDefault(); doDiamondPrestige(); });
+bindTouchClick(btnDoPrestige, openPrestigeConfirmModal);
+bindTouchClick(btnCancelPrestigeModal, closePrestigeConfirmModal);
+bindTouchClick(btnConfirmPrestigeModal, doDiamondPrestige);
 prestigeConfirmModal?.addEventListener('click', (e) => {
   if (e.target === prestigeConfirmModal) closePrestigeConfirmModal();
 });
@@ -4783,7 +4818,7 @@ function switchScreen(targetScreenId) {
 
 // Кнопка открытия/закрытия настроек в шапке
 if (btnHeaderSettings) {
-  btnHeaderSettings.addEventListener('click', () => {
+  bindTouchClick(btnHeaderSettings, () => {
     if (screens.screenSettings && screens.screenSettings.classList.contains('active')) {
       switchScreen(previousActiveScreenId || 'screenWallet');
     } else {
@@ -4794,26 +4829,22 @@ if (btnHeaderSettings) {
 
 // Кнопка назад из экрана настроек
 if (btnBackFromSettings) {
-  btnBackFromSettings.addEventListener('click', () => {
+  bindTouchClick(btnBackFromSettings, () => {
     switchScreen(previousActiveScreenId || 'screenWallet');
   });
 }
 
 // Кнопка быстрого перехода в заработок с кошелька
 if (btnGoEarnings) {
-  btnGoEarnings.addEventListener('click', () => {
+  bindTouchClick(btnGoEarnings, () => {
     switchScreen('screenEarnings');
   });
 }
 
 document.querySelectorAll('.nav-tab, .nav-tab-center').forEach(btn => {
-  const onNavSelect = (e) => {
+  bindTouchClick(btn, () => {
     const screenId = btn.getAttribute('data-screen');
     if (screenId) switchScreen(screenId);
-  };
-  btn.addEventListener('click', onNavSelect);
-  btn.addEventListener('touchend', (e) => {
-    onNavSelect(e);
   });
 });
 
@@ -4841,53 +4872,59 @@ function switchRealEstateSubtab(tabName) {
   }
 }
 
-subtabCatalog?.addEventListener('click', () => switchRealEstateSubtab('catalog'));
-subtabLeaderboard?.addEventListener('click', () => switchRealEstateSubtab('leaderboard'));
-subtabRebirth?.addEventListener('click', () => switchRealEstateSubtab('rebirth'));
+if (subtabCatalog) bindTouchClick(subtabCatalog, () => switchRealEstateSubtab('catalog'));
+if (subtabLeaderboard) bindTouchClick(subtabLeaderboard, () => switchRealEstateSubtab('leaderboard'));
+if (subtabRebirth) bindTouchClick(subtabRebirth, () => switchRealEstateSubtab('rebirth'));
 
 if (headerRebirthBadge) {
-  headerRebirthBadge.addEventListener('click', () => {
+  bindTouchClick(headerRebirthBadge, () => {
     switchScreen('screenRealEstate');
     switchRealEstateSubtab('rebirth');
   });
 }
 
 // Кнопка вызова модалки перерождения
-btnDoRebirth?.addEventListener('click', () => {
-  const nextMult = getRebirthMultiplier(state.rebirthCount + 1);
-  modalNewMultiplier.textContent = `x${nextMult.toFixed(1)}`;
-  rebirthModal.classList.add('active');
-});
+if (btnDoRebirth) {
+  bindTouchClick(btnDoRebirth, () => {
+    const nextMult = getRebirthMultiplier(state.rebirthCount + 1);
+    modalNewMultiplier.textContent = `x${nextMult.toFixed(1)}`;
+    rebirthModal.classList.add('active');
+  });
+}
 
-btnCancelRebirth?.addEventListener('click', () => {
-  rebirthModal.classList.remove('active');
-});
+if (btnCancelRebirth) {
+  bindTouchClick(btnCancelRebirth, () => {
+    rebirthModal.classList.remove('active');
+  });
+}
 
-btnConfirmRebirth?.addEventListener('click', () => {
-  rebirthModal.classList.remove('active');
-  performRebirth();
-});
+if (btnConfirmRebirth) {
+  bindTouchClick(btnConfirmRebirth, () => {
+    rebirthModal.classList.remove('active');
+    performRebirth();
+  });
+}
 
 // ==========================================
 // СЛУШАТЕЛИ КЕЙСОВ И ИНВЕНТАРЯ
 // ==========================================
 
-btnOpenNoviceCase?.addEventListener('click', () => openCase('novice'));
-btnOpenBronzeCase?.addEventListener('click', () => openCase('bronze'));
-btnOpenSilverCase?.addEventListener('click', () => openCase('silver'));
-btnOpenGoldCase?.addEventListener('click', () => openCase('gold'));
-btnOpenDiamondCase?.addEventListener('click', () => openCase('diamond'));
-btnOpenCryptoCase?.addEventListener('click', () => openCase('crypto'));
-btnOpenPropertyCase?.addEventListener('click', () => openCase('property'));
-btnOpenCyberpunkCase?.addEventListener('click', () => openCase('cyberpunk'));
-btnOpenSpaceCase?.addEventListener('click', () => openCase('space'));
-btnOpenMythicCase?.addEventListener('click', () => openCase('mythic'));
+if (btnOpenNoviceCase) bindTouchClick(btnOpenNoviceCase, () => openCase('novice'));
+if (btnOpenBronzeCase) bindTouchClick(btnOpenBronzeCase, () => openCase('bronze'));
+if (btnOpenSilverCase) bindTouchClick(btnOpenSilverCase, () => openCase('silver'));
+if (btnOpenGoldCase) bindTouchClick(btnOpenGoldCase, () => openCase('gold'));
+if (btnOpenDiamondCase) bindTouchClick(btnOpenDiamondCase, () => openCase('diamond'));
+if (btnOpenCryptoCase) bindTouchClick(btnOpenCryptoCase, () => openCase('crypto'));
+if (btnOpenPropertyCase) bindTouchClick(btnOpenPropertyCase, () => openCase('property'));
+if (btnOpenCyberpunkCase) bindTouchClick(btnOpenCyberpunkCase, () => openCase('cyberpunk'));
+if (btnOpenSpaceCase) bindTouchClick(btnOpenSpaceCase, () => openCase('space'));
+if (btnOpenMythicCase) bindTouchClick(btnOpenMythicCase, () => openCase('mythic'));
 
-btnToggleInventory?.addEventListener('click', toggleCasesViews);
-btnBackToCases?.addEventListener('click', showCasesShopView);
+if (btnToggleInventory) bindTouchClick(btnToggleInventory, toggleCasesViews);
+if (btnBackToCases) bindTouchClick(btnBackToCases, showCasesShopView);
 
 document.querySelectorAll('.inv-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
+  bindTouchClick(chip, () => {
     document.querySelectorAll('.inv-chip').forEach(c => c.classList.remove('active'));
     chip.classList.add('active');
     const filter = chip.getAttribute('data-filter') || 'all';
@@ -4896,19 +4933,21 @@ document.querySelectorAll('.inv-chip').forEach(chip => {
   });
 });
 
-btnCloseCaseModal?.addEventListener('click', closeCaseModal);
-btnCaseCollect?.addEventListener('click', closeCaseModal);
+if (btnCloseCaseModal) bindTouchClick(btnCloseCaseModal, closeCaseModal);
+if (btnCaseCollect) bindTouchClick(btnCaseCollect, closeCaseModal);
 
-btnCaseReopen?.addEventListener('click', () => {
-  if (currentOpeningCaseId) {
-    if (state.balance < CASE_TYPES[currentOpeningCaseId].cost) {
-      soundManager.playError();
-      triggerHaptic('error');
-      return;
+if (btnCaseReopen) {
+  bindTouchClick(btnCaseReopen, () => {
+    if (currentOpeningCaseId) {
+      if (state.balance < CASE_TYPES[currentOpeningCaseId].cost) {
+        soundManager.playError();
+        triggerHaptic('error');
+        return;
+      }
+      openCase(currentOpeningCaseId);
     }
-    openCase(currentOpeningCaseId);
-  }
-});
+  });
+}
 
 // ==========================================
 // ИГРОВОЙ ЦИКЛ (60 FPS TICK LOOP)
@@ -5240,16 +5279,8 @@ function collectOfflineReward() {
   } catch (e) {}
 }
 
-btnCollectOffline?.addEventListener('click', collectOfflineReward);
-btnCollectOffline?.addEventListener('touchend', (e) => {
-  e.preventDefault();
-  collectOfflineReward();
-});
-btnCloseOfflineModal?.addEventListener('click', collectOfflineReward);
-btnCloseOfflineModal?.addEventListener('touchend', (e) => {
-  e.preventDefault();
-  collectOfflineReward();
-});
+if (btnCollectOffline) bindTouchClick(btnCollectOffline, collectOfflineReward);
+if (btnCloseOfflineModal) bindTouchClick(btnCloseOfflineModal, collectOfflineReward);
 offlineModal?.addEventListener('click', (e) => {
   if (e.target === offlineModal) {
     collectOfflineReward();
@@ -5273,7 +5304,7 @@ volumeSlider.addEventListener('change', () => {
   saveGameState();
 });
 
-btnToggleMute.addEventListener('click', () => {
+bindTouchClick(btnToggleMute, () => {
   if (state.volume > 0) {
     previousVolume = state.volume;
     state.volume = 0;
@@ -5286,7 +5317,7 @@ btnToggleMute.addEventListener('click', () => {
   saveGameState();
 });
 
-btnTestSound.addEventListener('click', () => {
+bindTouchClick(btnTestSound, () => {
   soundManager.playUpgrade();
   triggerHaptic('light');
 });
@@ -5297,15 +5328,15 @@ vibrationToggle.addEventListener('change', (e) => {
   saveGameState();
 });
 
-btnResetProgress.addEventListener('click', () => {
+bindTouchClick(btnResetProgress, () => {
   resetModal.classList.add('active');
 });
 
-btnCancelReset.addEventListener('click', () => {
+bindTouchClick(btnCancelReset, () => {
   resetModal.classList.remove('active');
 });
 
-btnConfirmReset.addEventListener('click', () => {
+bindTouchClick(btnConfirmReset, () => {
   localStorage.removeItem(STORAGE_KEY);
   localStorage.removeItem('money_tapper_save_v1');
   resetModal.classList.remove('active');
@@ -5360,9 +5391,9 @@ btnConfirmReset.addEventListener('click', () => {
 });
 
 // Слушатели модальных окон ангара и авиакомпании
-btnCloseHangar?.addEventListener('click', closeHangarModal);
-btnCancelRenameAirline?.addEventListener('click', closeRenameModal);
-btnSaveAirlineName?.addEventListener('click', saveAirlineName);
+if (btnCloseHangar) bindTouchClick(btnCloseHangar, closeHangarModal);
+if (btnCancelRenameAirline) bindTouchClick(btnCancelRenameAirline, closeRenameModal);
+if (btnSaveAirlineName) bindTouchClick(btnSaveAirlineName, saveAirlineName);
 
 // Слушатели модального окна кристаллов
 const crystalsPill = document.getElementById('crystalsPill');
@@ -5371,20 +5402,20 @@ const btnCloseCrystalsModal = document.getElementById('btnCloseCrystalsModal');
 const btnOkCrystalsModal = document.getElementById('btnOkCrystalsModal');
 const modalCrystalsVal = document.getElementById('modalCrystalsVal');
 
-crystalsPill?.addEventListener('click', (e) => {
-  e.stopPropagation();
-  if (modalCrystalsVal) modalCrystalsVal.textContent = formatCrystals(state.crystals || 0);
-  crystalsInfoModal?.classList.add('active');
-  soundManager.playTap();
-});
+if (crystalsPill) {
+  bindTouchClick(crystalsPill, (e) => {
+    e.stopPropagation();
+    if (modalCrystalsVal) modalCrystalsVal.textContent = formatCrystals(state.crystals || 0);
+    crystalsInfoModal?.classList.add('active');
+    soundManager.playTap();
+  });
+}
 
 const closeCrystalsModal = () => {
   crystalsInfoModal?.classList.remove('active');
 };
-btnCloseCrystalsModal?.addEventListener('click', closeCrystalsModal);
-btnCloseCrystalsModal?.addEventListener('touchend', (e) => { e.preventDefault(); closeCrystalsModal(); });
-btnOkCrystalsModal?.addEventListener('click', closeCrystalsModal);
-btnOkCrystalsModal?.addEventListener('touchend', (e) => { e.preventDefault(); closeCrystalsModal(); });
+if (btnCloseCrystalsModal) bindTouchClick(btnCloseCrystalsModal, closeCrystalsModal);
+if (btnOkCrystalsModal) bindTouchClick(btnOkCrystalsModal, closeCrystalsModal);
 crystalsInfoModal?.addEventListener('click', (e) => {
   if (e.target === crystalsInfoModal) closeCrystalsModal();
 });
@@ -5401,9 +5432,11 @@ screens.screenWallet?.addEventListener('pointerdown', (e) => {
   handleTap(e.clientX, e.clientY, e);
 });
 
-btnUpgradeClick?.addEventListener('click', () => {
-  upgradeTap();
-});
+if (btnUpgradeClick) {
+  bindTouchClick(btnUpgradeClick, () => {
+    upgradeTap();
+  });
+}
 
 setInterval(saveGameState, 3000);
 window.addEventListener('beforeunload', saveGameState);
@@ -5428,22 +5461,26 @@ function initGame() {
 
   
   // Слушатели модального окна деталей недвижимости
-  btnCloseEstateModal?.addEventListener('click', closeEstateModal);
+  if (btnCloseEstateModal) bindTouchClick(btnCloseEstateModal, closeEstateModal);
   estateDetailModal?.addEventListener('click', (e) => {
     if (e.target === estateDetailModal) closeEstateModal();
   });
 
-  btnStartEstateFlip?.addEventListener('click', () => {
-    if (currentInspectedEstateId) {
-      startEstateFlip(currentInspectedEstateId);
-    }
-  });
+  if (btnStartEstateFlip) {
+    bindTouchClick(btnStartEstateFlip, () => {
+      if (currentInspectedEstateId) {
+        startEstateFlip(currentInspectedEstateId);
+      }
+    });
+  }
 
-  btnCollectEstateFlip?.addEventListener('click', () => {
-    if (currentInspectedEstateId) {
-      collectEstateFlip(currentInspectedEstateId);
-    }
-  });
+  if (btnCollectEstateFlip) {
+    bindTouchClick(btnCollectEstateFlip, () => {
+      if (currentInspectedEstateId) {
+        collectEstateFlip(currentInspectedEstateId);
+      }
+    });
+  }
 
   const unlockAudio = () => {
     soundManager.init();
