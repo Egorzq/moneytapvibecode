@@ -905,9 +905,100 @@
         </div>
       </section>
 
+      <!-- ================= 7. ВКЛАДКА: АЛМАЗНЫЙ ПРЕСТИЖ ================= -->
+      <section class="screen" id="screenPrestige">
+        <div class="screen-content prestige-content">
+          
+          <!-- Алтарь Алмазного Престижа -->
+          <div class="prestige-altar-card">
+            <div class="prestige-altar-glow"></div>
+            
+            <div class="prestige-header-badge-row">
+              <span class="prestige-tag-pill">АЛТАРЬ ВЕЛИКОГО ПРЕСТИЖА</span>
+              <span class="prestige-level-badge" id="prestigeLevelBadge">Престиж 0 / 10</span>
+            </div>
+
+            <div class="prestige-icon-center">
+              <span class="prestige-gem-icon">💎</span>
+            </div>
+
+            <h2 class="prestige-title">Алмазный Престиж</h2>
+            <p class="prestige-desc">
+              Перерождение на космическом уровне. Достигните заработка в <b>1 Квадриллион ₽</b>, чтобы начать заново с пассивной генерацией кристаллов и доступом к магазину артефактов!
+            </p>
+
+            <!-- Доход кристаллов от престижа -->
+            <div class="prestige-crystal-rate-box">
+              <div class="crystal-rate-item">
+                <span class="c-rate-lbl">Текущая добыча:</span>
+                <span class="c-rate-val" id="prestigeCurrentRateVal">+0.00 💎 / сек</span>
+              </div>
+              <div class="crystal-rate-divider">➔</div>
+              <div class="crystal-rate-item">
+                <span class="c-rate-lbl">После престижа:</span>
+                <span class="c-rate-val highlight" id="prestigeNextRateVal">+0.01 💎 / сек</span>
+              </div>
+            </div>
+
+            <!-- Прогресс до 1 Квадриллиона рублей -->
+            <div class="prestige-req-card">
+              <div class="prestige-req-header">
+                <span class="req-title">Требование общего заработка:</span>
+                <span class="req-target">1 000 000 000 000 000 ₽</span>
+              </div>
+              <div class="progress-bar-track prestige-progress-track">
+                <div class="progress-bar-fill prestige-progress-fill" id="prestigeProgressBarFill" style="width: 0%;">
+                  <div class="progress-shine"></div>
+                </div>
+              </div>
+              <div class="prestige-progress-labels">
+                <span id="prestigeCurrentEarnedVal">0 ₽</span>
+                <span id="prestigeProgressPercentVal">0%</span>
+              </div>
+            </div>
+
+            <!-- Предупреждение о полном сбросе -->
+            <div class="prestige-wipe-warning">
+              <span class="warning-icon">⚠️</span>
+              <div class="warning-text-group">
+                <b>ВНИМАНИЕ: ПОЛНЫЙ ВАЙП ВСЕХ ДАННЫХ!</b>
+                <span>Сбрасываются: баланс, сила тапа, бизнесы, недвижимость, авиакомпания, <b>весь инвентарь предметов</b> и <b>перерождения</b>! Сохраняются только ваши кристаллы и алмазные улучшения.</span>
+              </div>
+            </div>
+
+            <!-- Кнопка активации престижа -->
+            <button class="btn-do-prestige" id="btnDoPrestige" disabled>
+              <span class="btn-prestige-icon">💎</span>
+              <span id="btnDoPrestigeText">Требуется 1 Квадриллион ₽</span>
+            </button>
+          </div>
+
+          <!-- Раздел: Магазин за Кристаллы -->
+          <div class="crystal-shop-section">
+            <div class="section-subheading">
+              <span class="subheading-icon">✨</span>
+              <span class="subheading-title">Магазин за Кристаллы</span>
+              <span class="crystal-shop-balance-pill">
+                <span>Баланс:</span>
+                <b id="crystalShopBalanceVal">0</b>
+                <span>💎</span>
+              </span>
+            </div>
+            <div class="crystal-shop-subtitle">
+              Постоянные улучшения. Сохраняются навсегда сквозь любые перерождения и престижи!
+            </div>
+            <div class="crystal-shop-grid" id="crystalShopGrid">
+              <!-- Карточки магазина генерируются через renderCrystalShop() в game.js -->
+            </div>
+          </div>
+
+          <div class="scroll-bottom-spacer"></div>
+        </div>
+      </section>
+
     </main>
 
-    <!-- ================= НИЖНЯЯ ПАНЕЛЬ С 5 ВКЛАДКАМИ И БОЛЬШОЙ КНОПКОЙ ПОСЕРЕДИНЕ ================= -->
+    <!-- ================= НИЖНЯЯ ПАНЕЛЬ НАВИГАЦИИ ================= -->
     <nav class="bottom-nav">
       
       <!-- 1. Вкладка Заработок -->
@@ -946,7 +1037,7 @@
         <span class="nav-tab-label">Кейсы</span>
       </button>
 
-      <!-- 5. Вкладка Активы (Имущество, Лидерборд, Престиж) -->
+      <!-- 5. Вкладка Активы -->
       <button class="nav-tab" id="navTabRealEstate" data-screen="screenRealEstate">
         <div class="nav-tab-icon-wrap">
           <span class="nav-tab-icon">🏰</span>
@@ -954,6 +1045,15 @@
           <span class="nav-tab-badge rebirth-badge" id="rebirthReadyBadge" style="display: none;">!</span>
         </div>
         <span class="nav-tab-label">Активы</span>
+      </button>
+
+      <!-- 6. Вкладка Престиж -->
+      <button class="nav-tab" id="navTabPrestige" data-screen="screenPrestige">
+        <div class="nav-tab-icon-wrap">
+          <span class="nav-tab-icon">💎</span>
+          <span class="nav-tab-badge prestige-badge" id="prestigeReadyBadge" style="display: none;">!</span>
+        </div>
+        <span class="nav-tab-label">Престиж</span>
       </button>
 
     </nav>
@@ -1193,11 +1293,46 @@
       </div>
       <p class="modal-text crystals-modal-text">
         Редчайшая премиальная валюта вселенной Money Tapper.<br><br>
-        <span class="crystals-lock-tag">🔒 Способ получения пока недоступен</span><br>
-        На данный момент кристаллы нельзя получить игровым путем. Возможность их заработка появится в следующем обновлении!
+        <span class="crystals-lock-tag" style="color: #60a5fa; border-color: rgba(96,165,250,0.4);">✨ Доступно через Алмазный Престиж!</span><br>
+        Заработайте 1 Квадриллион ₽, совершите Алмазный Престиж и получайте кристаллы каждую секунду, открывая постоянные улучшения!
       </p>
       <div class="modal-buttons-row">
         <button class="btn-modal-action" id="btnOkCrystalsModal">Понятно</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно подтверждения Алмазного Престижа -->
+  <div class="modal-backdrop" id="prestigeConfirmModal" style="display: none;">
+    <div class="modal-card prestige-modal-card">
+      <div class="prestige-modal-aura"></div>
+      <div class="modal-badge-icon prestige-modal-icon">💎</div>
+      <h3 class="modal-title prestige-modal-title">Алмазный Престиж</h3>
+      <div class="prestige-modal-subtitle" id="prestigeModalLevelText">Переход на уровень престижа: 1 / 10</div>
+
+      <div class="prestige-modal-rates">
+        <div class="p-modal-rate-box">
+          <span class="p-m-rate-label">Добыча кристаллов:</span>
+          <span class="p-m-rate-val" id="prestigeModalRateVal">+0.01 💎 / сек</span>
+        </div>
+      </div>
+
+      <div class="prestige-modal-alert">
+        <div class="p-alert-title">⚠️ ВНИМАНИЕ: ПОЛНЫЙ ВАЙП ВСЕХ ДАННЫХ!</div>
+        <ul class="p-alert-list">
+          <li>❌ Обнуляются баланс и уровень тапа</li>
+          <li>❌ Сбрасываются все бизнесы, недвижимость и авиалинии</li>
+          <li>❌ <b>Сгорают ВСЕ предметы в инвентаре</b></li>
+          <li>❌ <b>Сбрасываются ВСЕ перерождения (в 0)</b></li>
+          <li>✅ <b>Сохраняются:</b> все ваши кристаллы 💎 и улучшения магазина кристаллов!</li>
+        </ul>
+      </div>
+
+      <div class="modal-buttons-row prestige-modal-buttons">
+        <button class="btn-modal-cancel" id="btnCancelPrestigeModal">Отмена</button>
+        <button class="btn-modal-action btn-confirm-prestige-action" id="btnConfirmPrestigeModal">
+          <span>💎 Совершить Престиж</span>
+        </button>
       </div>
     </div>
   </div>

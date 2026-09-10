@@ -781,6 +781,87 @@ const DEFAULT_AIRLINE = {
   ]
 };
 
+// ==========================================
+// КОНФИГУРАЦИЯ: АЛМАЗНЫЙ ПРЕСТИЖ & МАГАЗИН КРИСТАЛЛОВ
+// ==========================================
+const PRESTIGE_REQ_EARNINGS = 1000000000000000; // 1 Квадриллион рублей (1e15)
+const MAX_PRESTIGE_COUNT = 10;
+// Пассивная добыча кристаллов в секунду для каждого уровня престижа (0..10)
+// Уровень 1 = 0.01 💎/сек, Уровень 10 = 1.00 💎/сек по ТЗ
+const PRESTIGE_CRYSTAL_RATES = [0, 0.01, 0.03, 0.06, 0.10, 0.20, 0.35, 0.55, 0.75, 0.90, 1.00];
+
+const CRYSTAL_SHOP_ITEMS = [
+  {
+    id: 'income_mult',
+    name: 'Алмазный Умножитель Дохода',
+    icon: '✨',
+    desc: 'Увеличивает весь пассивный доход на +25% за каждый уровень.',
+    maxLevel: 10,
+    baseCost: 10,
+    costMult: 1.8,
+    bonusPerLevel: 0.25,
+    getBonusText: (lvl) => `+${lvl * 25}% ко всему доходу`
+  },
+  {
+    id: 'tap_mult',
+    name: 'Энергетический Кристалл Клика',
+    icon: '⚡',
+    desc: 'Увеличивает силу клика на +30% за каждый уровень.',
+    maxLevel: 10,
+    baseCost: 8,
+    costMult: 1.7,
+    bonusPerLevel: 0.30,
+    getBonusText: (lvl) => `+${lvl * 30}% к силе тапа`
+  },
+  {
+    id: 'crystal_haste',
+    name: 'Хроно-Ускоритель Кристаллов',
+    icon: '🔮',
+    desc: 'Ускоряет пассивную генерацию кристаллов на +20% за каждый уровень.',
+    maxLevel: 5,
+    baseCost: 25,
+    costMult: 2.2,
+    bonusPerLevel: 0.20,
+    getBonusText: (lvl) => `+${lvl * 20}% к скорости кристаллов`
+  },
+  {
+    id: 'starting_capital',
+    name: 'Алмазный Стартовый Капитал',
+    icon: '💼',
+    desc: 'Дает стартовый баланс сразу после любого вайпа или перерождения.',
+    maxLevel: 5,
+    baseCost: 15,
+    costMult: 2.0,
+    bonusPerLevel: 1,
+    getBonusText: (lvl) => {
+      const caps = [0, 500000, 5000000, 50000000, 500000000, 5000000000];
+      return lvl > 0 ? `+${formatNumber(caps[lvl])} ₽ на старте` : '0 ₽';
+    }
+  },
+  {
+    id: 'discount',
+    name: 'VIP-Статус Межгалактического Инвестора',
+    icon: '🏷️',
+    desc: 'Снижает стоимость покупки всех бизнесов и недвижимости на 5% за уровень (до 25%).',
+    maxLevel: 5,
+    baseCost: 20,
+    costMult: 2.0,
+    bonusPerLevel: 0.05,
+    getBonusText: (lvl) => `-${lvl * 5}% стоимость объектов`
+  },
+  {
+    id: 'rainbow_magnet',
+    name: 'Радужный Магнит',
+    icon: '🌈',
+    desc: 'Увеличивает шанс появления Радужного Доллара на +50% и продлевает его эффект на +10 сек.',
+    maxLevel: 5,
+    baseCost: 30,
+    costMult: 2.5,
+    bonusPerLevel: 0.50,
+    getBonusText: (lvl) => `+${lvl * 50}% шанс спавна, +${lvl * 10}с длительность`
+  }
+];
+
 // Вымышленный лидерборд богатейших людей (Forbes)
 // Первое место ровно 1 000 000 000 рублей по требованию ТЗ!
 const LEADERBOARD_BOTS = [
@@ -1456,7 +1537,16 @@ let state = {
     lastUpdate: Date.now(),
     multipliers: {}
   },
-  crystals: 0, // Премиум-валюта (пока нельзя получить)
+  crystals: 0, // Премиум-валюта Алмазного Престижа
+  prestigeCount: 0, // от 0 до 10 (Алмазный Престиж)
+  crystalShop: {
+    income_mult: 0,
+    tap_mult: 0,
+    crystal_haste: 0,
+    starting_capital: 0,
+    discount: 0,
+    rainbow_magnet: 0
+  },
   clickModifiers: {
     power_mult: 0,
     crit_tap: 0,
@@ -2010,6 +2100,11 @@ function getClickModifierCost(mod, level) {
   return Math.floor(mod.baseCost * Math.pow(mod.costMult, level));
 }
 
+function getDiscountMultiplier() {
+  const discountLvl = state.crystalShop ? (state.crystalShop.discount || 0) : 0;
+  return Math.max(0.75, 1 - (discountLvl * 0.05));
+}
+
 /**
  * Сила тапа: от +1 до +100 с множителями, модификаторами и бонусом от дохода
  */
@@ -2024,7 +2119,8 @@ function getTapPower(level = state.tapLevel) {
   const passiveIncome = (typeof getTotalPassiveIncome === 'function') ? getTotalPassiveIncome() : 0;
   const resonanceBonus = resonanceLvl > 0 ? Math.round(passiveIncome * (resonanceLvl * 0.005)) : 0;
 
-  return Math.max(1, Math.round(base * powerMult * mult * rainbow) + resonanceBonus);
+  const crystalTapMult = 1 + ((state.crystalShop?.tap_mult || 0) * 0.30);
+  return Math.max(1, Math.round(base * powerMult * mult * rainbow * crystalTapMult) + resonanceBonus);
 }
 
 function getBaseTapPower(level = state.tapLevel) {
@@ -2044,7 +2140,11 @@ function getTapUpgradeCost(level = state.tapLevel) {
 }
 
 function getBusinessCost(business) {
-  return Math.floor(business.baseCost * Math.pow(1.15, business.count));
+  return Math.floor(business.baseCost * Math.pow(1.15, business.count) * getDiscountMultiplier());
+}
+
+function getEstateCost(estate) {
+  return Math.floor((estate.cost || 0) * getDiscountMultiplier());
 }
 
 /**
@@ -2102,7 +2202,27 @@ function getTotalPassiveIncome() {
   base += calculateInventoryTotalIncome();
   const mult = getRebirthMultiplier();
   const rainbow = (state.rainbowBoost && state.rainbowBoost.active) ? (state.rainbowBoost.multiplier || 5) : 1;
-  return Math.round(base * mult * rainbow);
+  const crystalIncomeMult = 1 + ((state.crystalShop?.income_mult || 0) * 0.25);
+  return Math.round(base * mult * rainbow * crystalIncomeMult);
+}
+
+/**
+ * Пассивный доход кристаллов в секунду от Алмазного Престижа
+ */
+function getCrystalPassiveIncome() {
+  const count = Math.min(10, Math.max(0, state.prestigeCount || 0));
+  const baseRate = PRESTIGE_CRYSTAL_RATES[count] || 0;
+  if (baseRate <= 0) return 0;
+  const hasteLvl = state.crystalShop?.crystal_haste || 0;
+  const hasteMult = 1 + (hasteLvl * 0.20);
+  return baseRate * hasteMult;
+}
+
+function formatCrystals(num) {
+  if (!num || num <= 0) return '0';
+  if (num < 10) return num.toFixed(2);
+  if (num < 100) return num.toFixed(1);
+  return Math.floor(num).toLocaleString('ru-RU');
 }
 
 /**
@@ -4325,8 +4445,13 @@ function performRebirth() {
 
   state.rebirthCount += 1;
 
+  // Стартовый капитал из магазина кристаллов
+  const startCapLvl = state.crystalShop?.starting_capital || 0;
+  const startCaps = [0, 500000, 5000000, 50000000, 500000000, 5000000000];
+  const starterMoney = startCaps[startCapLvl] || 0;
+
   // Сброс ресурсов
-  state.balance = 0;
+  state.balance = starterMoney;
   state.tapLevel = 1;
   state.businesses.forEach(b => b.count = 0);
   state.realEstate.forEach(r => {
@@ -4353,11 +4478,239 @@ function performRebirth() {
   renderRealEstate();
   renderLeaderboard();
   updateRebirthUI();
+  renderPrestigeScreen();
   updateStatsUI();
   saveGameState();
 
   switchScreen('screenWallet');
 }
+
+// ==========================================
+// АЛМАЗНЫЙ ПРЕСТИЖ И МАГАЗИН ЗА КРИСТАЛЛЫ
+// ==========================================
+
+const prestigeLevelBadge = document.getElementById('prestigeLevelBadge');
+const prestigeCurrentRateVal = document.getElementById('prestigeCurrentRateVal');
+const prestigeNextRateVal = document.getElementById('prestigeNextRateVal');
+const prestigeProgressBarFill = document.getElementById('prestigeProgressBarFill');
+const prestigeCurrentEarnedVal = document.getElementById('prestigeCurrentEarnedVal');
+const prestigeProgressPercentVal = document.getElementById('prestigeProgressPercentVal');
+const btnDoPrestige = document.getElementById('btnDoPrestige');
+const btnDoPrestigeText = document.getElementById('btnDoPrestigeText');
+const crystalShopBalanceVal = document.getElementById('crystalShopBalanceVal');
+const crystalShopGrid = document.getElementById('crystalShopGrid');
+
+const prestigeConfirmModal = document.getElementById('prestigeConfirmModal');
+const prestigeModalLevelText = document.getElementById('prestigeModalLevelText');
+const prestigeModalRateVal = document.getElementById('prestigeModalRateVal');
+const btnCancelPrestigeModal = document.getElementById('btnCancelPrestigeModal');
+const btnConfirmPrestigeModal = document.getElementById('btnConfirmPrestigeModal');
+const prestigeReadyBadge = document.getElementById('prestigeReadyBadge');
+
+function renderPrestigeScreen() {
+  const currentCount = Math.min(10, Math.max(0, state.prestigeCount || 0));
+  const isMax = currentCount >= 10;
+  const currentRate = PRESTIGE_CRYSTAL_RATES[currentCount] || 0;
+  const nextRate = isMax ? currentRate : (PRESTIGE_CRYSTAL_RATES[currentCount + 1] || 1.0);
+  const totalEarned = state.stats?.totalEarned || 0;
+  const percent = Math.min(100, (totalEarned / PRESTIGE_REQ_EARNINGS) * 100);
+  const canPrestige = !isMax && totalEarned >= PRESTIGE_REQ_EARNINGS;
+
+  if (prestigeLevelBadge) {
+    prestigeLevelBadge.textContent = isMax ? 'Престиж 10 / 10 (МАКСИМУМ)' : `Престиж ${currentCount} / 10`;
+  }
+  if (prestigeCurrentRateVal) {
+    prestigeCurrentRateVal.textContent = `+${currentRate.toFixed(2)} 💎 / сек`;
+  }
+  if (prestigeNextRateVal) {
+    prestigeNextRateVal.textContent = isMax ? 'МАКСИМУМ' : `+${nextRate.toFixed(2)} 💎 / сек`;
+  }
+  if (prestigeProgressBarFill) {
+    prestigeProgressBarFill.style.width = `${Math.max(1, percent)}%`;
+  }
+  if (prestigeCurrentEarnedVal) {
+    prestigeCurrentEarnedVal.textContent = `${formatNumber(totalEarned)} ₽`;
+  }
+  if (prestigeProgressPercentVal) {
+    prestigeProgressPercentVal.textContent = `${percent.toFixed(1)}%`;
+  }
+
+  if (btnDoPrestige) {
+    if (isMax) {
+      btnDoPrestige.disabled = true;
+      if (btnDoPrestigeText) btnDoPrestigeText.textContent = '✨ Достигнут Максимальный Престиж (10/10)';
+    } else if (canPrestige) {
+      btnDoPrestige.disabled = false;
+      if (btnDoPrestigeText) btnDoPrestigeText.textContent = `💎 Совершить Престиж ${currentCount + 1}/10`;
+    } else {
+      btnDoPrestige.disabled = true;
+      if (btnDoPrestigeText) btnDoPrestigeText.textContent = `Требуется 1 Квадриллион ₽ (${percent.toFixed(1)}%)`;
+    }
+  }
+
+  if (prestigeReadyBadge) {
+    prestigeReadyBadge.style.display = canPrestige ? 'block' : 'none';
+  }
+
+  renderCrystalShop();
+}
+
+function renderCrystalShop() {
+  if (crystalShopBalanceVal) {
+    crystalShopBalanceVal.textContent = formatCrystals(state.crystals || 0);
+  }
+  if (!crystalShopGrid) return;
+
+  crystalShopGrid.innerHTML = '';
+  if (!state.crystalShop) {
+    state.crystalShop = {
+      income_mult: 0,
+      tap_mult: 0,
+      crystal_haste: 0,
+      starting_capital: 0,
+      discount: 0,
+      rainbow_magnet: 0
+    };
+  }
+
+  CRYSTAL_SHOP_ITEMS.forEach(item => {
+    const currentLevel = state.crystalShop[item.id] || 0;
+    const isMax = currentLevel >= item.maxLevel;
+    const cost = Math.round(item.baseCost * Math.pow(item.costMult, currentLevel));
+    const canAfford = !isMax && (state.crystals || 0) >= cost;
+
+    const card = document.createElement('div');
+    card.className = 'crystal-shop-card';
+    card.innerHTML = `
+      <div class="c-shop-header">
+        <div class="c-shop-icon">${item.icon}</div>
+        <div class="c-shop-title-wrap">
+          <span class="c-shop-name">${item.name}</span>
+          <span class="c-shop-level">Уровень: ${currentLevel} / ${item.maxLevel}</span>
+        </div>
+      </div>
+      <div class="c-shop-desc">${item.desc}</div>
+      <div class="c-shop-bonus-tag">Текущий бонус: ${item.getBonusText(currentLevel)}</div>
+      <button class="btn-buy-crystal-item" data-item-id="${item.id}" ${canAfford ? '' : 'disabled'}>
+        <span>${isMax ? 'МАКСИМУМ' : `Купить за ${cost} 💎`}</span>
+      </button>
+    `;
+
+    const buyBtn = card.querySelector('.btn-buy-crystal-item');
+    if (buyBtn && !isMax) {
+      buyBtn.addEventListener('click', () => {
+        buyCrystalShopItem(item.id);
+      });
+    }
+
+    crystalShopGrid.appendChild(card);
+  });
+}
+
+function buyCrystalShopItem(id) {
+  const item = CRYSTAL_SHOP_ITEMS.find(x => x.id === id);
+  if (!item) return;
+  if (!state.crystalShop) state.crystalShop = {};
+
+  const currentLevel = state.crystalShop[id] || 0;
+  if (currentLevel >= item.maxLevel) return;
+
+  const cost = Math.round(item.baseCost * Math.pow(item.costMult, currentLevel));
+  if ((state.crystals || 0) < cost) {
+    soundManager.playError();
+    triggerHaptic('error');
+    return;
+  }
+
+  state.crystals -= cost;
+  state.crystalShop[id] = currentLevel + 1;
+
+  soundManager.playUpgrade();
+  triggerHaptic('success');
+
+  updateHeader();
+  renderCrystalShop();
+  saveGameState();
+}
+
+function openPrestigeConfirmModal() {
+  const currentCount = Math.min(10, Math.max(0, state.prestigeCount || 0));
+  if (currentCount >= 10 || (state.stats?.totalEarned || 0) < PRESTIGE_REQ_EARNINGS) return;
+
+  const nextCount = currentCount + 1;
+  const nextRate = PRESTIGE_CRYSTAL_RATES[nextCount] || 1.0;
+
+  if (prestigeModalLevelText) {
+    prestigeModalLevelText.textContent = `Переход на уровень престижа: ${nextCount} / 10`;
+  }
+  if (prestigeModalRateVal) {
+    prestigeModalRateVal.textContent = `+${nextRate.toFixed(2)} 💎 / сек`;
+  }
+  if (prestigeConfirmModal) {
+    prestigeConfirmModal.style.display = 'flex';
+  }
+  soundManager.playTap();
+}
+
+function closePrestigeConfirmModal() {
+  if (prestigeConfirmModal) {
+    prestigeConfirmModal.style.display = 'none';
+  }
+}
+
+function doDiamondPrestige() {
+  if ((state.stats?.totalEarned || 0) < PRESTIGE_REQ_EARNINGS) return;
+  if ((state.prestigeCount || 0) >= 10) return;
+
+  state.prestigeCount = Math.min(10, (state.prestigeCount || 0) + 1);
+
+  // Стартовый капитал из магазина кристаллов
+  const startCapLvl = state.crystalShop?.starting_capital || 0;
+  const startCaps = [0, 500000, 5000000, 50000000, 500000000, 5000000000];
+  const starterMoney = startCaps[startCapLvl] || 0;
+
+  // ПОЛНЫЙ ВАЙП ВСЕХ ДАННЫХ ПО ТЗ:
+  // "ВСЕ сбрасывается даже предметы и игрок начинает заново и также перерождения тоже сбрасываются"
+  state.balance = starterMoney;
+  state.tapLevel = 1;
+  state.clickModifiers = { power_mult: 0, crit_tap: 0, resonance: 0, golden_touch: 0 };
+  state.rebirthCount = 0; // СБРОС ВСЕХ ПЕРЕРОЖДЕНИЙ В 0!
+  state.inventory = {};   // СБРОС ВСЕХ ПРЕДМЕТОВ!
+  state.sideJobs = JSON.parse(JSON.stringify(DEFAULT_SIDE_JOBS));
+  state.businesses = JSON.parse(JSON.stringify(DEFAULT_BUSINESSES));
+  state.realEstate = JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE));
+  state.airline = JSON.parse(JSON.stringify(DEFAULT_AIRLINE));
+  state.rainbowBoost = { active: false, timeLeft: 0, multiplier: 5 };
+  state.market = { lastUpdate: Date.now(), multipliers: {} };
+  
+  if (!state.stats) state.stats = {};
+  state.stats.totalEarned = starterMoney;
+  state.stats.totalTaps = 0;
+
+  closePrestigeConfirmModal();
+
+  soundManager.playCaseWin('mythic');
+  triggerHaptic('success');
+
+  applyTheme();
+  updateHeader();
+  renderEarningsScreen();
+  renderBusinesses();
+  renderRealEstate();
+  renderLeaderboard();
+  updateRebirthUI();
+  renderPrestigeScreen();
+  saveGameState();
+
+  alert(`💎 АЛМАЗНЫЙ ПРЕСТИЖ ВЫПОЛНЕН!\n\nУровень престижа: ${state.prestigeCount}/10\nДобыча кристаллов: +${PRESTIGE_CRYSTAL_RATES[state.prestigeCount]} 💎 / сек навсегда!`);
+}
+
+btnDoPrestige?.addEventListener('click', openPrestigeConfirmModal);
+btnCancelPrestigeModal?.addEventListener('click', closePrestigeConfirmModal);
+btnConfirmPrestigeModal?.addEventListener('click', doDiamondPrestige);
+prestigeConfirmModal?.addEventListener('click', (e) => {
+  if (e.target === prestigeConfirmModal) closePrestigeConfirmModal();
+});
 
 const screens = {
   screenWallet: document.getElementById('screenWallet'),
@@ -4365,7 +4718,8 @@ const screens = {
   screenBusiness: document.getElementById('screenBusiness'),
   screenCases: document.getElementById('screenCases'),
   screenRealEstate: document.getElementById('screenRealEstate'),
-  screenSettings: document.getElementById('screenSettings')
+  screenSettings: document.getElementById('screenSettings'),
+  screenPrestige: document.getElementById('screenPrestige')
 };
 
 const navTabs = {
@@ -4373,7 +4727,8 @@ const navTabs = {
   screenEarnings: document.getElementById('navTabEarnings'),
   screenBusiness: document.getElementById('navTabBusiness'),
   screenCases: document.getElementById('navTabCases'),
-  screenRealEstate: document.getElementById('navTabRealEstate')
+  screenRealEstate: document.getElementById('navTabRealEstate'),
+  screenPrestige: document.getElementById('navTabPrestige')
 };
 
 let previousActiveScreenId = 'screenWallet';
@@ -4413,6 +4768,9 @@ function switchScreen(targetScreenId) {
     renderRealEstate();
     renderLeaderboard();
     updateRebirthUI();
+  }
+  if (targetScreenId === 'screenPrestige') {
+    renderPrestigeScreen();
   }
 
   soundManager.playTap();
@@ -4566,6 +4924,39 @@ function gameLoop(currentTime) {
     updateBusinessAffordability();
   }
 
+  // Добыча кристаллов от Алмазного Престижа
+  const crystalPerSec = getCrystalPassiveIncome();
+  if (crystalPerSec > 0 && delta > 0) {
+    const crystalsGained = crystalPerSec * delta;
+    state.crystals = (state.crystals || 0) + crystalsGained;
+    updateHeader();
+  }
+
+  // Обновление экрана престижа в реальном времени, если он открыт
+  if (screens.screenPrestige && screens.screenPrestige.classList.contains('active')) {
+    const totalEarned = state.stats?.totalEarned || 0;
+    const percent = Math.min(100, (totalEarned / PRESTIGE_REQ_EARNINGS) * 100);
+    if (prestigeProgressBarFill) prestigeProgressBarFill.style.width = `${Math.max(1, percent)}%`;
+    if (prestigeCurrentEarnedVal) prestigeCurrentEarnedVal.textContent = `${formatNumber(totalEarned)} ₽`;
+    if (prestigeProgressPercentVal) prestigeProgressPercentVal.textContent = `${percent.toFixed(1)}%`;
+    if (crystalShopBalanceVal) crystalShopBalanceVal.textContent = formatCrystals(state.crystals || 0);
+
+    const currentCount = Math.min(10, Math.max(0, state.prestigeCount || 0));
+    const isMax = currentCount >= 10;
+    const canPrestige = !isMax && totalEarned >= PRESTIGE_REQ_EARNINGS;
+    if (btnDoPrestige) {
+      if (isMax) {
+        btnDoPrestige.disabled = true;
+      } else if (canPrestige) {
+        btnDoPrestige.disabled = false;
+        if (btnDoPrestigeText) btnDoPrestigeText.textContent = `💎 Совершить Престиж ${currentCount + 1}/10`;
+      } else {
+        btnDoPrestige.disabled = true;
+        if (btnDoPrestigeText) btnDoPrestigeText.textContent = `Требуется 1 Квадриллион ₽ (${percent.toFixed(1)}%)`;
+      }
+    }
+  }
+
   // Обновление таймеров флиппинга недвижимости
   let estateUpdated = false;
   if (state.realEstate) {
@@ -4680,6 +5071,17 @@ function loadGameState() {
       }
 
       state.crystals = typeof saved.crystals === 'number' ? saved.crystals : 0;
+      state.prestigeCount = typeof saved.prestigeCount === 'number' ? Math.min(10, Math.max(0, saved.prestigeCount)) : 0;
+      if (saved.crystalShop && typeof saved.crystalShop === 'object') {
+        state.crystalShop = {
+          income_mult: typeof saved.crystalShop.income_mult === 'number' ? saved.crystalShop.income_mult : 0,
+          tap_mult: typeof saved.crystalShop.tap_mult === 'number' ? saved.crystalShop.tap_mult : 0,
+          crystal_haste: typeof saved.crystalShop.crystal_haste === 'number' ? saved.crystalShop.crystal_haste : 0,
+          starting_capital: typeof saved.crystalShop.starting_capital === 'number' ? saved.crystalShop.starting_capital : 0,
+          discount: typeof saved.crystalShop.discount === 'number' ? saved.crystalShop.discount : 0,
+          rainbow_magnet: typeof saved.crystalShop.rainbow_magnet === 'number' ? saved.crystalShop.rainbow_magnet : 0
+        };
+      }
       if (saved.clickModifiers && typeof saved.clickModifiers === 'object') {
         state.clickModifiers = {
           power_mult: typeof saved.clickModifiers.power_mult === 'number' ? saved.clickModifiers.power_mult : 0,
@@ -4885,6 +5287,15 @@ btnConfirmReset.addEventListener('click', () => {
   state.vibration = true;
   state.sideJobs = JSON.parse(JSON.stringify(DEFAULT_SIDE_JOBS));
   state.crystals = 0;
+  state.prestigeCount = 0;
+  state.crystalShop = {
+    income_mult: 0,
+    tap_mult: 0,
+    crystal_haste: 0,
+    starting_capital: 0,
+    discount: 0,
+    rainbow_magnet: 0
+  };
   state.clickModifiers = { power_mult: 0, crit_tap: 0, resonance: 0, golden_touch: 0 };
   state.businesses = JSON.parse(JSON.stringify(DEFAULT_BUSINESSES));
   state.realEstate = JSON.parse(JSON.stringify(DEFAULT_REAL_ESTATE));
@@ -4908,6 +5319,7 @@ btnConfirmReset.addEventListener('click', () => {
   renderRealEstate();
   renderLeaderboard();
   updateRebirthUI();
+  renderPrestigeScreen();
   updateStatsUI();
   switchScreen('screenWallet');
 

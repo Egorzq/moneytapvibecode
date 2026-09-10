@@ -63,28 +63,21 @@ body {
   justify-content: center;
   align-items: center;
   background: radial-gradient(circle at center, #111827 0%, #030508 100%);
+  margin: 0;
+  padding: 0;
 }
 
 .mobile-frame {
   width: 100%;
-  max-width: 440px;
+  max-width: 100%;
   height: 100%;
   height: 100dvh;
-  max-height: 940px;
   background: var(--bg-main);
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(16, 185, 129, 0.1);
-}
-
-@media (min-width: 481px) {
-  .mobile-frame {
-    height: 94vh;
-    border-radius: 40px;
-    border: 3px solid rgba(255, 255, 255, 0.12);
-  }
+  box-shadow: none;
 }
 
 /* ==========================================================================
@@ -5058,5 +5051,636 @@ body {
   30% { transform: translate(-50%, -50%) scale(1.6) translateY(-40px); }
   100% { opacity: 0; transform: translate(-50%, -50%) scale(1.2) translateY(-130px); }
 }
+
+/* ==========================================================================
+   АЛМАЗНЫЙ ПРЕСТИЖ (DIAMOND PRESTIGE)
+   ========================================================================== */
+.prestige-content {
+  padding-bottom: calc(var(--nav-height) + 40px);
+}
+
+.prestige-altar-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.95) 0%, rgba(24, 39, 75, 0.9) 50%, rgba(14, 165, 233, 0.2) 100%);
+  border: 1.5px solid rgba(56, 189, 248, 0.35);
+  border-radius: 24px;
+  padding: 22px 18px;
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(14, 165, 233, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  margin-bottom: 24px;
+}
+
+.prestige-altar-glow {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulsePrestigeAura 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulsePrestigeAura {
+  0% { transform: translateX(-50%) scale(0.9); opacity: 0.7; }
+  100% { transform: translateX(-50%) scale(1.2); opacity: 1; }
+}
+
+.prestige-header-badge-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.prestige-tag-pill {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.prestige-level-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(90deg, #0284c7, #06b6d4);
+  padding: 4px 12px;
+  border-radius: 20px;
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.5);
+}
+
+.prestige-icon-center {
+  position: relative;
+  z-index: 2;
+  margin: 10px 0 6px;
+}
+
+.prestige-gem-icon {
+  display: inline-block;
+  font-size: 54px;
+  filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.8));
+  animation: gemFloat 3s ease-in-out infinite;
+}
+
+@keyframes gemFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.06); }
+}
+
+.prestige-title {
+  position: relative;
+  z-index: 2;
+  font-size: 24px;
+  font-weight: 900;
+  margin: 0 0 6px;
+  background: linear-gradient(135deg, #ffffff 0%, #7dd3fc 50%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(56, 189, 248, 0.3));
+}
+
+.prestige-desc {
+  position: relative;
+  z-index: 2;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0 0 18px;
+}
+
+.prestige-crystal-rate-box {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 16px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.crystal-rate-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.c-rate-lbl {
+  font-size: 10.5px;
+  color: var(--text-dim);
+}
+
+.c-rate-val {
+  font-size: 14px;
+  font-weight: 800;
+  color: #94a3b8;
+}
+
+.c-rate-val.highlight {
+  color: #38bdf8;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+.crystal-rate-divider {
+  font-size: 16px;
+  color: #38bdf8;
+  font-weight: 900;
+}
+
+.prestige-req-card {
+  position: relative;
+  z-index: 2;
+  background: rgba(2, 6, 23, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.prestige-req-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.req-title {
+  color: var(--text-dim);
+}
+
+.req-target {
+  color: #fbbf24;
+  font-weight: 800;
+}
+
+.prestige-progress-track {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.prestige-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0284c7, #38bdf8, #67e8f9);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+  position: relative;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+.prestige-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10.5px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.prestige-wipe-warning {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 14px;
+  padding: 11px 13px;
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.warning-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.warning-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 11px;
+  color: #fca5a5;
+  line-height: 1.4;
+}
+
+.warning-text-group b {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.btn-do-prestige {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.btn-do-prestige:not(:disabled) {
+  background: linear-gradient(135deg, #0284c7 0%, #06b6d4 50%, #38bdf8 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(6, 182, 212, 0.5), 0 0 16px rgba(56, 189, 248, 0.4);
+  cursor: pointer;
+  animation: prestigeBtnPulse 2s infinite alternate;
+}
+
+.btn-do-prestige:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(6, 182, 212, 0.7), 0 0 20px rgba(56, 189, 248, 0.6);
+}
+
+.btn-do-prestige:not(:disabled):active {
+  transform: translateY(1px) scale(0.98);
+}
+
+@keyframes prestigeBtnPulse {
+  0% { box-shadow: 0 8px 24px rgba(6, 182, 212, 0.4), 0 0 12px rgba(56, 189, 248, 0.3); }
+  100% { box-shadow: 0 10px 30px rgba(6, 182, 212, 0.7), 0 0 24px rgba(56, 189, 248, 0.6); }
+}
+
+.btn-prestige-icon {
+  font-size: 18px;
+}
+
+/* ==========================================================================
+   МАГАЗИН ЗА КРИСТАЛЛЫ (CRYSTAL SHOP)
+   ========================================================================== */
+.crystal-shop-section {
+  margin-top: 10px;
+}
+
+.crystal-shop-balance-pill {
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.crystal-shop-balance-pill b {
+  color: #ffffff;
+}
+
+.crystal-shop-subtitle {
+  font-size: 11.5px;
+  color: var(--text-dim);
+  margin-top: 4px;
+  margin-bottom: 14px;
+}
+
+.crystal-shop-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.crystal-shop-card {
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.85) 0%, rgba(15, 23, 42, 0.85) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.crystal-shop-card:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.15);
+}
+
+.c-shop-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.c-shop-icon {
+  font-size: 24px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.c-shop-title-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.c-shop-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: #f0f9ff;
+}
+
+.c-shop-level {
+  font-size: 11px;
+  color: #38bdf8;
+  font-weight: 700;
+}
+
+.c-shop-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.c-shop-bonus-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  padding: 3px 8px;
+  border-radius: 6px;
+  align-self: flex-start;
+}
+
+.btn-buy-crystal-item {
+  width: 100%;
+  padding: 9px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.85), rgba(6, 182, 212, 0.85));
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-buy-crystal-item:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0284c7, #06b6d4);
+  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-buy-crystal-item:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ПРЕСТИЖА
+   ========================================================================== */
+.prestige-modal-card {
+  max-width: 440px;
+  width: 92%;
+  background: linear-gradient(180deg, #0f172a 0%, #090d16 100%);
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  border-radius: 24px;
+  padding: 24px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(14, 165, 233, 0.35);
+}
+
+.prestige-modal-aura {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.prestige-modal-icon {
+  font-size: 46px;
+  line-height: 1;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 0 16px rgba(56, 189, 248, 0.8));
+}
+
+.prestige-modal-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0 0 4px;
+}
+
+.prestige-modal-subtitle {
+  font-size: 12px;
+  color: #38bdf8;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.prestige-modal-rates {
+  margin-bottom: 14px;
+}
+
+.p-modal-rate-box {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.p-m-rate-label {
+  font-size: 11.5px;
+  color: var(--text-dim);
+}
+
+.p-m-rate-val {
+  font-size: 15px;
+  font-weight: 800;
+  color: #38bdf8;
+}
+
+.prestige-modal-alert {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 14px;
+  padding: 12px 14px;
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.p-alert-title {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #f87171;
+  margin-bottom: 8px;
+}
+
+.p-alert-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 11px;
+  color: #fca5a5;
+  line-height: 1.55;
+}
+
+.p-alert-list b {
+  color: #ffffff;
+}
+
+.btn-confirm-prestige-action {
+  background: linear-gradient(135deg, #0284c7, #06b6d4, #38bdf8) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.5) !important;
+  font-weight: 800 !important;
+}
+
+/* ==========================================================================
+   АДАПТИВНОСТЬ: ДЕСКТОП (ПК ПОЛНОЭКРАННЫЙ РЕЖИМ) & МОБИЛЬНЫЕ УСТРОЙСТВА
+   ========================================================================== */
+@media (min-width: 769px) {
+  .game-header {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    border-left: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
+  }
+
+  .screens-viewport {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    border-left: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
+  }
+
+  .bottom-nav {
+    max-width: 1200px;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 1px solid var(--border-subtle);
+    border-right: 1px solid var(--border-subtle);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+
+  .rainbow-boost-banner {
+    max-width: 800px;
+    left: 50%;
+    transform: translate(-50%, 100px);
+  }
+
+  .rainbow-boost-banner.active {
+    transform: translate(-50%, 0);
+  }
+
+  /* Сетки для списков на больших экранах */
+  .business-list, 
+  .estate-list, 
+  .airline-fleet-list, 
+  .cases-view-container, 
+  .crystal-shop-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)) !important;
+    gap: 16px !important;
+  }
+
+  .inventory-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 14px !important;
+  }
+
+  .prestige-content, 
+  .cases-content, 
+  .business-content, 
+  .assets-content, 
+  .rebirth-content, 
+  .earnings-content {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}
+
+/* Компактный режим для телефонов с 7 вкладками */
+@media (max-width: 520px) {
+  .bottom-nav {
+    padding: 4px 4px calc(2px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .nav-tab {
+    padding: 4px 2px;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .nav-tab-icon {
+    font-size: 17px;
+  }
+
+  .nav-tab-label {
+    font-size: 8px;
+    letter-spacing: -0.25px;
+  }
+
+  .nav-tab-center {
+    padding: 0 2px;
+  }
+
+  .center-btn-circle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .center-btn-icon {
+    font-size: 20px;
+  }
+}
+
 
 
