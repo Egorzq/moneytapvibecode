@@ -2532,6 +2532,7 @@ const marketTimerDisplay = document.getElementById('marketTimerDisplay');
 let currentInspectedEstateId = null;
 
 const btnCollectOffline = document.getElementById('btnCollectOffline');
+const btnCloseOfflineModal = document.getElementById('btnCloseOfflineModal');
 const saveIndicator = document.getElementById('saveIndicator');
 
 /**
@@ -4647,14 +4648,14 @@ function openPrestigeConfirmModal() {
     prestigeModalRateVal.textContent = `+${nextRate.toFixed(2)} 💎 / сек`;
   }
   if (prestigeConfirmModal) {
-    prestigeConfirmModal.style.display = 'flex';
+    prestigeConfirmModal.classList.add('active');
   }
   soundManager.playTap();
 }
 
 function closePrestigeConfirmModal() {
   if (prestigeConfirmModal) {
-    prestigeConfirmModal.style.display = 'none';
+    prestigeConfirmModal.classList.remove('active');
   }
 }
 
@@ -4706,8 +4707,11 @@ function doDiamondPrestige() {
 }
 
 btnDoPrestige?.addEventListener('click', openPrestigeConfirmModal);
+btnDoPrestige?.addEventListener('touchend', (e) => { e.preventDefault(); openPrestigeConfirmModal(); });
 btnCancelPrestigeModal?.addEventListener('click', closePrestigeConfirmModal);
+btnCancelPrestigeModal?.addEventListener('touchend', (e) => { e.preventDefault(); closePrestigeConfirmModal(); });
 btnConfirmPrestigeModal?.addEventListener('click', doDiamondPrestige);
+btnConfirmPrestigeModal?.addEventListener('touchend', (e) => { e.preventDefault(); doDiamondPrestige(); });
 prestigeConfirmModal?.addEventListener('click', (e) => {
   if (e.target === prestigeConfirmModal) closePrestigeConfirmModal();
 });
@@ -4803,9 +4807,13 @@ if (btnGoEarnings) {
 }
 
 document.querySelectorAll('.nav-tab, .nav-tab-center').forEach(btn => {
-  btn.addEventListener('click', () => {
+  const onNavSelect = (e) => {
     const screenId = btn.getAttribute('data-screen');
     if (screenId) switchScreen(screenId);
+  };
+  btn.addEventListener('click', onNavSelect);
+  btn.addEventListener('touchend', (e) => {
+    onNavSelect(e);
   });
 });
 
@@ -5211,16 +5219,41 @@ function loadGameState() {
 }
 
 function showOfflineModal(amount) {
-  offlineRewardValue.textContent = `+${formatNumber(amount)}`;
-  offlineModal.classList.add('active');
+  if (offlineRewardValue) offlineRewardValue.textContent = `+${formatNumber(amount)}`;
+  if (offlineModal) offlineModal.classList.add('active');
 }
 
-btnCollectOffline.addEventListener('click', () => {
-  offlineModal.classList.remove('active');
-  soundManager.playUpgrade();
-  triggerHaptic('success');
-  updateHeader();
-  updateTapUpgradeCard();
+function collectOfflineReward() {
+  if (offlineModal) {
+    offlineModal.classList.remove('active');
+  }
+  try {
+    soundManager.playUpgrade();
+  } catch (e) {}
+  try {
+    triggerHaptic('success');
+  } catch (e) {}
+  try {
+    updateHeader();
+    updateTapUpgradeCard();
+    saveGameState();
+  } catch (e) {}
+}
+
+btnCollectOffline?.addEventListener('click', collectOfflineReward);
+btnCollectOffline?.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  collectOfflineReward();
+});
+btnCloseOfflineModal?.addEventListener('click', collectOfflineReward);
+btnCloseOfflineModal?.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  collectOfflineReward();
+});
+offlineModal?.addEventListener('click', (e) => {
+  if (e.target === offlineModal) {
+    collectOfflineReward();
+  }
 });
 
 // ==========================================
@@ -5340,17 +5373,20 @@ const modalCrystalsVal = document.getElementById('modalCrystalsVal');
 
 crystalsPill?.addEventListener('click', (e) => {
   e.stopPropagation();
-  if (modalCrystalsVal) modalCrystalsVal.textContent = formatNumber(state.crystals || 0);
+  if (modalCrystalsVal) modalCrystalsVal.textContent = formatCrystals(state.crystals || 0);
   crystalsInfoModal?.classList.add('active');
   soundManager.playTap();
 });
 
-btnCloseCrystalsModal?.addEventListener('click', () => {
+const closeCrystalsModal = () => {
   crystalsInfoModal?.classList.remove('active');
-});
-
-btnOkCrystalsModal?.addEventListener('click', () => {
-  crystalsInfoModal?.classList.remove('active');
+};
+btnCloseCrystalsModal?.addEventListener('click', closeCrystalsModal);
+btnCloseCrystalsModal?.addEventListener('touchend', (e) => { e.preventDefault(); closeCrystalsModal(); });
+btnOkCrystalsModal?.addEventListener('click', closeCrystalsModal);
+btnOkCrystalsModal?.addEventListener('touchend', (e) => { e.preventDefault(); closeCrystalsModal(); });
+crystalsInfoModal?.addEventListener('click', (e) => {
+  if (e.target === crystalsInfoModal) closeCrystalsModal();
 });
 
 // Слушатель кликов по купюре и по фону кошелька

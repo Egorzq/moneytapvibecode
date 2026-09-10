@@ -1078,6 +1078,7 @@
   <!-- Модальное окно офлайн-дохода -->
   <div class="modal-backdrop" id="offlineModal">
     <div class="modal-card">
+      <button class="btn-modal-close" id="btnCloseOfflineModal" aria-label="Закрыть" style="position: absolute; top: 14px; right: 14px; z-index: 10;">✕</button>
       <div class="modal-badge-icon">💰</div>
       <h2 class="modal-title">С возвращением, Магнат!</h2>
       <p class="modal-text">Пока вы отсутствовали, ваши бизнесы продолжали приносить прибыль:</p>
@@ -1303,7 +1304,7 @@
   </div>
 
   <!-- Модальное окно подтверждения Алмазного Престижа -->
-  <div class="modal-backdrop" id="prestigeConfirmModal" style="display: none;">
+  <div class="modal-backdrop" id="prestigeConfirmModal">
     <div class="modal-card prestige-modal-card">
       <div class="prestige-modal-aura"></div>
       <div class="modal-badge-icon prestige-modal-icon">💎</div>
