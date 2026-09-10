@@ -2343,24 +2343,80 @@ function triggerHaptic(type = 'light') {
 }
 
 /**
- * Универсальный обработчик кликов и тачей для мобильных устройств и ПК.
- * Мгновенно реагирует на touchend (0 мс задержки), предотвращает фантомные дублирующиеся клики (ghost clicks),
- * и надежно работает при обычном клике мышью на ПК.
+ * Надежный обработчик тапа для мобильных устройств и клика на ПК.
+ * Защищает от ложных срабатываний при пролистывании (скролле) и зажатии:
+ * 1. Игнорирует касание, если палец сдвинулся более чем на 8px (жест пролистывания).
+ * 2. Игнорирует долгое зажатие (> 450 мс без отпускания), исключая случайные срабатывания при удержании экрана.
+ * 3. Игнорирует отмененные касания (touchcancel).
+ * 4. На чистый быстрый тап реагирует мгновенно (0 мс) и защищает от повторных дублирующих кликов (ghost clicks).
  */
 function bindTouchClick(el, handler) {
   if (!el) return;
   let lastTouchTime = 0;
+  let startX = 0;
+  let startY = 0;
+  let startTime = 0;
+  let isMoved = false;
+
+  el.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches.length > 0) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      startTime = performance.now();
+      isMoved = false;
+    }
+  }, { passive: true });
+
+  el.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches.length > 0) {
+      const dx = e.touches[0].clientX - startX;
+      const dy = e.touches[0].clientY - startY;
+      // Если палец сдвинулся более чем на 8px, это жест скролла/пролистывания
+      if (Math.hypot(dx, dy) > 8) {
+        isMoved = true;
+      }
+    }
+  }, { passive: true });
+
+  el.addEventListener('touchcancel', () => {
+    isMoved = true;
+  }, { passive: true });
+
   el.addEventListener('touchend', (e) => {
+    // 1. Дополнительная проверка смещения точки отрыва пальца
+    if (e.changedTouches && e.changedTouches.length > 0) {
+      const endX = e.changedTouches[0].clientX;
+      const endY = e.changedTouches[0].clientY;
+      if (Math.hypot(endX - startX, endY - startY) > 8) {
+        isMoved = true;
+      }
+    }
+
+    // 2. Если был скролл/движение пальца — отменяем нажатие
+    if (isMoved) {
+      return;
+    }
+
+    // 3. Если было долгое зажатие (> 450 мс) — отменяем нажатие по ТЗ
+    const holdDuration = performance.now() - startTime;
+    if (holdDuration > 450) {
+      return;
+    }
+
+    // 4. Валидный быстрый намеренный тап
     lastTouchTime = performance.now();
     e.preventDefault();
     handler(e);
   }, { passive: false });
+
   el.addEventListener('click', (e) => {
+    // Если только что сработал валидный touchend, блокируем синтетический дубликат
     if (performance.now() - lastTouchTime < 500) {
       e.preventDefault();
       e.stopPropagation();
       return;
     }
+    // Обычный клик мышью на десктопе
     handler(e);
   });
 }
